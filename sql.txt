@@ -1,0 +1,22 @@
+sql seems to have cases which can be selected apparently 
+yea but can it use variables or something cause I can see a+b etc.
+came across these new terms today
+    case, when, then 
+no equality operators apparently assignment operator itself means the same within a where clause 
+logic gates or bitwise ? and or not ? 
+select case 
+    when a+b > c and b+c > a and a+c > b then 
+        case 
+            when a=b and b=c then 'Equilateral'// more
+            when a=b and 
+TODO: theory
+statements necesarry in an sql querry                                                                                                                                                   select n from<- src
+how do you separate sql statements ?                                                                                                                        ;
+how to get unique values in a query output                                                                                                                                                          distinct keyword -> select distinct section from school;
+TODO: how to check if a given value is not present in this table ->                                                                       select * from table1 a where a.col <> 7;  
+JOINS 
+    default join type                                                                                                                           inner join(has something common at least)
+views
+    considering records of a view can you insert n delete rows ->                                                                                                                           both allowed in updatable view alone but read only don't allow any updates,insertions or deletions
+PL/SQL pl stands for n defin ->                                                                                                             
+    procedural language which is a block structure language which enables developers to combine the power of sql with procedural language.TODO: Example
