@@ -1,4 +1,4 @@
-sql seems to have cases which can be selected apparently 
+sql seems to have cases which can be selected apparently. They uses case when then end(use as right after end the way we do with select) 
 yea but can it use variables or something cause I can see a+b etc.
 came across these new terms today
     case, when, then 
@@ -10,18 +10,37 @@ select case
             when a=b and b=c then 'Equilateral'// more
             when a=b and 
 display the name, sal,job n raise in the salary 
-select 
-    ename,
-    sal,
-    job,
-    depno,
-    case
-        when deptno=20 AND job='CLERK' then sal = 
+The raise is to be given under following scenarios –
+Employees from deptno 20 from job Clerk should get 30% raise in their salary.
+Employees from deptno 20 from job Analyst should get 50% raise in their salary.
+Employees from deptno 30 from job Manager should get 60% raise in their salary.
+Employees from deptno 30 from job Salesman should get 70% raise in their salary.
+Employees from deptno 10 from job Clerk should get 10% raise in their salary.
+The remaining employees should get a raise of 500.
+SELECT 
+    ename, 
+    sal, 
+    job, 
+    deptno,
+    CASE 
+        WHEN deptno = 20 AND job = 'CLERK'    THEN sal * 0.30
+        WHEN deptno = 20 AND job = 'ANALYST'  THEN sal * 0.50
+        WHEN deptno = 30 AND job = 'MANAGER'  THEN sal * 0.60
+        WHEN deptno = 30 AND job = 'SALESMAN' THEN sal * 0.70
+        WHEN deptno = 10 AND job = 'CLERK'    THEN sal * 0.10
+        ELSE 500 
+    END AS raise
+FROM emp;
+TODO: Pending sql concepts n there concerned problems  
+triggers 
+cursor 
+transaction safe sql querry 
+backup safety checks n logging ? 
 TODO: theory
 statements necesarry in an sql querry                                                                                                                                                   select n from<- src
 how do you separate sql statements ?                                                                                                                        ;
 how to get unique values in a query output                                                                                                                                                          distinct keyword -> select distinct section from school;
-TODO: how to check if a given value is not present in this table ->                                                                       select * from table1 a where a.col <> 7;  
+TODO: how to check if a given value is not present in this table ->                                                              <> means is not equal to but it doesn't work with null and therefore should use is not null itself in that situation                                                                       select * from table1 a where a.col <> 7;  
 Logic gates in sql
     we cannot use and gate in an sql query since it would make sql believe that this table's row can have two values like this 
 select * from emp e where e.job='clerk' AND e.job='manager'
@@ -32,7 +51,22 @@ but ensure that you use '' after =
 Furthermore we don't use == for varchar type columns instead we use LIKE and need to use column name as many number of times on the left n right of '' like this 
 Display the records for the employees, which have the last character as R or H in their name.
 select * from emp where ename like '%H' or ename like '%H'; 
-TODO: to check if there's no value for a given column we should not do col=null since it would mean sql doens't know instead you should do col is null and opposite would be col is <> null ? 
+TODO: to check if there's no value for a given column we should not do col=null since it would mean sql doens't know instead you should do col is null and opposite would be col is not null or col is <> null ? 
+while attempting to update(cases use when n then) a given record you should use set but note that it needs to come before where condition 
+update gpa to 3.00 for all students whose gpa is below 2.00
+FIXME: Note that this query would need to disable the safe update mode or safe mode by set sql_safe_updates=0;Not recommended for production
+therefore you should instead 1. use a key in column in the where clause
+-- Update using subquery with primary key
+UPDATE students 
+SET gpa = 3.00 
+WHERE student_id IN (
+    SELECT student_id 
+    FROM students 
+    WHERE gpa < 2.00
+);
+2. indexing by adding an index to the gpa column 
+3. limit
+students s set s.gpa = 3.00 where s.gpa < 2.00 and s.gpa is not null;
 JOINS 
     default join type                                                                                                                           inner join(has something common at least)
 views
