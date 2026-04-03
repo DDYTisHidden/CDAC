@@ -9,6 +9,14 @@ select case
         case 
             when a=b and b=c then 'Equilateral'// more
             when a=b and 
+display the name, sal,job n raise in the salary 
+select 
+    ename,
+    sal,
+    job,
+    depno,
+    case
+        when deptno=20 AND job='CLERK' then sal = 
 TODO: theory
 statements necesarry in an sql querry                                                                                                                                                   select n from<- src
 how do you separate sql statements ?                                                                                                                        ;
