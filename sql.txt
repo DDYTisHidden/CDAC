@@ -1,7 +1,15 @@
+begin and end enforce the given set of statements to be considered as a single logical unit 
+they are used in loops, transactions, cases, stored procedures
+FIXME: Note that we need to put ; usually after end and cast is required to be used with varchar 
+loops 
+    declare @countervar int =1;
+    while @countervar <= 5
+    begin
+        print 'Iteration: ' + CAST(@countervar as varchar)
+        set @countervar = @countervar + 1;
+    end;
 sql seems to have cases which can be selected apparently. They uses case when then end(use as right after end the way we do with select) 
 yea but can it use variables or something cause I can see a+b etc.
-came across these new terms today
-    case, when, then 
 no equality operators apparently assignment operator itself means the same within a where clause 
 logic gates or bitwise ? and or not ? 
 select case 
@@ -32,8 +40,11 @@ SELECT
     END AS raise
 FROM emp;
 TODO: Pending sql concepts n there concerned problems  
+loops 
+CRUD in both 
 triggers 
 cursor 
+procedures
 transaction safe sql querry 
 backup safety checks n logging ? 
 TODO: theory
@@ -75,8 +86,12 @@ views
     considering records of a view can you insert n delete rows ->                                                                                                                           both allowed in updatable view alone but read only don't allow any updates,insertions or deletions
 PL/SQL pl stands for n defin ->                                                                                                             
     procedural language which is a block structure language which enables developers to combine the power of sql with procedural language.TODO: Example
+    FIXME: stored procedure should use delimitters in my sql at least. They can also use variables by the way 
+    TODO: should use create stored procedure and parenthesis too ? 
+    create procedure P1
 UDF 
-    
+TODO:   
+    findOne() should be needing a doc {} with an identifier ? 
 db.dbName.insertMany{}
 db.dbName.find()
 db.dbName.updateOne()'
