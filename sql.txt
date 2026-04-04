@@ -92,8 +92,21 @@ PL/SQL pl stands for n defin ->
 UDF 
 TODO:   
     findOne() should be needing a doc {} with an identifier ? 
-db.dbName.insertMany{}
-db.dbName.find()
+TODO: Note that you don't need to end query with ; BUT should we even call this a query ?  
+Note that we use camel casing here @ a lot of places
+you can either create a collection with db.createCollection("someCollectionName")
+or you can use implicit collection createion by writting db.someCollectionName.insertOne({
+    name: "John ",
+    age: 20,
+    
+})
+so the first record/doc inserted will define the schema of the collection or 
+there's nothing like that and we can insert docs regardless of them having identical type of thier keys ? 
+all keys should be kept within ' ' or the type should be the same as the type of value it is about to get assigned ?  
+FIXME: Note that insertMany uses [] as the first parenthesis within () otherwise it won't be an array of docs
+db.collectionName.insertMany(
+db.dbName.insertMany({},{},{})
+db.dbName.find().pretty()
 db.dbName.updateOne()'
 db.dbName.updateMany()'
 $gt(greater than) $lt(less than)
