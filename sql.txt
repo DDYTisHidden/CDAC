@@ -1,15 +1,51 @@
+creating tables in sql
+    FIXME: Read entire example
+    BUG: how would you keep auto increment                                                                                                                                                                                      separated by _ without = true 
+    BUG: null check ->                                                                                                                                                                                                                      not null not non null
+    create table department(
+        dep_id int primary key auto_increment,
+        someInt int not null,
+        age int not check(age >= 22),
+        someDecimal decimal(10,2),
+        someVarchar varchar(50/100)
+    );
+    insert into tableName(col1,col2,col3,..) values
+    (),(),();
+    create table employee(
+        emp_id int primary key auto_increment=true,
+        foreign key (dep_id) references department(dpet_id)
+    );
+Temporary table 
+
+Insert clause 
+    insert into tableName(colList) values(rowList);
 begin and end enforce the given set of statements to be considered as a single logical unit 
-they are used in loops, transactions, cases, stored procedures
+they are used in loops(while uses do set & end alone), transactions, cases, stored procedures
 FIXME: Note that we need to put ; usually after end and cast is required to be used with varchar 
-loops 
-    declare @countervar int =1;
-    while @countervar <= 5
-    begin
-        print 'Iteration: ' + CAST(@countervar as varchar)
-        set @countervar = @countervar + 1;
-    end;
+you can print some curr val being traversed/navigated currently via loops using select i other than concat
+loops @ is required for sql server alone and if kept as declare countervar int default 1; then we can assign new value later on otherwise it will pick 1
+1. if loop 
+    remember if loop uses then and while uses do
+2. customLoop: loop
+    here you can also take name of your loop by the end of like this end loop customLoop;
+2. while loop 
+        declare countervar int =1; or default 1;
+        while countervar <= 5 do
+            print 'Iteration: ' + CAST(@countervar as varchar)
+            set @countervar = @countervar + 1;
+        end while;
+        FIXME: Note that even if 1 statement is present you would need do end while whereas in sql server if one statement alone is there you can avoid begin and end 
+3. Repeat loop: my sql specific not available in other rdbms  
+    repeat 
+        set a.col = true
+    until i<5
+    end repeat;
+TODO: 
+    Loop 
+    leave 
+    while vs repeat 
 sql seems to have cases which can be selected apparently. They uses case when then end(use as right after end the way we do with select) 
-yea but can it use variables or something cause I can see a+b etc.
+FIXME: Note that not just cases but if loop also uses then 
 no equality operators apparently assignment operator itself means the same within a where clause 
 logic gates or bitwise ? and or not ? 
 select case 
@@ -39,59 +75,626 @@ SELECT
         ELSE 500 
     END AS raise
 FROM emp;
+
+
 TODO: Pending sql concepts n there concerned problems  
+views
+triggers
+user defined functions
+exception handling and return types in above functions
+table creation
+mongo revision
 loops 
+update and alter questions 
+subquery questions to gain confidence with them 
+join questions for the same then 
+indexing
+limit + offset 
+alter vs update
+temporary table(with triggers ?) vs views
 CRUD in both 
-triggers 
+labelling
+stored procedures
 cursor 
-procedures
+triggers 
+pl sql 
 transaction safe sql querry 
 backup safety checks n logging ? 
+TODO: assignments
+    D. Day 6. Day 5. Last day.Assignment two, set two. 
+    sla 
 TODO: theory
 statements necesarry in an sql querry                                                                                                                                                   select n from<- src
 how do you separate sql statements ?                                                                                                                        ;
 TODO: how to check if a given value is not present in this table ->                                                              <> means is not equal to but it doesn't work with null and therefore should use is not null itself in that situation                                                                       select * from table1 a where a.col <> 7;  
 Logic gates in sql
     we cannot use and gate in an sql query since it would make sql believe that this table's row can have two values like this 
-select * from emp e where e.job='clerk' AND e.job='manager'
-group by e.deptno
-having deptno=20;
+    select * from emp e where e.job='clerk' AND e.job='manager'
+    group by e.deptno
+    having deptno=20;
 : In a single row, a job cannot be both 'CLERK' and 'MANAGER' at the same time. Using AND tells SQL to look for a row where both are true simultaneously, which results in zero rows. You want to find rows where the job is either one or the other.
 but ensure that you use '' after = 
 Furthermore we don't use == for varchar type columns instead we use LIKE and need to use column name as many number of times on the left n right of '' like this 
 Display the records for the employees, which have the last character as R or H in their name.
 select * from emp where ename like '%H' or ename like '%H'; 
-TODO: Aggregate functions 
-what should you use with count to ensure same vals don't get counted twice ->                                                                                               select count([distinct] column_name |*) from 
+Group by : 
+    filters our select query before the while clause could 
+Aggregate functions 
+    like avg(), min(), max() take col names as parameters and are kept next to the select keyword in the query but you Also use them with. Group by. 
+
+what should you use with count to ensure same vals don't get counted twice ->                                                                                               select count([distinct] column_name |*) from
 how to get unique values in a query output                                                                                                                                                          distinct keyword -> select distinct section from school;
 TODO: to check if there's no value for a given column we should not do col=null since it would mean sql doens't know instead you should do col is null and opposite would be col is not null or col is <> null ? 
 while attempting to update(cases use when n then) a given record you should use set but note that it needs to come before where condition 
 update gpa to 3.00 for all students whose gpa is below 2.00
 FIXME: Note that this query would need to disable the safe update mode or safe mode by set sql_safe_updates=0;Not recommended for production
 therefore you should instead 1. use a key in column in the where clause
--- Update using subquery with primary key
-UPDATE students 
-SET gpa = 3.00 
-WHERE student_id IN (
-    SELECT student_id 
-    FROM students 
-    WHERE gpa < 2.00
-);
+    -- Update using subquery with primary key
+    UPDATE students 
+    SET gpa = 3.00 
+    WHERE student_id IN (
+        SELECT student_id
+        FROM students
+        WHERE gpa < 2.00
+    );
 2. indexing by adding an index to the gpa column 
 3. limit
 students s set s.gpa = 3.00 where s.gpa < 2.00 and s.gpa is not null;
+derived table as 
+
+Limit: 
+    when we want to limit the number of rows getting affected from the query; we use limit to ensure only mentioned number of rows from the top are operated by the query we write
+Offset: Limit isn't the last section of sql query instead allegedly it is the offset 
+    once defined in the query we can ignore mentioned number of lines from the top most row and begin limit operation from following row onwards
+Temporary table 
+TODO: 
+alter table  
+    alter table table1
+    drop column col1;
+    modify column..
+TODO: 
 JOINS 
     default join type                                                                                                                           inner join(has something common at least)
 views
     considering records of a view can you insert n delete rows ->                                                                                                                           both allowed in updatable view alone but read only don't allow any updates,insertions or deletions
-PL/SQL pl stands for n defin ->                                                                                                             
+FIXME: Note that we create OR REPLACE a view but we declare cursors 
+1. Create a view Salesman_data which will display all the details of Salesman job. The
+    view should allow the user to insert records of Salesman job only.
+    bug: ->                                                                                                                                                                     you forget to replace an existing one
+    CREATE OR REPLACE VIEW Salesman_data AS
+    SELECT *
+    FROM EMP
+    WHERE JOB = 'SALESMAN'
+    WITH CHECK OPTION;
+2. Create a View Emp_Salary_Details which will display employee’s name, salary,
+commission, total (which will be salary plus commission), tax as 30% of the total,
+HRA as 10% of salary, DA as 5% of salary, TA as 7% of salary, PF as 200 and Gross
+that would be the formula as (Total-Tax) + (HRA + DA + TA) – PF
+BUG: you forget to check if the table has null values if they do you can use IFNULL(colName,value) 
+BUG: You don't need to use some % operator instead convert those percentages to decimal values and * them
+    CREATE OR REPLACE VIEW Emp_Salary_Details AS
+    SELECT
+        ENAME,
+        SAL,
+        IFNULL(COMM, 0)                                      AS COMMISSION,
+        SAL + IFNULL(COMM, 0)                                AS TOTAL,
+        (SAL + IFNULL(COMM, 0)) * 0.30                      AS TAX,
+        SAL * 0.10                                            AS HRA,
+        SAL * 0.05                                            AS DA,
+        SAL * 0.07                                            AS TA,
+        200                                                    AS PF,
+        ((SAL + IFNULL(COMM, 0)) - (SAL + IFNULL(COMM, 0)) * 0.30)
+            + (SAL * 0.10 + SAL * 0.05 + SAL * 0.07) - 200  AS GROSS
+    FROM EMP;
+3. Create a view Direct_Reporting which will display all the records of employee who
+are directly reporting to King.
+    CREATE OR REPLACE VIEW Direct_Reporting AS
+    SELECT * FROM EMP
+    WHERE MGR = (SELECT EMPNO FROM EMP WHERE ENAME = 'KING');
+FIXME: Below question discussed a good sub query logic
+4. Create a view named Dept_High_Earners which will display employee name, job,
+salary and department name of those employees whose salary is greater than the
+average salary of their respective department.
+    CREATE OR REPLACE VIEW Dept_High_Earners AS
+    SELECT E.ENAME, E.JOB, E.SAL, D.DNAME
+    FROM EMP E
+    JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+    WHERE E.SAL > (
+        SELECT AVG(SAL) FROM EMP WHERE DEPTNO = E.DEPTNO
+    );
+5. Create a view named Sales_Recent_Hires which will display all the details of
+employees along with department name and location who belong to SALESMAN job
+type and joined after 01-JAN-1982.
+    CREATE OR REPLACE VIEW Sales_Recent_Hires AS
+    SELECT E.*, D.DNAME, D.LOC
+    FROM EMP E
+    JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+    WHERE E.JOB = 'SALESMAN'
+      AND E.HIREDATE > '1982-01-01';
+PL SQL pl stands for n defin ->                                                                                                             
     procedural language which is a block structure language which enables developers to combine the power of sql with procedural language.TODO: Example
     FIXME: stored procedure should use delimitters in my sql at least. They can also use variables by the way 
+        furthermore delimitter // should be used to affirm where the procedure ends 
     TODO: should use create stored procedure and parenthesis too ? 
-    create procedure P1
-UDF 
+1) Create a stored procedure that accepts an employee number as input and displays all details of that employee. 
+    DELIMITER //
+
+    CREATE PROCEDURE P1(IN emp_id INT)
+    BEGIN
+        SELECT *
+        FROM My_EMP
+        WHERE EMPNO = emp_id;
+    END //
+
+    DELIMITER ;
+2) Create a procedure that accepts a department number and displays: a. Total employees in that department b. Average salary c. Highest salary d. Lowest salary 
+    DELIMITER //
+
+    CREATE PROCEDURE P2(IN dept_id INT)
+    BEGIN
+        SELECT 
+            COUNT(*) AS Total_Employees,
+            AVG(SAL) AS Avg_Salary,
+            MAX(SAL) AS Max_Salary,
+            MIN(SAL) AS Min_Salary
+        FROM My_EMP
+        WHERE DEPTNO = dept_id;
+    END //
+
+    DELIMITER ;
+3) Create a copy of emp table as emp_sp. Create a stored procedure that: a. Accepts employee number and increment percentage b. Updates the salary accordingly in the emp_sp table c. Displays old salary and new salary 
+    DELIMITER //
+
+    CREATE PROCEDURE P3(IN emp_id INT, IN percent INT)
+    BEGIN
+        DECLARE old_sal INT;
+        DECLARE new_sal INT;
+
+        SELECT SAL INTO old_sal
+        FROM emp_sp
+        WHERE EMPNO = emp_id;
+
+        SET new_sal = old_sal + (old_sal * percent / 100);
+
+        UPDATE emp_sp
+        SET SAL = new_sal
+        WHERE EMPNO = emp_id;
+
+        SELECT old_sal AS Old_Salary, new_sal AS New_Salary;
+    END //
+
+    DELIMITER ;
+4) Create a procedure to insert a new employee into emp_sp table. The procedure should: a. Accept all required employee details as parameters b. Validate that EMPNO does not already exist c. If exists → return a message d. Else → insert record 
+    DELIMITER //
+
+    CREATE PROCEDURE P4(
+        IN emp_id INT,
+        IN name VARCHAR(50),
+        IN salary INT,
+        IN dept INT
+    )
+    BEGIN
+        IF EXISTS (SELECT 1 FROM emp_sp WHERE EMPNO = emp_id) THEN
+            SELECT 'Employee Already Exists' AS Message;
+        ELSE
+            INSERT INTO emp_sp(EMPNO, ENAME, SAL, DEPTNO)
+            VALUES (emp_id, name, salary, dept);
+
+            SELECT 'Inserted Successfully' AS Message;
+        END IF;
+    END //
+
+    DELIMITER ;
+5) Create a procedure that accepts department number and displays employees who earn more than the average salary of that department. 
+    DELIMITER //
+
+    CREATE PROCEDURE P5(IN dept_id INT)
+    BEGIN
+        SELECT *
+        FROM My_EMP
+        WHERE DEPTNO = dept_id
+        AND SAL > (
+            SELECT AVG(SAL)
+            FROM My_EMP
+            WHERE DEPTNO = dept_id
+        );
+    END //
+
+    DELIMITER ;
+6) Create a procedure that: a. Accepts department number b. Calculates total salary expense from emp table c. If total expense > 10000 → display “High Expense Department” d. Else → display “Normal Expense Department” 
+    DELIMITER //
+
+    CREATE PROCEDURE P6(IN dept_id INT)
+    BEGIN
+        DECLARE total INT;
+
+        SELECT SUM(SAL) INTO total
+        FROM My_EMP
+        WHERE DEPTNO = dept_id;
+
+        IF total > 10000 THEN
+            SELECT 'High Expense Department' AS Status;
+        ELSE
+            SELECT 'Normal Expense Department' AS Status;
+        END IF;
+    END //
+
+    DELIMITER ;
+7) Create a procedure that: a. Accepts employee number b. Based on salary, returns grade: c. SAL >= 3000 → Grade A d. SAL between 2000 and 2999 → Grade B e. SAL < 2000 → Grade C 
+    DELIMITER //
+
+    CREATE PROCEDURE P7(IN emp_id INT)
+    BEGIN
+        DECLARE salary INT;
+
+        SELECT SAL INTO salary
+        FROM My_EMP
+        WHERE EMPNO = emp_id;
+
+        IF salary >= 3000 THEN
+            SELECT 'Grade A' AS Grade;
+        ELSEIF salary BETWEEN 2000 AND 2999 THEN
+            SELECT 'Grade B' AS Grade;
+        ELSE
+            SELECT 'Grade C' AS Grade;
+        END IF;
+    END //
+
+    DELIMITER ;
+8) Create a procedure that accepts a year and: a. Displays total employees hired in that year b. Displays average salary of those employees 
+    DELIMITER //
+
+    CREATE PROCEDURE P8(IN input_year INT)
+    BEGIN
+        SELECT 
+            COUNT(*) AS Total_Employees,
+            AVG(SAL) AS Avg_Salary
+        FROM My_EMP
+        WHERE YEAR(HIREDATE) = input_year;
+    END //
+
+    DELIMITER ;
+9) Create a copy of Emp table as “Emp_Copy”. Ensure all records of emp get copied in the new table. Create a procedure that will add a new record in Emp_Copy table as per following specifications: a. Accepts all employee details as IN parameters b. Returns via OUT parameter: c. Status Message should be "Inserted Successfully" if the new empno is unique. And the record should get added in the Emp_Copy table. d. Else if the empno is duplicate then the message should be "Employee Already Exists" and records should not get added in the Emp_Copy table.. 
+    DELIMITER //
+
+    CREATE PROCEDURE P9(
+        IN emp_id INT,
+        IN name VARCHAR(50),
+        IN salary INT,
+        IN dept INT,
+        OUT msg VARCHAR(50)
+    )
+    BEGIN
+        IF EXISTS (SELECT 1 FROM Emp_Copy WHERE EMPNO = emp_id) THEN
+            SET msg = 'Employee Already Exists';
+        ELSE
+            INSERT INTO Emp_Copy(EMPNO, ENAME, SAL, DEPTNO)
+            VALUES (emp_id, name, salary, dept);
+
+            SET msg = 'Inserted Successfully';
+        END IF;
+    END //
+
+    DELIMITER ;
+10) There are two tables namely Customers_2026 and Transactions_2026. Customers_2026 table structure: 
+No. ColumnName Type Constraints 
+ 1 CustID Numeric Primary Key 
+ 2 CustName String Cannot be blank 
+ 3 Cust_Bill_Number Numeric Cannot be less than 500 
+ 4 CustPassport_No String Can be blank but cannot repeat Transactions_2026 
+ table structure: No. ColumnName Data Type Constraints 
+ 1 CustID Numeric Must be taken from Customer_2026 table & it is mandatory. 
+ 2 CusTrID Numeric Primary Key and Auto number 
+ 3 Amount Numeric Cannot be negative and cannot exceed 100000
+    DELIMITER //
+
+    CREATE PROCEDURE Add_Record(
+        IN cid INT,`
+        IN cname VARCHAR(50),
+        IN bill INT,
+        IN passport VARCHAR(50),
+        IN amt INT
+    )
+    BEGIN
+        DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+        BEGIN
+            INSERT INTO Error_Log_table(Error_date, Error_Number, Error_Message)
+            VALUES (CURDATE(), 1, 'Error Occurred');
+        END;
+
+        INSERT INTO Customers_2026(CustID, CustName, Cust_Bill_Number, CustPassport_No)
+        VALUES (cid, cname, bill, passport);
+
+        INSERT INTO Transactions_2026(CustID, Amount)
+        VALUES (cid, amt);
+
+    END //
+
+    DELIMITER ;
+1.create procedure P1 inserting num 1-> 10 to a table t1 having one col alone a of type int usign while loop alone 
+        you should create table t1 first 
+        TODO: BUGS
+            how will you start your while loop ->                                                                                                                                                                       do 
+            how will you end it ->                                                                                                                                                                              end while 
+            update i value ->                                                                                                                                                                                                                   set i = i + 1;
+            how will you end the delimitter->                                                                                                                                   end // then delimiter; you forgot delimitter;
+            input param n returning value type ?                                                                                none
+        delimiter //
+        create procedure P1()
+        BEGIN 
+           DECLARE i INT DEFAULT 1;
+            WhILE i <= 10 Do
+                insert into t1(a) values (i);//since 1 column alone therefore we can use insert into t1 values(i);
+                set i = i +1;
+            END WhILE;
+        END //
+        delimiter;
+        call P1();        
+2.Create a procedure P2 that inserts only even numbers between 1 and 50 into table t2
+        Sol 1: this one's less efficient
+            condition for ending loop and order of them ->                                                                                                                                                  you kept set i = i +2; inside of the if block 
+            delimiter //
+            create procedure p2()
+            begin 
+                declare i int default 2;
+                repeat 
+                    if i % 2 = 0 then   
+                        insert into t2(b) values(i);
+                    end if;
+                    set i = i + 2;
+                until i > 50
+                end repeat;
+                end//
+                delimiter;
+        Sol 2;
+        which has only one column named b of int type. Use repeat loop only.
+        until condition ->                                                                                                                                      you chose i<50 its i > 50 n remember we don't put ; right after loops until its a do while loop
+            delimiter //
+            create procedure p2()
+            begin
+                declare i int default 2;            
+                repeat
+                    insert into t2 values(i);
+                    set i=i+2;
+                until i>50;
+                end repeat;
+            end //
+            delimiter;
+3.Create a procedure P8 that displays numbers starting from 1. Stop loop when
+number becomes divisible by 7. Display numbers until that point only. Use basic loop
+only.
+
+    delimiter //
+    create procedure p8()
+    begin
+     declare i int default 1;
+     divide_by_7: LOOP
+        if i % 7 = 0 then 
+            leave divide_by_7;
+        end if;
+        select i;
+        set i = i + 1;
+    end loop divide_by_7;
+    end;
+    end //
+    delimiter;
+4. Create a procedure PC1 that uses a cursor to display employee name and salary for all employees.
+    cursor statement ->                                                                                                                                 you were declaring it as a variable, instead it should be 
+    delimiter //
+    create procedure PC1()
+    begin
+    handler statement ->                                                                                                            remember NFS(🚀)                                                                                        not found set done = 0;
+    end;
+        declare done int default 0;
+        declare emp_name varchar(100);
+        declare emp_salary int;
+        declare cursor emp_cursor for 
+            select first_name,sal from emp;
+        declare continue handler for not found set default=1;
+        open emp_cursor;
+         read_loop: loop
+            fetch emp_cursor into emp_name, emp_salary;
+            if done = 1 then
+                leave read_loop;
+            end if;
+            select emp_name,emp_salary;
+         end loop read_loop;
+         close emp_cursor;
+    end //
+    delimiter;
+5. Create a procedure PC6 that uses a cursor to display employee name and salary in descending order of salary, but only for a specific range of rows using LIMIT and OFFSET.
+    DELIMITER //
+
+    CREATE PROCEDURE PC6()
+    BEGIN
+        DECLARE done INT DEFAULT 0;
+        DECLARE emp_name VARCHAR(100);
+        DECLARE emp_salary INT;
+
+        DECLARE emp_cursor CURSOR FOR
+            SELECT name, salary
+            FROM employee
+            ORDER BY salary DESC
+            LIMIT 5 OFFSET 2;
+
+        DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+        OPEN emp_cursor;
+
+        read_loop: LOOP
+            FETCH emp_cursor INTO emp_name, emp_salary;
+
+            IF done = 1 THEN
+                LEAVE read_loop;
+            END IF;
+
+            SELECT emp_name, emp_salary;
+
+        END LOOP;
+
+        CLOSE emp_cursor;
+
+    END //
+
+    DELIMITER ;
+Triggers 
+    generic query 
+        create trigger name
+        before | after  insert|update|delete on tableName t1
+        for each row 
+        begin 
+            insert into t2(col List)
+            values(OLD.empno,OLD.ename,OLD.salary,...);
+        end;
+
+    aggregation + refresh
+        create trigger t1
+        after insert on t1
+        for each row 
+        begin 
+            delete from t2
+            insert into t2
+            select 
+                deptno,
+                sum(sal),
+                max(sal),
+                min(sal),
+                avg(sal),
+            from t1
+            group by deptno;
+        end;
+UDF
+1. Create a user defined function fn_annual_salary(emp_id INT) that returns the annual
+salary of an employee by calculating (SAL × 12) + (COMM × 12), treating NULL
+commission as 0.
+    DELIMITER //
+
+    CREATE FUNCTION fn_annual_salary(emp_id INT)
+    RETURNS INT
+    DETERMINISTIC
+    BEGIN
+        DECLARE salary INT;
+        DECLARE commission INT;
+
+        SELECT SAL, IFNULL(COMM, 0)
+        INTO salary, commission
+        FROM My_EMP
+        WHERE EMPNO = emp_id;
+
+        RETURN (salary * 12) + (commission * 12);
+    END //
+
+    DELIMITER ;
+2. Create a function fn_experience_category(emp_id INT) that calculates total years of
+experience from HIREDATE till the current date and returns 'Junior' if experience is
+less than 2 years, 'Mid-Level' if between 2 and 5 years, and 'Senior' if more than 5
+years.
+
+fn_experience_category(emp_id int)
+    delimiter //
+    create function fn_experience_category(emp_id int)
+    returns varchar(20)
+    TODO: 
+    deterministic 
+    begin
+      declare hiredate date;
+      declare exp_years int;
+      select hiredate into hiredate
+      from emp
+      where empno=empid;
+
+      set exp_years = TIMESTAMPDIFF(YEAR,hiredate,CURDATE());
+      if exp_years < 2 then
+        return 'Junior';
+      elseif exp_years between 2 and 5 then 
+        return 'mid_level';
+      else
+        return 'Senior';
+      end if;
+    end //
+    delimiter;
+3. Develop a function fn_salary_grade(emp_id INT) that returns 'Grade C' if SAL is less
+than 1500, 'Grade B' if salary is between 1500 and 3000, and 'Grade A' if salary is
+above 3000.
+    DELIMITER //
+
+    CREATE FUNCTION fn_salary_grade(emp_id INT)
+    RETURNS VARCHAR(10)
+    DETERMINISTIC
+    BEGIN
+        DECLARE salary INT;
+
+        SELECT SAL INTO salary
+        FROM My_EMP
+        WHERE EMPNO = emp_id;
+
+        IF salary < 1500 THEN
+            RETURN 'Grade C';
+        ELSEIF salary BETWEEN 1500 AND 3000 THEN
+            RETURN 'Grade B';
+        ELSE
+            RETURN 'Grade A';
+        END IF;
+
+    END //
+
+    DELIMITER ;
+4. Create a function fn_team_size(manager_id INT) that returns the total number of
+employees reporting to a given manager based on the MGR column.
+    DELIMITER //
+
+    CREATE FUNCTION fn_team_size(manager_id INT)
+    RETURNS INT
+    DETERMINISTIC
+    BEGIN
+        DECLARE team_count INT;
+
+        SELECT COUNT(*)
+        INTO team_count
+        FROM My_EMP
+        WHERE MGR = manager_id;
+
+        RETURN team_count;
+    END //
+
+    DELIMITER ;
+5. Create a function fn_salary_vs_dept_avg(emp_id INT) that compares an employee’s
+salary with the average salary of their department and returns 'Above Avg', 'Below
+Avg', or 'Equal Avg' accordingly.
+    DELIMITER //
+
+    CREATE FUNCTION fn_salary_vs_dept_avg(emp_id INT)
+    RETURNS VARCHAR(20)
+    DETERMINISTIC
+    BEGIN
+        DECLARE emp_sal INT;
+        DECLARE dept_avg DECIMAL(10,2);
+        DECLARE dept_no INT;
+
+        SELECT SAL, DEPTNO
+        INTO emp_sal, dept_no
+        FROM My_EMP
+        WHERE EMPNO = emp_id;
+
+        SELECT AVG(SAL)
+        INTO dept_avg
+        FROM My_EMP
+        WHERE DEPTNO = dept_no;
+
+        IF emp_sal > dept_avg THEN
+            RETURN 'Above Avg';
+        ELSEIF emp_sal < dept_avg THEN
+            RETURN 'Below Avg';
+        ELSE
+            RETURN 'Equal Avg';
+        END IF;
+
+    END //
+
+    DELIMITER ;
 TODO:   
     findOne() should be needing a doc {} with an identifier ? 
+
 TODO: Note that you don't need to end query with ; BUT should we even call this a query ?  
 Note that we use camel casing here @ a lot of places
 you can either create a collection with db.createCollection("someCollectionName")
@@ -104,10 +707,19 @@ so the first record/doc inserted will define the schema of the collection or
 there's nothing like that and we can insert docs regardless of them having identical type of thier keys ? 
 all keys should be kept within ' ' or the type should be the same as the type of value it is about to get assigned ?  
 FIXME: Note that insertMany uses [] as the first parenthesis within () otherwise it won't be an array of docs
-db.collectionName.insertMany(
-db.dbName.insertMany({},{},{})
-db.dbName.find().pretty()
-db.dbName.updateOne()'
+How to see the list of databases?                                                                           show dbs or show database
+How to know which database is currently being used?                                                                                                                     db
+how to display all records in a formatted manner                                                                                                          db.dbName.find().pretty()
+the method that is being used in solution has parameters to enhance searching. discuss them ->                                                                                      db.collName.find({docs to find, docs to include})// that to say first We filter then we specify fields. Which all fields or docs should be presented(1) in the output n ones 2 be ignored(0)I. . Second parameter is called projection. First parameter is called filter. 
+exact matching doc ->                                                                                                                                                                                                           db.collName.find({keyName:'val'});
+$dollars known so far ->                                                                                                                                                                                                                            lt,gt,lte, gte, eq(=2), ne(not=2), set,
+How to count records within a given collection?        ->                                                                                                                                  db.collName.countDocuments()
+Move to delete a given collection                                                                                           db.collName.drop();
+How to insert records into a given collection?                                                                                  db.collName.insertMany([new line then {},{},{},{}]);
+How to find records for A particular key. Common to whichever records documents With respect to a given range or value.                                                                         db.collMany.find({colName: {$lt or $gt: yourValue}},{Name: 1})
+how to update a given record with key name "houseNumber" of value 10 in a collection houses                                                                 db.houses.updateOne({houseNumber: },{$set: {houseNumber:newNum}})'
+TODO: Values exactly equal to ? 
+
 db.dbName.updateMany()'
 $gt(greater than) $lt(less than)
 db.anyE(uses dollar)
