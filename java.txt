@@ -1,1 +1,127 @@
 unbounded type inference includes ? with super  
+
+
+Two Sum II - Two pointers technique
+3Sum - Classic array problem with sorting
+Container With Most Water - Two pointers
+Longest Substring Without Repeating Characters - Sliding window
+Product of Array Except Self - Array manipulation
+Group Anagrams - HashMap and string manipulation
+Longest Palindromic Substring - Dynamic programming/expand around center
+Rotate Image - Matrix manipulation (90-degree rotation)
+Set Matrix Zeroes - In-place array modification
+Subarray Sum Equals K - HashMap + prefix sum
+
+Stack & Queue
+
+Valid Parentheses (Easy but important foundation)
+Min Stack - Stack with O(1) min operation
+Daily Temperatures - Monotonic stack
+Evaluate Reverse Polish Notation - Stack basics
+Next Greater Element II - Circular array + monotonic stack
+Simplify Path - Stack for file paths
+Decode String - Nested stack problem
+Asteroid Collision - Stack simulation
+Remove K Digits - Greedy + monotonic stack
+Largest Rectangle in Histogram - Classic monotonic stack
+
+Linked Lists
+
+Reverse Linked List II - Partial reversal
+Add Two Numbers - Linked list arithmetic
+Remove Nth Node From End - Two pointers
+Swap Nodes in Pairs - Pointer manipulation
+Odd Even Linked List - Rearranging nodes
+Sort List - Merge sort on linked list
+Reorder List - Multiple techniques combined
+Copy List with Random Pointer - HashMap cloning
+
+Trees & Binary Search Trees
+
+Binary Tree Level Order Traversal - BFS
+Binary Tree Zigzag Level Order Traversal - BFS variant
+Validate Binary Search Tree - BST property
+Kth Smallest Element in BST - Inorder traversal
+Lowest Common Ancestor of Binary Tree - Recursion
+Binary Tree Right Side View - BFS/DFS
+Path Sum II - DFS + backtracking
+Construct Binary Tree from Preorder and Inorder - Tree construction
+Flatten Binary Tree to Linked List - Morris traversal
+Binary Tree Maximum Path Sum (harder medium) - Recursion
+
+Graphs & BFS/DFS
+
+Number of Islands - DFS/BFS on grid
+Clone Graph - Graph traversal + cloning
+Course Schedule - Topological sort (cycle detection)
+Course Schedule II - Topological sort (order finding)
+Pacific Atlantic Water Flow - Multi-source BFS/DFS
+Word Ladder - BFS shortest path
+Surrounded Regions - DFS/BFS on borders
+Rotting Oranges - Multi-source BFS
+Network Delay Time - Dijkstra's algorithm
+
+Dynamic Programming
+
+Coin Change - Classic DP
+Longest Increasing Subsequence - DP/Binary search
+House Robber II - Circular DP
+Decode Ways - 1D DP
+Unique Paths - 2D DP (grid)
+Jump Game - Greedy/DP
+Word Break - DP + string
+Partition Equal Subset Sum - 0/1 knapsack
+Longest Common Subsequence - 2D DP
+Maximum Product Subarray - DP variant
+
+Backtracking
+
+Permutations - Classic backtracking
+Subsets - Backtracking combinations
+Combination Sum - Backtracking with duplicates allowed
+Generate Parentheses - String backtracking
+Letter Combinations of Phone Number - Backtracking
+Palindrome Partitioning - Backtracking + DP
+
+Binary Search
+
+Search in Rotated Sorted Array - Modified binary search
+Find Peak Element - Binary search on unsorted
+Search a 2D Matrix - 2D binary search
+Find First and Last Position - Binary search bounds
+Koko Eating Bananas - Binary search on answer
+Capacity to Ship Packages - Binary search on answer
+
+Heaps/Priority Queue
+
+Top K Frequent Elements - Heap/bucket sort
+Kth Largest Element - Quickselect/heap
+Find Median from Data Stream - Two heaps
+Task Scheduler - Greedy + heap
+Reorganize String - Heap greedy
+
+Two Pointers / Sliding Window
+
+Minimum Window Substring - Sliding window (harder)
+Find All Anagrams in String - Sliding window
+Longest Repeating Character Replacement - Sliding window
+Permutation in String - Sliding window
+
+Must-Do Top 20 for Stack Focus
+If you want to focus specifically on Stack problems, here are the essentials:
+
+Valid Parentheses ⭐
+Min Stack ⭐
+Daily Temperatures ⭐⭐
+Next Greater Element I & II ⭐⭐
+Evaluate Reverse Polish Notation ⭐
+Decode String ⭐⭐
+Asteroid Collision ⭐⭐
+Simplify Path ⭐
+Remove K Digits ⭐⭐
+Largest Rectangle in Histogram ⭐⭐⭐
+Maximal Rectangle (uses histogram logic) ⭐⭐⭐
+Validate Stack Sequences ⭐
+Basic Calculator II ⭐⭐
+Remove All Adjacent Duplicates II ⭐⭐
+Online Stock Span ⭐⭐
