@@ -909,6 +909,8 @@ LeetCode #,Problem Name
 
 Aggressive Cows / Book Allocation (GFG) – must do,
 ARRAY INTV ARRAY FROM HERE ONWARDS
+As of 9th April 2026
+ tree Level order traversal(iterative pending)
 As of 8th April 2026
   Asteriod collision 
   late binding 
@@ -1935,6 +1937,7 @@ float ------------> double
 When problem demands higher precision       
 ____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________      
 TREE QUESTIONS but above ?? 
+FIXME: Tree questions from here onwards BUT check above for more otherwise give heading for them
 102 Binary Tree level order Traversal - https://leetcode.com/problems/binary-tree-level-order-traversal/  
 Recursive :   
 Speak 2 interviewer about : 
@@ -6005,8 +6008,16 @@ ALTERNATIVES
         //     int v = edge.get(1); 
         //     graph.computeIfAbsent(u, key -> new ArrayList<>()).add(v); 
         // } 
+TODO: Graph pending graph
+word ladder
+    TODO: has a brute force dfs solution too which calculates all possible paths to choose the shortest one 
+    Optimal Approach: 
+        why bfs: 
+            because shortest path searching in -:wighted:- graph second 
+            n we need to explore shortest word at a given level alone by choosing among multiple options  
+
 207 Course Schedule I : https://leetcode.com/problems/course-schedule/description/
-PENDING DSA => optimization = [][] sol -> hashMap sol . 
+PENDING DSA => optimization = [][] sol -> hashMap sol.
 then  bfs solution 2 - https://en.wikipedia.org/wiki/Topological_sorting#CITEREFKahn1962 
 
 Logic mistakes with hashMap approach 
