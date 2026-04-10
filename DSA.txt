@@ -86,7 +86,7 @@ String
     Group Anagrams  - https://leetcode.com/problems/group-anagrams/description/
 
 Hashing 
-    TODO: Pending Hash questions
+//    TODO: Pending Hash questions
     Describe an implementation of a least-used cache, and big-O notation of it.
     A question involving an API's integration with hash map where the buckets of hash map are made up of linked lists.
 
@@ -98,7 +98,7 @@ Stack and Queue
 BST : Traversals(preOrder, inOrder, postOrder) operations 
     symmetric tree( mirror image of itself) - https://leetcode.com/problems/symmetric-tree/description/
 
-FIXME: Linked List From here onwards 
+//FIXME: Linked List From here onwards 
 Find nth node in a linked list 
     Approach:
         traverse until null to fill the node2Address hashMap value will be previous node's next value if we come across the nth node early then we can return it back 
@@ -455,7 +455,12 @@ Optimized Approach:
     pop it out top element's next greater element is the current element of nums2. otherwise we keep pushing elements to the stack 
     Then while 
 o LC - On to the right of the curr element not the same index   
+BUG: how do you track eles which don't have nge ? ->                                                                                                                    these are ele which still exist in the stack and therefore should be marked as -1 for nge
 BUG: you keep indexes to the stack n name instead of nums2 ele
+BUG: how would you track the so far known nge for a given ele in nums2 ->                                                                                                                           you forgot hash map entirely and instead put stk.pop(btw stk.peek() 🤷‍♂️) into ans list 
+BUG: stk operation inside of while loop ->                                                                                          you tend to use stk.peek inside even though you need to pop it out of stack 
+//BUG where do you add elements inside of stack ? BIG LOGIC BUG ->                                                                                                      u tend to forget to close the nums2 for loop furthermore once you are done with while() you forget to push elements inside of stk too 
+//BUG point at which you generate ansList ->                                                                                            you kept ansList[nums1[i]] which will alter expected index's corresponding ele
 Sol: 
         public int[] nextGreaterElement(int[] nums1, int[] nums2) {
         Stack<Integer> dec = new Stack<>();
@@ -463,8 +468,7 @@ Sol:
         int[] ans = new int[nums1.length];
         for(int i = 0 ; i < nums2.length ; i ++){
             while(!dec.isEmpty() && dec.peek() < nums2[i]){
-                int smaller = dec.pop();
-                nge.put(smaller,nums2[i]);
+                nge.put(stk.pop(),nums2[i]);
             }
             dec.push(nums2[i]);
         }
@@ -484,7 +488,9 @@ Sol:
 LeetCode : 70(Has one with Costs 2 look 4 that )
 735 Asteroid Collision - https://leetcode.com/problems/asteroid-collision/
 BUG-> two non-adjacent nums with - signs how to start considering them for collisions ? ->                                                                                                                                                          L->R as we traverse in general
-
+//BUG thought of keeping the while loop confined to !isEmpty because internally we can have 2 conditions when ele < 0 n ele == stk.peek()
+//BUG size of ansList ->                                                                                                                 since its not known you kept it as asteroids. ->                                                                                                               stack's length since by the end we will be having unresolved asteroids alone 
+//fixme some worth appreciating stuff 4 motivation                                                                                                                 Good thing was you never solved it before n regardless the appraoch was hitting almost correctly. At least wrote comments and a sample test case on leetcode before going for solution 
 TODO: KK Array questions 
 More here - https://grok.com/c/071f9be9-c4c4-497d-bea7-011a02644a00
 LeetCode #,Problem Name,Variations Covered
@@ -906,16 +912,20 @@ TODO: Linked List
 
 LeetCode #,Problem Name
 
-
 Aggressive Cows / Book Allocation (GFG) – must do,
 ARRAY INTV ARRAY FROM HERE ONWARDS
+As of 10th April 2026
+Tree(!DSA.txt) - max, min, preOrder, postOrder, levelOrder, inOrder
+first few lines of cdac mcq from sanfoundry - cpp name mangling
+invertNode(iterative remaining)
+//TODO how do I create a recurrence relation or recursive function for a given problem statement tree problems for instance 
 As of 9th April 2026
  tree Level order traversal(iterative pending)
 As of 8th April 2026
-  Asteriod collision 
-  late binding 
-  TODO: 
-    calendar statements for today's and yesterday's achievements 
+  Asteriod collision
+  late binding
+  TODO:
+    calendar statements for today's and yesterday's achievements
 As of 7th April 2026
     Next greater element(monotonic stk)
     Intersection of two linked List
@@ -1259,6 +1269,7 @@ Solution :
     }
 
 Iterative : 
+//FIXME: Note that we would need to push right child first because its LIFO 
 Which child will get first into the Stack --->                                                                                                                                                                                                                                                                  Right
 ALWAYS REMEMBER                                                                 --READ THIS RIGHT NOW !-->                                                                                          here we push FIRST child after checking if the right is not null WHILE in postOrder we FIRST put in ans list ONLY when both the children are null   
 any stk.peek() condition ?? --->                                                                                                                                                                                                                                    NO this helps in posOrder  
@@ -1937,7 +1948,11 @@ float ------------> double
 When problem demands higher precision       
 ____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________      
 TREE QUESTIONS but above ?? 
-FIXME: Tree questions from here onwards BUT check above for more otherwise give heading for them
+Note that in a binary search tree we would use preorder in searching because we want to avoid searching left and right subtrees in situations when 
+element data is present in the current node
+We need stack in iterative solution because the system(//TODO:) ? provides us with one besides we might loose the scope of the nodes //FIXME more clarity needed
+Furthermore 
+//FIXME: Tree questions from here onwards BUT check above for more otherwise give heading for them
 102 Binary Tree level order Traversal - https://leetcode.com/problems/binary-tree-level-order-traversal/  
 Recursive :   
 Speak 2 interviewer about : 
