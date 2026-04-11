@@ -432,7 +432,75 @@ class Solution {
         return null;
     }
 }
-FIXME: Stack questions from here onwards
+//fixme queue questions from ere onwards
+146: LRU Cache https://leetcode.com/problems/lru-cache/
+//bug how to start ? ->                                                                                         you forgot about the constructor itself 
+//bug return statement ->                                                                                                                                                                           you forgot to add it in the put() itself
+//what would you do upon finding the key successfully for get method and how would you do it ? ->                                                                                       you forgot this for put operation that this is also Using the cache element therefore we should bring it to the first
+//what do we need to do in put operation, Additionally when do we delete from it n how though ->                                                                                                                         actually you forgot about searching the cache n when you did that you went to capacity check where you inserted it at end. We delete from it using size -1 not size 
+Brute force solution: 
+         int capacity;
+     List<int[]> cache;
+    public LRUCache(int capacity) {
+        this.capacity=capacity;
+        this.cache = new LinkedList<>();
+    }
+    
+    public int get(int key) {
+        for(int i = 0 ; i < cache.size() ; i ++){
+            if(key == cache.get(i)[0]){
+                int currValue = cache.get(i)[1];
+                cache.remove(i); 
+                cache.add(0,new int[]{key,currValue});
+                return currValue;
+            }
+        }
+        return -1;
+    }
+    public void put(int key, int value) {
+        for(int i = 0 ; i < cache.size() ; i ++){
+            if(cache.get(i)[0] == key){
+                cache.remove(i);
+                cache.add(0,new int[]{key,value});
+                return ;
+            }
+        }
+        if(cache.size() == capacity){
+            cache.remove(cache.size()-1);
+        }
+        
+        cache.add(0,new int[]{key,value});
+    }
+
+84 Largest rectangle in istogram
+//bug comment on local area calci ->                                                                                    k u know max area would be calci from max height n max width. W from max distance b/t ⬅️n➡️ ptrs but note that this width depends on new heights[left/right] being explored diff from heights[i]. rectangle has two heights n height[i] shall be the height because ->                                                                                                           heights[left/right]  can be having greater height value n therefore we need to go for uniform heights both sides. n heights[i] fulfils that since height[left/right] are bigger values
+//bug why = used and not > n < ?                                                                                                                                            that way we might fail at test cases where similar heights occur at diff indexes [2,4,3,4] we need to consider that since the also generate maxLocalArea
+//bug: Keep feeling like something else should be here
+kept height instead of heights
+copy paste bug did not ++ instead of -- 
+T.C.                                                                                                    same while loop runs for each height therefore O(n^2)
+S.C.                                                                                                                                                        no auxiliary space consumed .'. O(1)
+Brute Force Solution: 
+        public int largestRectangleArea(int[] heights) {
+        int maxArea = 0;
+        for(int i = 0 ; i < heights.length ; i ++){
+            int left = i;int right = i; 
+            int currheight = heights[i];
+            while(left >= 0 && heights[left] >= currheight){
+                left --;
+            }
+            while(right < heights.length && heights[right] >= currheight){
+                right ++;
+            }
+            int currWidth = right - left - 1;
+            int currArea = currheight * currWidth ;
+            maxArea = maxArea > currArea ? maxArea : currArea;
+        }
+        return maxArea;
+    }
+Optimized Solution: 
+
+//FIXME: Stack questions from here onwards
 I. First Intuition: 
     Mono(1)tonic(tone/direction): Note that. Four questions which require a specific kind of ordering, either increasing or decreasing, should be referred to as monotonic series and therefore we can use stack in our solutions
     Monotonic stack is a data structure which. 18 cent stores elements in a specific order, either slightly increasing or strictly decreasing. 
@@ -914,6 +982,10 @@ LeetCode #,Problem Name
 
 Aggressive Cows / Book Allocation (GFG) – must do,
 ARRAY INTV ARRAY FROM HERE ONWARDS
+As of 11th April 2026
+LRU 
+max area of histogram(brute force alone)
+Sir's notes of AVL n red black tree balance factor related in notebook
 As of 10th April 2026
 Tree(!DSA.txt) - max, min, preOrder, postOrder, levelOrder, inOrder
 first few lines of cdac mcq from sanfoundry - cpp name mangling
