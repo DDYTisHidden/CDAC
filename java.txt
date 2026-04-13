@@ -1,6 +1,12 @@
 unbounded type inference includes ? with super  
+correct terminilogy for methods of an interface                                                                 Abstract Method declaration(name+param list+return type because method singature means method name n the parameter list alone 
+default access specifier of an interface's method signature:                                                         public abstract and if we try to reduce the visiblity from public-> protected or private then throws exception cannot reduce visibility of the inherited method from the interface  
 
-
+Prior: String Buffer vs Latter: String Builder
+1. P is older(java 1.0) while L was introduced @ 1.5
+2.Older is definitely slow but dependable since thread safe while L is fast not thread safe
+3. P being thread safe therefore synchronized while L isn't
+4. P sync .'. used in multi-threaded environment while L can be used in single threaded environment alone
 Two Sum II - Two pointers technique
 3Sum - Classic array problem with sorting
 Container With Most Water - Two pointers
