@@ -7,6 +7,11 @@ Prior: String Buffer vs Latter: String Builder
 2.Older is definitely slow but dependable since thread safe while L is fast not thread safe
 3. P being thread safe therefore synchronized while L isn't
 4. P sync .'. used in multi-threaded environment while L can be used in single threaded environment alone
+
+avl tree questions balance factor type of rotations - L, R, LL, LR
+
+ObjectInputStream takes a FileInputStream object in its constructor
+ObjectOutputStream takes a FileOutputStream object in its constructor
 Two Sum II - Two pointers technique
 3Sum - Classic array problem with sorting
 Container With Most Water - Two pointers
