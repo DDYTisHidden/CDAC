@@ -4,6 +4,8 @@ operator precedence in java -                                                   
 correct terminilogy for methods of an interface                                                                 Abstract Method declaration(name+param list+return type because method singature means method name n the parameter list alone 
 default access specifier of an interface's method signature:                                                         public abstract and if we try to reduce the visiblity from public-> protected or private then throws exception cannot reduce visibility of the inherited method from the interface  
 
+hashCode and equals are required to be overrdden together ->                                                                                                                                            because equals checks hashcode itself for the participating references
+order of execution of constructors in multi level inheritence is parent->child and in cpp where we destructors 2 the order of exec for ~constructors is reverse child->parent
 Prior: String Buffer vs Latter: String Builder
 1. P is older(java 1.0) while L was introduced @ 1.5
 2.Older is definitely slow but dependable since thread safe while L is fast not thread safe
