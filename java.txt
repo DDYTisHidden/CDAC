@@ -7,8 +7,15 @@ protected data members ->                                                       
 hashCode and equals are required to be overrdden together ->                                                                                                                                            because equals checks hashcode itself for the participating references
 //todo what kinds of declared vars or methods can't be used or called inside of a constructor and more types of such questions.
 order of execution of constructors in multi level inheritence is parent->child and in cpp where we destructors 2 the order of exec for ~constructors is reverse child->parent
+//write to file object by object since previously had data which was not generic 
+so if kept generic then casting will be needed so may be some output statement writing getRole() + employee name + into file 
+
+comparable alone sufficient or would we also be needing comparator ? 
+
 //todo super to be kept as the topmost statement within child constructor and destructor can be kept anywhere ? What was the other 
 entity ? 
+
+
 Prior: String Buffer vs Latter: String Builder
 1. P is older(java 1.0) while L was introduced @ 1.5
 2.Older is definitely slow but dependable since thread safe while L is fast not thread safe
