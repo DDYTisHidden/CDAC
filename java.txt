@@ -11,6 +11,8 @@ order of execution of constructors in multi level inheritence is parent->child a
 so if kept generic then casting will be needed so may be some output statement writing getRole() + employee name + into file 
 Furthermore we would be needing the code for reading from file and integrate that with comprable or comparator accordingly
 map.keySet() : entrySet() etc
+should we keep more number of cases to add Manager, Sales Manager etc or instead have yet another do while for sub cases within 
+parent switch case ? 
 comparable alone sufficient or would we also be needing comparator ? 
 
 //todo super to be kept as the topmost statement within child constructor and destructor can be kept anywhere ? What was the other 
