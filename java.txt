@@ -9,7 +9,8 @@ hashCode and equals are required to be overrdden together ->                    
 order of execution of constructors in multi level inheritence is parent->child and in cpp where we destructors 2 the order of exec for ~constructors is reverse child->parent
 //write to file object by object since previously had data which was not generic 
 so if kept generic then casting will be needed so may be some output statement writing getRole() + employee name + into file 
-
+Furthermore we would be needing the code for reading from file and integrate that with comprable or comparator accordingly
+map.keySet() : entrySet() etc
 comparable alone sufficient or would we also be needing comparator ? 
 
 //todo super to be kept as the topmost statement within child constructor and destructor can be kept anywhere ? What was the other 
