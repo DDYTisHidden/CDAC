@@ -18,7 +18,15 @@ comparable alone sufficient or would we also be needing comparator ?
 //todo super to be kept as the topmost statement within child constructor and destructor can be kept anywhere ? What was the other 
 entity ? 
 
+//here onwards new stuff for lab exam 
+generic node class takes ____ in the constructor cause that is what is the type of data it holds :                        T
+of course the next and prev will be the type of the class 
 
+Stream aggregate funcs implement following respective Functional interfaces 
+filter : Predicate(test: T->Boolean)
+map : Function(apply: T,T)
+forEach : consumer(accept: T)
+reduce : supplier ?(get) 
 Prior: String Buffer vs Latter: String Builder
 1. P is older(java 1.0) while L was introduced @ 1.5
 2.Older is definitely slow but dependable since thread safe while L is fast not thread safe
