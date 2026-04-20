@@ -61,6 +61,11 @@ Asteroid Collision - Stack simulation
 Remove K Digits - Greedy + monotonic stack
 Largest Rectangle in Histogram - Classic monotonic stack
 
+_____HTML
+padding is ->                                                                                                                                                                       the space between the edge or the border and the content
+inner children of ul, ol and tr ->                                                                                                                          ul->li ol->li
+dl, dt or definition list or definition 
+_____
 Linked Lists
 
 Reverse Linked List II - Partial reversal
