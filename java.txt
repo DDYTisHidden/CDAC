@@ -68,6 +68,9 @@ Marking it finalyzed from then onwards and later gc calls will destroy the memor
 For an object to be eligible for gc it needs to loose its reference so that its original internal state existing some where in the auxiliary space is not reachable to the object anymore. Then System.gc() will be called for that object but right before destroying its dangling? Memory contents from the ram the finalyzed method will be called
 To give one last opportunity to the user in case you still want to work with thay object or not because internal state(via param or default constructor) still exists in the memory and therefore we can use object resurrection to reclaim the reference of the nullified object for using it again. BUT here comes the reason why 
 Finalyzed marked objects get deleated by Gc without any warning and if certain expensive resources were present as properties to that object then db connections, files then they may have already been released 
+____CPP
+data type provided by cpp and absent in C                                                                                                                                                                                                       bool is provided by cpp was absent in C
+_____
 _____HTML
 padding is ->                                                                                                                                                                       the space between the edge or the border and the content
 inner children of ul, ol and tr ->                                                                                                                          ul->li ol->li
