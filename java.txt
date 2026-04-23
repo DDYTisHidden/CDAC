@@ -61,6 +61,11 @@ Asteroid Collision - Stack simulation
 Remove K Digits - Greedy + monotonic stack
 Largest Rectangle in Histogram - Classic monotonic stack
 
+____TODO: Java topics
+Wild cards
+Overloading mcq
+Multi Threading 
+link  
 ____Garbage Collection
 Gc can consider an object multiple times but finalyze() can be called only once for that object
 Marking it finalyzed from then onwards and later gc calls will destroy the memory contents without any warning 
