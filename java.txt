@@ -66,6 +66,8 @@ Wild cards
 Overloading mcq
 Multi Threading 
 link  
+____TODO: logic bugs dsa
+graph implementation where we were supposed to initialize an empty array list for the nodes then type ->                                                                                                                                you added it instead of putting it in as its a map not a list
 ____Garbage Collection
 Gc can consider an object multiple times but finalyze() can be called only once for that object
 Marking it finalyzed from then onwards and later gc calls will destroy the memory contents without any warning 
