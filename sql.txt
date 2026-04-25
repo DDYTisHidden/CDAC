@@ -724,3 +724,13 @@ db.dbName.updateMany()'
 $gt(greater than) $lt(less than)
 db.anyE(uses dollar)
 ([{},{}])
+todo: a digital solution for each of these problem statements which will be a website built with react in the front end and spring boot backend? 
+3. defects of internshala, naukri which we can work upon
+4. Still worth choosing but need to know defects in existing solutions will have to know each and every edge case in situations when the doctor ends up taking longer than expected in treating a given patient, will have to 
+make changes in scheduling appointment calls for waiting patients
+User roles - doctor, receptionist, etc. 
+5. 
+plus how do we provide an alternative to the solution of making a phone call to the authorities which we should be knowing by the way
+a website instead of an android application cause everyone may not be knowing how to enter website name on the chrome browser n then 
+6. 
+expenses being made digitally will we be needing an integration between the upi app,(or may be some payment gateway ) n our website 
