@@ -1,0 +1,2534 @@
+DATA TYPES IN JAVASCRIPT 
+Primitive : Null , undefined , Booleans Numbers Strings   pass by value 
+Non Primitive : function, object , array  pass by reference
+
+Expressions are questions that JS can answer .
+console.log(2+'2')  				22 conversion  from int to string followed by concatenation  
+console.log(true+'2') 				true2  type casting of boolean ->string
+since " " is false rest all strings are true also Boolean(expression) would return either true or false  
+1 == ' 1 '                                                                                                                                                                                                                     TAutomatic type Conv
+0 == ' 0 ' 
+0 == false 
+1 == true 
+1 === true
+0 === false
+1 === ' 1 '
+0 === ' 0 '    
+No need to enclose strings value by " ";
+console.log(034334) 				34343   0 neglected therefore put within " "
+console.log(000712111+ "000")					234569000   converted to decimal + 000
+console.log(2 * '0') 				would convert '0' to 0
+console.log(0==false)				true 		converted false to 0
++ unary operator makes a given different data type value into an int + true == 1 also every string val is truthy therefore !strVal will return false 
+JS considers objs as strings under the hood and therefore it is possible to access the values possessed by the keys via indexing . But seems it does not support holding copies of OBJECTS
+as seen in case of variables ; instead it holds the exact same reference for the both the two objs which would point to the exact same mem location 
+let s= new Number(3); s' content   is an obj  not a number the way a=7 is as 7is number. ' . s===a will return false
+Which is also the reason why this is used for accessing the keys of obj from a funciton within the obj 
+																			          A
+JavaScript Definition 
+JS was invented in the late 1995 as a scripting language which could run on the browser 
+Single threaded i.e. a single call stack is present&. ' . only one task at a time can be executed 
+which works only within the JS Run-time that is to say we can work on this while working with the various WebApis provided from some browser(setTimeout(()=>{},5000)) 
+prototype based 
+weakly typed or dynamically typed: We are not required to provide the type of a js variable while declaring it(unlike TypeScript) JS is strong enough to infer its type at compile time
+Non blocking event loop 
+blocking : that is to say blocks the main thread  
+which as such works negatively in case of browsers since the web-page ceases to be operative since as long as the call-stack isn't vacant 
+Non Blocking : means we don't block the main thread(same as seen for concurrent rendering in react) while attempting to process some task different from the one the main thread is already busy with 
+TODO: career grok geek trust
+What determines that this section of the js code does not need to be dealt by the js engine's main thread since it is non-blocking.This non-blocking nature
+brings about the asynchronous behavior since IT IS THE JS ENGINE'S MAIN THREAD which doesn't get blocked on coming across a non-blocking task   
+Ans🔸Runtime's APIs(NodeJs APIs otherwise browser APIs) which are inherently async anyway 
+Stack of tasks : Call Stack 
+  event loop does these two operations 
+    FIXME: Just wanted to mention that if we want the async function to be operated then and there then we would have used await
+    offloads the async operations from the js file off of the main thread to the run-time's thread pool to execute them 
+    at the time the thread pool is done executing those asynchronous tasks it is sent to the callback queue where it would wait until the call stack 
+    gets empty which when happens we see the event loop fetching it from there and pushing it into the call stack 
+    This callback is present inside of a js function which can be executed by the js engine alone i.e. the single thread provided by the js engine 
+Queue of callbacks  : callback queue. callback is js code and needs js engine to execute since it provides the js thread or the main thread 
+Call Stack: DS for keeping track of the information affirming where the control's at / compiler's at  
+the someJS.js file itself is the main() which enters the call stack at the first place 
+Queue of callBacks : 
+  since those special js ()s operate with callBacks once the Libuv's thread pool is done executing them these callbacks enter this queue
+  (waiting for the event loop to put them back to the call stack once its empty)
+  the call stack is dealt by the main thread or the single js thread provided by the js engine
+  when they are done with their execution by the libuv's thread pool 
+https://github.com/PachikaT/Website-Responsive-CICD-nginx
+Run Time = {
+    ⭐ Libuv {
+      🔴event loop 
+      🔴Thread Pool 
+      🔴 async I/O operations 
+      🔴 Web/NodeJs APIs
+    }
+    ⭐ callback queue{
+
+        🔴Macro task Queue(timer queue, I/O)
+        🔴Micro task Queue(promise jobs, queueMicrotask)
+        🔴Animation Frames Queue(browsers)
+    }  
+    ⭐ heap for memory allocation 
+    ⭐ console for console.log(😦)
+js engine 
+EventLoop does this task of monitoring both task Queue and the call stack and in case if the latter is empty then the task is shifted from the stack by the eventLoop , this way we can execute asynchronous programming 
+since function's wouldn't exist on the call stack at the same time  
+https://www.youtube.com/watch?v=8aGhZQkoFbQ&t=2s
+Garbage collected : Memory allocated in the RAM to objects, var , functions etc is released of its data-memebers/content once the read/write processes are finished as the programme terminates 
+High level language therefore one can perform memory allocation and memory release(termination) happens automatically 2 . There is a process of collecting this useless data/Garbage
+performed via routines called garbage collectors AUTOMATIC MEMORY MANAGEMENT This garabage collection considers references and whenever it comes across an entity 
+that is unreachable(since reachability is defined via references), it releases it . For ex-updating a var value will release the memory assigned to the previous value since the var does not
+have any reference to the previous value Modern Browsers operate on Mark&Sweep algo which marks values which have defined references while the ones which are now pointing 
+to null or do not have any references will remain marked , upon coming across an un-marked value the algo cleans/frees/sweeps the memory for such unreachable entities .
+interpreted or JUST IN TIME i.e. modern browsers convert high level code to machine level language in parallel and is Immediately executed  
+
+
+
+DEVELOPERS SECTION
+
+Js is used in grabbing elements from the  DOMs in var btn = document.querrySelector('button')' var is the Original Flavour (OG) let can be reassigned and const read only 
+or $('button') 
+$$('button') all buttons 
+$0 for selecting the current element 
+The eye icon will show the changes made to a given element in the DOM when u toogle the corresponding web-page 
+lets assign an event listener to btn by assigning it to an arrow function
+btn.onClick = () => {alert("You clicked me")}
+These functions are first class objects which support functional programming patterns however we get to find classes&inheritance too in js for OOPs
+ 
+const wait=new Promise((resolve,rejct)=>{
+setTimeout(()=>{
+  resolve('thank u 4 waiting ');
+},1000);
+});wait,then(doSomething).catch(handleErr) 
+
+It is a lightweight,cross-platform&interpreted languageA scripting language that is interpreted on the browser Firfox->spider monkey Chrome->V8 JS Engine Edge->CHakra. 
+BrendanEch serving as an engineer@Netscapein 1995.Case-sensitive weekly typed(no data declaration)Webroswer netescape navigator vs internet explorer.NetNavi invented a scriptin
+When NetNavi collaborated with sun-Microsystems(Java). ' . the name JavaScript 
+
+
+if a , b , c are the formal parameters which make a parameterized function operative then the assigned int , float , char , string ,bool values are called the actual parameters. 									           
+Anything that is meaningful to the machine is referred to data. The entity used to refer to this data is called variable . preceded by keyword .computers use var to store and 
+manipulate data . 
+If we do not initialize a var then its initial value will be undefined . Math operations on such number would return NotaNumber error while Strings return undefined When you 
+do not want to make changes to ur var then use let instead of var ; 
+When kept as var inside or outside a function we set that v as global variable which can be altered as and when required
+let variables in for loops can't be let defined if u are willing to use it up in the body then in that case var would be a better approach . 
+const : read only variable however should be initialized at the time of declaration itself . let v= 1 ; v=2; allowed 
+function func() : the way u are req to write var/let/const before v be it   
+NEW below 
+String interpolation refers to the advance programming language feature which allows us to introduce vars,func() and even expressions inside our strings IN THE FORM 
+OF TEMPLATE LTERALS expressed within backticks
+means one line at a time ' ' or " " ${" "}  vs concatenation   string template can be used only with back ticks  `     vars ${ a +b} ,function ${func()} expres${a%2==0 ? even:odd}`}  
+NEW to create strings by doing substitution of placeholders
+str1.concat(str2);  doesn't work with numbers of course 
+
+const var=new String() ; will have type instance object not the type Object   
+only var can hoist i.e. memory would b created when the var would be declared will not throw error then function can be hoisted too const and let will throw error
+WOULD SIT ON TOP OF THE SCOPE/WINDOW 
+However if a function that contains var v that HASN'T been called yet then v will still have function/block scope not global
+if(true) { printfunc(message); var message; } no error however if it would have been let / const then error
+                                                                      OBJECTS   
+objects can be defined as key value pairs in cases where a lot of values are required to be mapped to lot of other different PROPERTIES like 1 , 2 , 3.  such as let/const obj={
+    1 : "City" ,
+    2 : "Country" ,
+    3 : "Continent" ,       objects are collections of attributes  .  However there's compulsion to have strings in keys at all times  
+};However array on the other hand refers to collections of data of the same type
+These can also be passed to an array as ar = [ { 1 : "City", 2 : "Country"} , { 3 : "Continent}, names = {0:"History"}]   ar[2] . names[0] should return History
+let userActivity = {//      also Object.values(userActivity) would return rightmost data whereas Object.keys(userActivity)
+  id: 23894201352, //
+  date: 'January 1, 2017',
+  data: {
+    totalUsers: 51 ,
+    online: 42  // String as well as Object above (Map , Sets .)
+  }       Also let {id , date,data} =userActivity; will cut the need let id=userActivity.id Destructuring unpackaging dereferencing yes name should be the same 
+};          here in order to change online from 42 to 45 it would be userActivity.data.online = 45;
+We can check for such obj's properties by obj.hasOwnProperty(keys) true otherwise false . 
+We can't alter a string's individual components instead however they can be accessed via indexing where size would be str.length  others include .endsWith(char)
+lastindexof() when two same words are present in the same sentence otherwise   indexof() would do
+substring(startPos , endPos)            substr(index,lengthAlways) 
+However when we are willing to point to the end of a string we can use "$"(Likewise ^ 4 the start) in order to avoid the casing "i" is used and since we are trying to look for a pattern
+therefore we will use the RegEx construtor --> let res=new RegEx(target +"$","i") ; then we test this target string pattern against the given string value by res.test(str);                                                                                                                                                                                                                                                          A
+Truncating a string if str>num str.split(required_index,num) : str; 
+                                    S                             T                         R                       I                                     NG 
+str.substring(IncInd,ExcInd) or str.substr() DOES NOT alters the original string  works the same however substr seems to be deprecated and is browser compatible 
+str.slice(IncIndex,ExcInd) does not affect the original str and this is what we have in arrays place of substring 
+str.split("")   // creates a new array of substrings from str where DELUMINATOR is blank 
+str.split(" ").reverse().join() // therefore we can convert str into an array  
+str.trim() removes extra space for middle space str.split(" ").join(" ")
+str.lastIndexof()        str.indexOf()                                                                      
+str.charCodeAt(ind) //returns the ASCII value of ele at ind
+.concat works for both arrays as well and it will not affect the original string . 
+Join will join the joining value to each and every element of the string on which join is being performed 
+                                                                          NUmbers
+
+65 90 A-Z       
+97 to 123 
+      48                          
+Math.max(a,b) / min
+also Math.max(null,arr) || Math.max(...arr) should work 
+Math.random()   returns no. between 0 inclusive and 1 exclusive 
+Math.floor(ele) 
+  return Math.floor(Math.random()*10)  for numbers between 0 and 9 . Similarly for eleS b/t 10 and 19 replace 10 by 20
+  return Math.floor((Math.random()*(myMax-myMin+1))+myMin);  equal to min or greater than min otherwise equal to max or smaller than max
+
+Math.ceil(ele)
+
+parseInt(NonIntValue)
+
+parseFloat(NonFloatValue)                                                            
+                                    A                           R                         R                       A                                   Y     & 
+NEW NEW
+ARRAYS ARE SPECIAL TYPE OF OBJECTS .
+later remember that filter takes in a callback but its special you don' need to mention the condition within an if block just return ele.popluation > 3M & it works fine ! 
+var arr=new Array(empty arr created)  / (6) arr of length 6 / (4,"new",8.7) elements) 
+var ar2=[].concat(arr) || ar1.concat(ar2)    
+arr.push(ele)//end 
+But while copying array elements from 2 to 1 as a correct copy of 1 use arr2=[...arr1] insread of arr2.push(...arr1)
+arr.unshift(ele) //adds to  front 
+arr.pop()//removed from end 
+arr.shift()//removed from 1st 
+arr.slice() //split's alternative for arrays should be used with spread index ; returns all element from start to end  
+temp.push(...arr.slice(3)//from 3rd index into temp while temp.push(...arr.slice(3,5exc)) from 3 to 4 index into 
+temp.push(...arr.slice(-2)) // from 2nd last to lenght-1 inclusive however -ve coordinate can be placed only at the to's position not from posi
+myFish.splice(0,2,'parrot','anemone','blue') 
+arr.splice(IncInd,ExcInd) // removes element between the inclusive indices and returns them as a new array . 
+One can also insert elements in place of the removed elements  
+Date() constructor can be used for having todays' as well as custom dates . However it goes as yyy - mm - dd where months go from 0(Jan) to 11(Dec)
+. ' . one will have to reduce 1 from the given month of the corresponding date 
+also let todays=new Date() returns todays date . 
+u can use Date.now() too however it ins't readable 
+Also there are various methods u can use such as
+date.getFullYear()//  CORRECT WAY TO GET THE YEAR OTHERWISE WILL RETURN YEAR IN THREE DIGITS 
+
+.getFullYear()
+date.getMonth()//REMEMBER -1 
+date.getDay()
+.getDate()
+.toLocalDateString("en-IN",{string})
+.toLocal
+.getHours()
+.getMinutes()
+.getSeconds()
+num=[1,2,3,4,5,6,7]
+var mapNum=num.map(function(ele,index){
+return  ele*2;// always requires the return statement and 'alters the orginal array and creates a new array 
+})
+var newNum=num.forEach(function(ele,index){
+ num[ind]=ele*2;//  DOESN'T alter the orginal array 
+}) 
+var newVar=num.forEach((val,ind,array)=>{//forEach takes VIA i.e. value index and array as parameters and calls this callBack function for performing some operation  
+// ON EACH ELEMENT
+console.log(val,ind,array)                                                                              //Return type of forEach is always undefined PROVIDED THE CALLBACK() DOESN'T RETURN THE ARRAY 
+;         //Since undefined RType SO U'LL HAVE TO CREATE AN EMPTY ARRAY FIRST IN ORDER TO STORE ELEMENTS THEN newArray.push(oldArray.forEach((ele,ind)=>{xyz}))
+//Opposite of what is scene in case of .map()
+; //Or may be oldArray.forEach(funciton(val){newArray.push(val*3)});where previous line will be let newAray = [];
+;                                         //no matter what the name is kept someArray arr or array the third parameter will always be the array ON WHICH THE forEach/MAP FUNCTION IS BEING CALLED 
+val+ind;                                                                                                                                                    //pay attention NO RETURN STATEMENT ignore someArr in this case 
+}  
+
+
+??      replace()         ??          
+// SCROLL DOWN  FOR FILTER AND REDUCE 
+
+const newAr=num.filter((val)=>{
+ return val %2 == 0 // for num values which are true for the metioned condition will be assigned to the newAr 
+})
+const odd=num.filter(function(ele){return ele%2==1;}) returns a new array without mutating the original array 
+its a callback function right there
+Goes to every element collects some information and returns the collective information 
+const total=num.reduce(function(accumulator,current){
+  return accumulator + current;// acc= 6,curr=1     acc=8 curr=2  , acc=11 curr=3
+}))
+
+let newVal = num.reduce((val)=>{//reduces an array to a single value 
+  return val*2;
+})
+however when u are required to gain new values 
+arr.includes(ele)
+arr.lastIndexof(ele)   indexof(ele) 
+arr.reverse()
+arr.splice(fromInd,DelCount,inset1,inset2,insert3...)
+arr.slice(IncInd,ExlInd) 4 strings too however no affect on the original script 
+let arr=[1,3,44,22,33,66,77,88]
+let res=arr.filter(ele=>{if(ele<50){return flase}else{return true;})  returns only those values which satisfy the filter condition 
+
+let arr = [10, 200, 49, 46545, 23]         
+let res = arr.filter(ele=>{
+  if(ele>50)
+    return ele;
+})
+ arr.sort(function(a,b){//insertion sort and quick sort utilizing Destructuring [arr[i],arr[i+1]]=arr[i+1],arr[i]
+    return b-1;
+    });     whereas for an array contianing chars 
+   arr.sort((a,b) => a===b? 0 : a>b ? 1:-1)           With arrow functions the this keyword will look for obj inside the arrow function which is the current surrounding scope 
+   not outside it the way we observe in case of traditional func()
+
+for(let i= 0 ; i < arr.length ;i ++) console.log(arr[i])   OR for (i in arr) console.log(arr[i]) however you cannot make changes to the initalization nor to ++
+And if you are not willing to perfrom indexing either then we can use for (i of arr) console.log(i) useful 4 objects// now no arr[i] required 
+For .sort(funct(curr,next){return curr-next}) sort(incldues quick sort and insertion sort) However for string it will require a second reference array with which we could such that 
+storing from Jan to Dec in a seperate array followed by using it for the given unsortedMonths as unsortedMonth.sort(function(curr,next))                                    
+parseInt(NonInt)      
+for (c of ars)//problem u can't access the iterator as seen incase of pigLatin problem where we would be req to access the index of the string's char wherever it is a vowel 
+{//which is seen as str.substring(vowIn   (No ending index req)) +consoCl + "ay";  this is the string manipulation required 
+//for truncat str.substring(index,str.length) otherwise str.substring(idnex, endIndex) whereas in case of str.substr(ind,always length) can 
+//contain -1 too? Also str.indexOf(vow(i))
+arr.reverse();  //not for string cause strings have str.split(' ') which would return the string char within ' ' seperated by , then .join would converge the output str.split('alpha'/"  ").reverse().join()
+
+arr.push(slice(startInc,endExc)) 
+  
+   similarly str.replaceAll(previous,after )  
+ 
+   str.substr(strt,InclusiveEndIndex) will work only on strings but will not affect the original string 
+
+
+DESTRUCTURING
+
+Destructuring would acess and store elements of an array into some third var of some other aray 
+var arr=[1,2,3,4,5,6,7,8,9]
+let [first,second] = arr;// however if we only want then let [,second]=arr would return only second will be returned  
+also let [first,second , , ,fifth]= arr; here console.log(fifth)  returns 5;
+NEW  + SWAP 
+one can perform destructuring on f() like this => let s = (a,b) => {return [(a+b),a*b,(a-b)]} second line would be let [add,   ,substract] = s();// second array element not destructured
+you can avoid even naming an object in case u are willing to destructure it 
+let {name,age,gender} = {name:"Yogesh" , age:22 , gender: "Male"}//however care has to be taken that elements in the [] are required to be of the exact same name as obj-properties but the no.of em can 
+be less in comparison to prop ;
+let 
+let a=2,b=4;
+[a,b]=[b,a]//swapped no third element 
+                                REST PARAMTER
+arr1=[1,2,3]
+arr2=[4,5,6] CL(arr1,...arr2)     [1,2,3],4,5,6  
+
+func(param1,param2,param3)
+{
+  cosole.log(argument[1])
+}
+and let[first,second , ...third] = arr will store all the remaining element of arr after 2 in the third var as an array 
+one can also change the values of two vars only within functions which accept these two vars 
+  
+However for an obj that isn't defined use || operator along with a defualt value to check if the obj is undefined or not
+const obj = undefined     // can be an undefined variable too 
+const {val = "Legos"} = obj || {} 
+var set=new MySet([1,1,2,3,4,5])  console.log(set) would return distinct values AS AN OBJECT { }   
+If there exists an obj(with keys)in the global scope then creating a lambda function can use its keys directly without accessing it via indexing 
+const obj = {max:7,min:2,address:"#466"}
+let v = ({max,min}) => (max+min)/2;     // not even {max,min} = stats is required straight away max , min came into handy . 
+.
+*
+^ start of the string
+$ end of the string 
+\d digits
+\w char that contains a2z A2Z 0to9
+\s space and tabs
+\S non space  
+\g global occurrence not for a mono-occurrence
+\t tab
+\b start or end
+\D non digit or special i.e. not zero to nine * valid non digit 
+\W non AlphaNumeric character ||   Special characters
+Modifiers 
+i 
+g globally not just at the specified index  
+m
+S T R I N G S  & R E G E X
+
+var/string.charCodeAt(index)
+str.replace(/\W+|_/g  , "") does not affect the original string therefore assign it to str=str.replace(/\W+|_/g,"")
+/\W+/ + is for multiple occurrences of \W UpperCase when -tive Lower for +tive
+var digitRegex= /^ something silly /modifier     / these are the boundary of our regex and in palce of modifier comes /g or /mg
+console.log(digitRegex.test('something')) would pring true cause of ^ otherwise would have printed false 
+var diR=/something/  //this is the regex
+console.log(diR.test('something silly') returns boolean value would print true 
+for testing emails 
+var reg=/^\S+@\S+\.\S+$/ ;      \S for non space(\s for space)and \S+@ no space as well as no @      var emailRegEx=/^\S+@\S+\.\S+$/;
+
+
+ERROR HANDELING 
+
+when u keep a standAlone throw statement along with the error specified none of the code below the throw stm executes . throw true ; 
+however when the exact same throw stm is kept inside a try-catch block we C that the below code runs along with the catch and finally block of code//if else statement with condition 
+specified  
+try{//block of code 2 b tested for errors 
+//we can have return statement right below the throw/error or customViaA()inside the try block since we might wanna continue the effective execution of the programme in case we do not come across an error 
+;//it can be an obj whose inner-attributes can b accessed via the dot-sperator in the catch-BODY 
+throw new Error();//parent of all error types
+console.log("someText")
+} catch(err){//here err is the error which the throw-S 
+console.error('Caught',err)
+}finally{
+console.log('Will run anyway')
+}
+
+//NEW BELOW 
+built in  property used for counting the number of characters in a JS obj               obj.length
+
+OBJECTS are those variables which possess values/atributes called properties. These properties may be function definitions which are referred to as methods in this case 
+WHEN I SAY VARIABLES MEANS THESE OBJECTS WILL STILL HAVE obj = {  }
+
+let height = 511;
+let weight = 48 ;
+let body={
+  height,// do not need initialization since it has been done above 
+  weight//ALSO the same property will be mutauted over multiple times then instead of the ES5 error , we will recieve the latest value assigned as long as the ES6 version of JS is supported 
+}Similarly COMPONENTS can be used for complex keys by means of [] 
+
+OBJECT CLASS
+
+obj.values(obj)//
+obj.keys(obj)//
+obj.entries(obj)//above + both however console.log() might be requried as well
+however when u are willing to access the keys of a function which in turn is a property of  an obj
+Object.keys(address.keys(obj))
+OR U CAN USE SPREAD OPERATOR 
+let newObj = {...oldObj}; then override the inherited functions 
+Object.assign({},ParentObj,DupliObj1 ," "2," "3 ....... n )//helps in creating duplicates WITHOUT MUTATING THE original parent . almost like inheritance where the parent will not be able to access properties of the child
+while child on the otherHand will have every single property/attribute of the parent , Also overriding these inherited properties will not affect the paren't properties whose opposite case is what that was
+observed when the reference of the parent obj was stored in some other obj where obj.ParentProperty mutuated the original parentProperty 
+ALSO U CAN USE IT TO ASSIGN VALUES TO THE OBJECT 2
+PLUS 
+{source} in obj2.assign({obj2Key:"obj2Val},obj1)//creates a copy shallow copy at the 1st level  of depth . This is called SHADOW CLONING 
+let obj={//THAT is copying happens only until the first level WHICH IS JUST WHAT WE OBSERVE IN CASE OF DESTRUCTURING 
+  firstName:"Yogesh",
+  lastName:"Dharya",
+  address:{//uptil address this is obj in the heap memory which is one level deeper  
+    state:"MP",
+    city:"Jabalpur"//this is some other object obj1 in the heap memory to which address points  
+  }//. ' . let newObj=Object.assign({},obj AND THEN  newObj.address.city=London ; will mutate the original obj 
+}
+also const student2={...student,
+address:{...student.address},
+interests:[...student.interests],
+marks:[...student.marks]
+}
+student2.firstName="Aditya"
+student2.address.city = "Chennai"
+student2.marks=[23,22,21];//will 
+such as 
+SOLUTION 
+const student3=JSON.parse(JSON.stringify(student))//JSON.stringify() vs .toString() doesn't work on arrays 
+JSON.parse(stringFromJSONStringify) // converts string back into JSON object 
+JSON helps in transporting data easily since we can transform complex object with nested properties into string for performing manipulations/mutations
+and later using the mutated string for converting it back to a JSON object by the JSON.parse("someStringifyStr") method.
+always make copies of array/object using the spread obj 
+let parent = {
+  name:"Ancestor",
+  age:32
+}
+let newObj=Object.assign({},parent,{[componentUsageKey] :  "LeftIsKey/Property/attribute While RightThis is the value"});
+
+NEW THEORY BELOW 
+JSON marshaling and unmarshaling are processes used in computer programming to convert data between the JSON (JavaScript Object Notation) format and a programming language's data structures.
+JSON Marshaling:
+JSON marshaling, also known as serialization or encoding, is the process of converting a data structure or object in a programming language into a JSON-formatted string. This is typically done when you want to send or store data in a format that can be easily transmitted over the internet or saved in a file. The JSON format is text-based and human-readable, making it widely used for data interchange.
+During JSON marshaling, the data in the programming language's data structure is transformed into a corresponding JSON representation. For example, in most programming languages, a dictionary or map might be converted into a JSON object, while an array or list might be transformed into a JSON array.
+
+JSON Unmarshaling:
+JSON unmarshaling, also known as deserialization or decoding, is the reverse process of JSON marshaling. It involves converting a JSON-formatted string back into a data structure or object in the programming language. This is commonly used when receiving JSON data from an external source, such as a web API, and you need to work with that data in your application.
+During JSON unmarshaling, the JSON-formatted string is parsed, and its data is used to reconstruct the original data structure in the programming language.
+
+JSON marshaling and unmarshaling are processes used in computer programming to convert data between the JSON (JavaScript Object Notation) format and a programming language's data structures.
+
+JSON Marshaling:
+JSON marshaling, also known as serialization or encoding, is the process of converting a data structure or object in a programming language into a JSON-formatted string. This is typically done when you want to send or store data in a format that can be easily transmitted over the internet or saved in a file. The JSON format is text-based and human-readable, making it widely used for data interchange.
+During JSON marshaling, the data in the programming language's data structure is transformed into a corresponding JSON representation. For example, in most programming languages, a dictionary or map might be converted into a JSON object, while an array or list might be transformed into a JSON array.
+
+JSON Unmarshaling:
+JSON unmarshaling, also known as deserialization or decoding, is the reverse process of JSON marshaling. It involves converting a JSON-formatted string back into a data structure or object in the programming language. This is commonly used when receiving JSON data from an external source, such as a web API, and you need to work with that data in your application.
+During JSON unmarshaling, the JSON-formatted string is parsed, and its data is used to reconstruct the original data structure in the programming language.
+
+Many programming languages provide built-in functions or libraries for JSON marshaling and unmarshaling, making it straightforward to work with JSON data in a seamless manner. For example, in Python, you can use the json module to perform JSON serialization and deserialization. In JavaScript, you can use JSON.stringify() for marshaling and JSON.parse() for unmarshaling. Similarly, most modern programming languages have similar capabilities for working with JSON data.
+INHERITANCE 
+class inheritance is a way for one class to extend the properties of some other class 
+is that concept of OOP which helps in estabilishing a relationship between two or more classes such that some class comes into existence after RE-USING the properties/Data-memebers&member-methods of
+some previously existing class . The child class(es) even have the ability to make changes to the data it inherits from the  
+IMPORTANT STUFF IS THAT WHILE PERFORMING INHERITANCE  IF THE CHILD(REN) DOESN'T HAVE ITS OWN CONSTRUCTOR IN THAT CASE the PARENT CONSTRUCTOR 
+HAS TO BE INVOKED ESSENTIALLY 
+and in CASE IF THE CHILD HAD A CONSTRUCTOR THAN THE FIRST COMMAND WITHIN THE CONSTRUCTOR SHOULD BE SUPER(ALL REQ PARAMS)   
+Almost like me 
+Ex- Amazon prime account can be the parent of the non-prime accounts 
+Ex- Some car's Top variant can be the parent of the same car's base model 
+Ex - M an offspring 
+IMPERATIVE (ALMOST SPOON FEEDING which might would need more documentation )
+instead abstracting teh process and return what needed result is DECLARATIVE ( of ES6) 
+OOP stands for a paradigm which is imperative whereas for JS by design  is a prototype-based language instead of java and C++ which are classBased although JS had classes after ES6  
+keys can be a string vaue however when kept within " " then sqaure brackets should be used instead of dot seperator
+u can also use components for even more user-defined properties for the corresponding objects 
+NEW 
+u can also use the use the REST parameter for creating a class :-
+let objectFactory = class ObjectGenerator{//this way u can have a class with camelCasing while it can still be instantiated . 
+  constructor(height,width){
+    this.hyt = height ;
+    this.widt = width;
+  }
+  printIt(){
+    console.log(`The object's height is ${this.hyt} , whereas the width is ${this.widt} .`);
+  }
+}
+after creating an obj u can use its name as the constructor for creating multiple objects of the exact SAME TYPE or OBJ_NAME TYPE like car type 
+const car = {wheels:"alloy" , num : 4 , color : "red"} const factory = function car(wheels , num , color){this.wheels=wheels;this.num=num;color}
+above is an s an object constructor, which takes parameters and assigns them to the object properties. 
+Once u have "        " u can use const honda = new car("alloy",4,"crimson") 
+
+OBJECTS THIS NEW//ABOVE& BELOW  
+the NEW keyword creates an empty project in the memory and starts pointing to that 
+THIS by default points to the CURRENT GLOBAL OBJECT  and  once the operations being performed on the recently created object is over ; this begins to point-back to the WINDOW-OBJECT 
+SINCE OBJECTS EXIST IN THE STACK MEMORY THIS POINTS TO THIS NEWLY CREATED OBJECTS AND EXISTS IN THE STACK MEMEORY ITSELF ? 
+THEN THIS NEW OBJECT(EXISTING IN THE STACK MEMORY) CAN BE USED AS A REFERENCE  TO THESE VALUES/PROPERTIES(IN THE HEAP MEMORY)   WHICH JUST GOT 
+CREATED FROM THIS KEYWORD . ALSO WE CAN USE this keyword inside functions other than constructors WHICH MEANS U CAN HAVE FUNCTIONS WITH CAMEL CASING 
+lets say some newly created object . the this keyword can be found withiin the constructor HOWEVER WE CAN USE THIS WITHIN FUNCTIONS 2 NOT JUST 
+WITHIN CONSTRUCTOR HOWEVER
+function Bird(name){this.fullName=name;
+  //curly braces left open on purpose THIS is a constructor just like some other function , however , we are willing to the constructor Bird to have methods as objects then u'll have to use the this.keyword which will point to the object created from this constructor
+this.doesItFly=()=>{return `Yes ! ${this.fullName} can fly`;}} 
+constructor's purpose to create objects 
+function's purpose to achieve some specific functionality 
+WHILE USING THE THIS KEYWORD REMEMBER THE LEFT IS THE KEY WHILE THE RIGHT IS THE VALUE WHICH CORRESPONDS TO THE VALUE PASSED INTO THE CONSTRUCTOR 
+BUT BUT BUT IF U ARE WILLING TO USE THE PARAMETER OF THE CONSTRUCTOR IN SOME OTHER METHOD OF THE CLASS THAN USE THE LEFT SECTION WHICH IS this.diffName=Name; i.e. THIS.
+WHICH IS THE CONSTRUCTOR'S PROPERTY WHICH WILL BE UNIQUE FOR EVERY OBJECT(ABSTRACTION?) UPON INSTANTIATION  
+new keyword affirms JS that a new EMPTY OBJECT WAS CREATED therefore when an obj is created WITHOUT NEW KEYWORD then the THIS KEYWORD WILL OBJECT TO THE GLOBAL OBJECT 
+WHICH IS THE WINDOW OBJECT 
+NOTE  --      USE THIS outside arrowfunctions since they are callBack functions by themselves 
+function Circle(r,l){
+  this.radius=r;
+  this.location={
+    x : l . x,
+    y: l . y
+  }
+  this.draw = ()=>{
+    console.log(this.location)
+  }
+  this.move=(nextX,nextY)=>{
+      this.location.x=nextX,
+      this.location.y:nextY
+    }
+  }
+}
+.repeat(nOfTimes)//works with strings and repeats it
+.find()// 
+JS THEORY MATERIAL 
+17th Jan 2023 13:21 Bogomolove No option study lofi 
+BLOG??  codeSand Box link ?? viewrs can hit windows+arrow and can practise alongside ?? 
+curl cmds are used 4 sending requests to a target server , this request can be (upperCase)get , post,put update delete anything 
+by defualt GET 
+curl -i https://www.google.com //gets u detialed information along with the response such as response header contentType length etc 4 the get request 
+-i stands for --include
+-d short from of --data 
+-H symbolizez Header where we affirm the type of the header such as 
+curl -X POST -d "{"name":"Me","newKeyProp":"someString"}" -H "Content-Type:application/json" http://localhost:8081/
+-v stands for verbose which means print everything 
+-k --SSL means purposely establishing an insecure SSL connection while transfering data 
+whereas -I would include only the http response headers 
+curl -o "google" https://www.google.com // -o signifies to collect the output generated from the mentioned URL and save it within google
+curl -o "fileName.txt" https://www.google.com \
+      -o "file2.txt" https://www.yahoo.com 
+-X instead of --request 
+curl --request POST --data "object?" https://www.google.com
+
+curl --request POST --data "fieldName:FieldValue?" http://15.206.53.0:8082/api/v1 
+Having web-storage?session storage helps in keeping the website smooth since it wouldn't have to make api calls to the database for fetching the
+data which is as it is stored in the localS/cache/cookies
+Overloading not supported since JS IS A DYNAMICALLY TYPED(Coercion) LANGUAGE   
+u know what super() does 
+ALSO if the child class wouldn't have a constructor of its own than the paren't constructor is invoked called CONSTRUCTOR OVERRIDING 
+super.methodname()
+
+Gen Functions || Generators 
+
+someIterator.next() ; upon calling gives 
+{value : "something" , done : trueOrFalse }//false symbolizez further iteration 
+//the same someIterator.next() with the next() methodWill be executed until the boolean done property is true   
+
+generators are nothing but iterators=>which in turn means they have next methods and return objects with 2 properties such namely value and done 
+the 
+function* genName(){//should work the same as *()=> 
+  yield "hello World"; //the return statement which inserts the value to the key "value" within the object returned by this iterator upon calling it from the next method like this
+}
+let genObj = genName();
+genObj.next();
+
+JavaScript Object Prototype Theory for Qart,VStore 
+A fundamental concept in OOProgramming in JS is that objects inherit properties n methods from their prototype objects.Each obj has a has a prototype obj (except for the base obj 
+i.e. Object.prototype).The proto obj contains props n methods that the original object could inheirt.This is called the prototype chain  
+Propery Look up : When we try to access an obj property , JS first check if it exists directly within the obj, then goes up to the parent which is the object's prototype and continues to go up the 
+heirarchy until base Object.prototype when either the property is found or not found 
+Object.prototype
+
+Object.prototype is the root of the prototype chain in JavaScript.
+It's the prototype for all objects (except for itself).
+It contains built-in methods like hasOwnProperty, toString, and valueOf.
+You can add custom properties and methods to Object.prototype, but it's generally discouraged as it can affect all objects in your code.
+
+PROJECT N JS THEORY ABOVE 
+
+
+
+Higher-Order Functions (they return functions )
+Avoid loops 
+const the brackets
+void z
+
+ABSTRACT SYNTEX TREE
+(I) MEMEORY CREATION 
+AT The inital stage initalizez variables with undefined which goes into the STACK MEMORY 
+THE OBJECT IS STORED IN THE HEAP MEMORY whose(OBJ) reference is stored in the stack memory  
+(ii)
+TEMPORAL DEAD ZONE the period of time from the moment of memory-creation  of a given JS entity to the moment when the actual value is 
+  assigned to the var/entiyrequired  
+Solution .BIND()    in terms of the context of a callBack() call()      apply()  
+
+.bind(object) as seen in the SlideDeck of session7 of FE3 ALSO NAMASTEY JS CAN BE USED FO RNOTES
+
+JS 
+
+we get to find these kind of objects (All objects are called nodes in DOM which include document , documentType , content , text )
+how to include external JS in ur html <script src="../dynamic/index.js"></script>  
+DocumentObjectModel (LANGUAGE ANOSTIC )which comes into picture when a request is made to a web-site's server which responses back by rendering the site's HTML document..
+
+type window.document.body 
+it helps in building documents 
+navigate through thier structure while adding , deleting and modifying elements/contents
+Following are the DOM APIs          the Mahine's Browser(with Js engine(still language agnostic))-> converts the HTML sent from the server into DOM. Followed by this DOM being manipualted by some high-language 
+like JS(whose engine is required to be possessed by the browser) so that via DOM APIs it becomes possible for the language to manipulate the DOM . In short what we see on the browser on loading a web-site's landing page 
+is not coming from just the server's  HTML  but also the DOM  
+what a JS\or any other language  engine do are : -
+document.getElementsByTagName/Class()[index4HTMLCOLLECTION].textcontent/innerHTML="<val>" return is a COLLECTION OF HTML of some 
+ALSO 
+document.getElementsByClassName('')
+innerHTML HELPS IN ALTERING THE HTML CONTENT OF A GIVEN ELEMENT 
+.innerText will return the textContent U C the difference LATER .split('\n') can be used 
+innerText was non-standard while textContent was standardized 
+returns the visibe text whereas content returns the full text  
+let h1Elements = document.getElementsByTagName("h1");
+let firstH1=h1Elements[0];
+console.log(firstH1.innerText)
+try to look for .insertBefore()
+
+
+The document.createElement() method can be used for creating a new element node
+let para=document.createElement("p") para.innerText=""   document . body ||getElementById("").appendChild()  
+const parent =document.createElement("div") parent.innerText="Parent" const child=document.createElement("p") child.innerText="child"
+
+var.body.addEventListener
+
+form.elements || instead of getElementById()
+
+ALSO ONE CAN ADD CSS ATTRIBUTES TO AN ELEMENT VIA functions  .setAttribute("propertey","value");
+const  table=document.createElement("table")
+table.setAttribute("border","solid")
+table.setAttribute("width","95px")
+parent.append(child)//here in this case we get to have child as a NODE OBJECT||DOM STRING || TEXT THEREFORE we could have directly appended
+parent.append("Some random string ") this is a DOM STRING  being appended to the parent   WHICH IS NOT POSSIBLE IN CASE OF .appendChild() since it can NODE OBJECTS only 
+therefore one will have to keep this text inside the innerText of some freshly created DOM OBJECT  
+The () or appendChild() methods on an element node can be used to add a new child element to it
+// BELOW NEW 
+  
+class Util{
+constructor(data){
+    this.data=data;
+  sumSalaries = function(){
+        let sal =Object.values(this.data);
+        let sum = sal.reduce( (ans , num) => ans+num);
+        return sum;
+  }
+    .averageSalaries = function(){
+        let total=Object.keys(this.data).length;
+        let sum = this.sumSalaries();
+        return Math.round(sum/total);
+    }
+    findSalaryRange(){
+      const salary = Object.values(this.data);
+      return Math.max(...salary) - Math.min(...salary)
+    }
+}
+}
+  const employeeData = {
+  John: 100,
+  Pete: 300,
+  Mary: 250,
+};
+
+console.log(new Util(employeeData).averageSalaries());
+const circle1=new Circle(1,2)  
+console.log(circle1);
+DOM REPRESENTS DOCUMENT AS A TREE. it is a tree  LIKE COLLECTION OF NODE OBJECTS .where html elements become the interrelated node objects. Nodes on the same tree level are called
+Sibling 
+append() - appends given element node or text as the children of respective html tags
+appendChild() - appends given element nodes as the children of respective html tags
+HTML COLLECTION includes .length 
+HOWEVER document.getElementById() will return a single element being unique 
+SAME GOES WITH .querrySelector('h1') //returns DOM node which is just the FIRST OCCURRENCE of h1  CSS Selector 
+.querrySelectorAll() // this helps in getting NodeList of elements with defined classes/id/tagName and can work the same as document.getElementById/class/tagName however these return an HTML collection 
+HOWEVER PAY ATTENTION THAT IN CASE OF QUERRY COMMAND DOTCLASSNAME IS REQUIRED UNLIKE BYCLASSNAME 
+// NEW THEORY
+str.startsWith() and str.endsWith()
+typeOf operand 
+isNaN(someVar) //helpful since 0 === false 
+u can compute upon theparameters passed into a function irrespective of their number by using the spread index this way 
+let add =(x,y, ... z) =>{let sum = 0 ; for ( let i of arguments) {sum += i} return sum;} 
+u can substitute new values to an array without using .splice() by storing them up in some variable 
+let newEl=[3,4] ; let arr = [1,2, ... newEl , 5 , 6 , 7];
+static elements of a class are those data-members which can be accessed without instantiation , instead they serve as utility  name of the class is sufficient className.staticVarOr() ex- Object.asssign()  
+ES6 IS THE SUPERSET OF JS ES5 
+variables declared with let   
+IMMEDIATELY INVOKED FUNCTION EXPRESSION ()// IIF FUNCTIONS with no name and are called immediately 
+OPPOSITE OF IIF COULD BE CALLBACK FUNCTION
+Information about the current URL is contained by the Location object which is created by * by the                                                                                                        JS ENGINE 
+
+u serialize javaScriptObj by JSON.strinfigy which is later de-serialized by the server 
+
+URL 
+protocl://domain/ip:portNo/pathResource/resource/querry?(querry such as city=London)  
+
+following is a browser based Web-Api  which provides key-value obj of the passed url 
+CLASS 
+spm=new URLSearchParams(url) iterates over the url passed as a string and helps in retreiving certain elements/sections of the string using get and 
+manipulating the string too by sets(first one is mutated)
+while the rest are deleted 
+.has('topic') boolean 
+.keys()
+.set('key','newVal')
+.delete('topic/key')  
+.getAll()
+.append('key','val')//appended while being followed by & 
+locaion.search  ?? 
+
+EVENTS  //NEW
+
+onclick
+window.onload//when moving to new page or refreshing may be (SOME KEYWORDS LIKE .value(as seen in case of db operaions) .parent() .window() , etc are yet to be discovered) 
+window.onunload //when leaving the page 
+onchange
+onmouseover
+onmouseout
+onmouseup
+onblue
+onfocus
+
+<body onload="func()">
+window.onload=()=>{document.write("Here u are ")}
+varId.onclick=()=>{document.body.innerHTML =Date()}
+
+<input type="text" id="name" onchange="change()">
+varAboveId.value=varAboveId.value.toUpperCase(); 
+
+BUBBLING AND capturing
+
+Different html elements can have the same event listener which will be operative until the function is executing(second parameter since 
+3rd one is bubbling(falseDefault)or capturing(true) )
+variable.removeEventListener(event,prev()foraddEventListener)
+BUBBLING GOES UP(from target element to the window object) CAPTURING DOWN 
+let va=document.getElementById('demo');
+va.addEventListener('onclick',addRem(),false);//or attachEvent() for versions below 8
+addRem = () =>{Math.random(); va.removeEventListener(click,)}
+
+TODO:   FUNCTIONS WHICH EXECUTE ON THE OCCURRENCE OF SOME EVENT IS CALLED AS EVENT HANDLER/LISTENER ? 
+
+SOME DETAILED DIFFERENCES FOR DIFFERENT SEARCH METHODS 4 DOM IN JS 
+https://stackoverflow.com/questions/14377590/queryselector-and-queryselectorall-vs-getelementsbyclassname-and-getelementbyid/54819633#54819633
+
+CSS selector rest all are either id , class and tag 
+othewise elem.innerHTML=`  \n included then perform string interpolation ${func's Param} or ${ur content} `
+
+EXAMPLE//------------------NOTE ------------- ONE CAN COPY THE ENTIRE JS PATH USING THE COPY JS PATH OPTION SHOWED WHEN SELECTING A GIVEN ELEMENT ON THE DOM 
+FOLLOWED BY ADDING AN EVENT LISTENER TO IT . AS SHOWN BELOW 
+//  below NEW 
+CONSTRUCTORS DO NOT NEED CLASSES THEY ARE JUST FUNCTIONS 
+You would store user action related items and not anything critical or sensitive data.
+
+The main advantage of local storage is that it saves data across browser sessions, so that we can provide a better user experience.No need to make an api call to the DB for fetching information/data 
+CACHE ? IN MEMORY DB 
+parent.chid() // returns array of child obj 
+parent.lastChild()
+parent.removeChild(child) OR USE THE PARENT NODE  parentVar.parentNode.removeChild(child)
+ALSO objectName exists the way parentNode does also .value for pointing at
+.selectIndex 
+parent.replaceChild(prevChild,newChild)
+document.createTextNode("Some Text") // 
+.setInterval({}/ele,ms) // will execute {}/ele for ms seconds OR UNTIL A .clearInterval(t) is called 
+
+console.log("hello World")  === document.write("Hello World")         
+readLine() for input ?
+
+POP UP BOXES 
+
+alert("msg") would halt the access to the website content unil the ok button is clicked on this pop-up box //CAN BE IGNORED  navigation to the next page is halted for the time being 
+NOTE U CAN USE \n FOR NEW LINE IN THE TEXT PASSED AS PARAMETER 
+propmt("age ") asks the user to input some value before exitting the page/entering the new page same okay and cancel  
+window.confirm("text") just to cross check if the user has passed in the correct information comes along with two buttons which controls the navigation to the next page 
+let but=document.getElementsByTagName('button') is the same as 
+let but= document.querrySelector('#button')
+but.addEventListener('click',()=>{someRandomFunction(for instance adding rows and columns or some other )})
+
+O         R   
+
+let acceptanceHeaderElement = document.querySelector("#questions-table > thead > tr > th:nth-child(2)");
+acceptanceHeaderElement.addEventListener('click', function() {
+    let sortedArray = sortQuestionsByAcceptanceRate(questionsList);
+    populateTable(sortedArray);
+})
+
+
+SIZE(length() can be used  ) entire page can be accessed 
+Store the collection in an var and later arr=Array.from(HTML Collection /var)//However if u are willing to have html tags also on the output then tagName.innerhtml="<li>Banana</li>" //li will be displayed 
+tagName.textContent="new string value for the tag's value "
+innerHTML property - sets the HTML within an element node
+
+innerText property - sets the text inside an element node
+without new string will display the content otherwise u can use .innerText  which is exact same as .textContent
+stateArr.map
+
+document.getElementById('h1')['index']
+document.querrySelector('#id>child').forEach()//Now a nodeList HOWEVER forEach doesn't return an array the way filter and map do 
+document.setTimeout(callback(),timeInMs)            // While the timeOut period is yet to be completed the rest of the code is allowed to be executed 
+
+Same is witnissed in case of promises 
+
+BrowserObjectModel(document navigator information navigator screen location-->window.location==location )
+
+Javascript (Object Array Function , etc )
+we keep JS at the bottom since we want the page to load first 
+
+P                       R                       O                               M                             I                           S                       E                     S &
+
+F                       E                         T                               C                             H
+
+Promises are actions which are required to be fulfilled in the future and so therefore are in the pending status by defualt. A promise can be
+fulfilled/resolved or otherwise will be rejected . You can consume
+the outcome of a given promise via .then  . catch should be used accordingly . These help in running a process in the background while having the liberty to continue working on something else since it is been taken care 
+of as a promise and we will be notified once it completes itself be it resolved or rejected (NO PAST?) These replace event loops 
+
+A promise is an object that may produce a single value some time in the future: either a resolved value, or a reason that it’s not resolved (e.g., a network error occurred). 
+A promise may be in one of 3 possible states: fulfilled, rejected, or pending. Promise users can attach callbacks to handle the fulfilled value or the reason for rejection.
+async functions return promises 
+resolved()                                                  .then()
+rejected()                                                     .catch()
+
+cosnt pro = new Promise((resolve,reject)=>{//ISSE NOT PAST  
+  mesi = 1 + 2
+  if(mesi === 3)
+  {
+    resolved("Accepted")
+  }else{
+    rejected("Wasted")
+}})
+
+pro.then((message)=>{//ISSUE .then is a () we keep arrow callback
+  console.log("Ur message got accepted since it is inside the THEN block right now" + message)
+}).catch({
+  console.log("Wasted since we're inside the catch block"+message)
+}
+
+O   R   let data=async f(){
+  return 1;
+}
+data.then(alert);
+
+O     R   U CAN create explicit promises too using the Promise constructor 
+async function pr(){
+  return Promise.resolve(1)
+}pr().then(alert);
+The fetch() method in JavaScript is used to request to the server and load the information in the webpages. The request can be of any APIs that returns the data of the format JSON or XML. This method
+ returns a promise.
+NEW BELOW 
+fetch takes in an endpoint (a url used to interact with some external system lets say a server) as a parameter 
+But if ur willing to make 
+BY DEFAULT IF NO SECOND PARAMETER IS GIVEN TO THE FETCH , IN THAT CASE IT IS AUTOMATICALLY A GET REQUEST 
+
+fetch('https://api.github.com/users',{Below})//wouldn'treturn the data at once INSTEAD IT RETURNS Promise of response OBJECT Promise<Response>  therfore one can use await or .then() to consume the 
+;semi-Colon not included                                                                                                                                                                                                            response promise  
+  .then(res=>{
+    if(res.ok)
+        console.log("Success")
+    else
+      console.log("Unsuccessful"))//this returns another PROMISE?We cannot use the data in the body of the object obtained i.e. consume promises instead would need json format to be able to do that. ' .this second then 
+  .then(data=>console.log(data))//. ' .  
+  .catch(error=>console.log("404 not found "))//When that user is being requested via the https://api.github.com/users/mNotAUser then the error is required to be handled 
+
+SECOND APPORACH COULD BE                      ALTHOUGH LOOK DOWN TOO 
+
+let pro= await fetch("https://run.mocky.io/v3/511fa794-6bfb-4c9f-9adb-9e18d62d7003");
+let real_data= await pro.json()
+fetch('https://api.github.com/',{
+  method - GET 
+})
+  .then(res=>
+      if(res.ok)
+        console.log("Sucess")
+      else
+        console.log("Unsuccessful")
+  .then(data=>console.log(data)))
+cosnt quoteElem=document.getElementById("quote")
+function something(){
+fetch(url)
+}
+.then((res)=>res.json())   //res.json is the promise 
+.then((data.quote)=>{// or even data["quoe"]
+  data.quote;
+});
+}youcanalso keep .catch(err){console.log("err",err)}
+default port : 443 
+
+function getUsers() {
+        fetch("https://api.github.com/users")
+          .then((res) => res.json())
+          .then((users) => {
+            const usernames = users.map((user) => user.login);
+            console.log("usernames", usernames);
+          }.catch(()=> reject())
+
+  create lis dynamically and display
+  create function createListItem(text) which takes in a string text and returns a new list item Dom node (<li>${text}</li>)
+  write a () addUsersToDOM()
+  getUsers()functjio to get the JSON and extract out an array of usernames returned from the getUsers() function
+  createListItem(text) function to add list of usernames to DOM 
+
+function getUsers() {
+        fetch("https://api.github.com/users")
+          .then((res) => res.json())
+          .then((users) => {
+            const usernames = users.map((user) => user.login);
+            console.log("usernames", usernames);
+            addUsersToDOM(usernames);
+          });
+      }
+
+      function addUsersToDOM(usernames) {
+        usernames.forEach((username) => {
+          const liElem = createListItem(username);
+          namesElem.append(liElem);
+        });
+      }
+
+      function createListItem(text) {
+        const liElem = document.createElement("li");
+        liElem.textContent = text;
+        return liElem;
+getUsers();
+      
+Since javaScript is a single-threaded language it may suffer with respect to the activities being performed on the browser .The main thread of the browser is responsible for executing any high-level pro code
+(IF the page is un-responsive then may be the JS code is taking too long) 
+Therefore in cases where multiple actions where a () is running but it requires data
+from other network , in such cases we use asynchronous javaScript where async and await come into picture
+
+async before a function is just like some return type which is a promise in this case 
+NOTE  ----------------- IF U R WILLING TO KEEP AN ASYNCHRONOUS() WITHIN A JS FILE THEN ITS TYPE IS REQUIRED TO KEPT AS module IN THE HTML FILE 
+await tells that the following code is required to be fulfilled first no matter how long it takes 
+AWAIT CAN WORK ONLY WITHIN AN ASYNC FUNCTION 
+It makes JS wait until the promise setteles and returns the required result 
+
+let pro = async function fun(){
+  let setTimeout(resolved,2000)
+}
+const pro=async()=>{return "Promise fulfilled"}
+pro.then
+async ()=>{
+  let pro = await fetch('https://run.mocky.io/v3/511fa794-6bfb-4c9f-9adb-9e18d62d7003')
+let res=await pro.json();
+return  res;
+}
+let api = await fun(); // one needs to use await while calling an asynchronous () ?? the way it was used 4 lines before 
+
+For ex let promise1 = new Promise(function (resolve/res, reject/rej) { resolve("1") })
+
+let promise2 = new Promise(function (resolve, reject) { resolve("2") })
+
+will return undefined becuase it is required to use .then for consuming the resolved value by the above promises 
+
+const pro=new Promise((resolve,reject)=>{
+  resolve(5);
+}
+pro.then((value)=>{
+  console.log("value",value);
+});
+
+OR U CAN USE async
+async function promiseFn(){
+  return 5;
+}
+const promi=promiseFn()
+promi.then(alert);
+
+const pro=new Promise((resolve,reject)=>{
+  try{
+    const sum=4+5;
+    resolve(sum1);//. ' . will go to reject()
+  }catch{
+    reject("Error occurred !");
+  }
+})
+pro.then((value)=>{
+  console.log("value",value);
+})
+.catch((value)=>{
+  console.log("rejected value",value);//or U can add them to the DOM
+})
+.finally((value)=>console.log("))
+OR
+async ()=>{
+  try{
+    const resolvedValue=await promise;
+  }catch(rejectedValue){
+
+  }
+}
+FROM setTimeout FUNCTION WHERE ASYNCHRONOUS BEHAVIOUR WAS BEING DISCUSSED 
+const greet=new Promise((res,rej)=>{
+  try{
+    cosnt greeti="Hello Vinit!";
+    res(greeting);
+  }catch{
+    rej(new Error("Cannot Greet !"))
+  }
+})
+console.log("Greeting Start !",1);
+promiseGreeting
+  .then((greeting)=> console.log(greeting,2))
+  .catch((err)=>console.log(err,3));
+console.log("Greetings End",4) ;                                                                                                              ANS                     1 4 2 since rest of the code can be executed(multi-threading?) while promise is 
+busy being fulfilled 
+print the count of user objects returned from the github API 
+
+async function getUsers(){
+const res=await fetch('https://api.github.com/users')
+cosnt 
+}
+async function main(){// purpose to be able to use async  so that later await can be used  
+const data=await response.json();
+const count=countUsers(data);
+console.log("count",count);
+}
+function countUsers(arr){//no need of async since await will have to be used before countUsers(data) of count 
+  return arr.length;
+}
+
+Web Api's are additional functionality offered by the browser however they may not be supported by other JavaScript Run-time environments like Node.js e.g. Fetch API 
+
+JavaScript WebApi's include : 
+console.log()
+alert()
+setTimeout()
+document.querySelector()
+
+browser events like clicks 
+
+cases where we want to call function onbeing clicked then class onClick=""
+<div id="box1" onClick="changeColor()"></div>
+    <h3>Count :</h3>
+    <hr />
+    <div id="count" style="margin-bottom: 20px;">0</div>
+    <button type="button" onCLick="increase()">Click4+</button>
+    <button type="button" onClick="decrease()">CLick4-</button>
+
+<script>
+function increase() {
+  count.textContent = parseInt(count.textContent) + 1;
+}
+function decrease() {
+  count.textContent = parseInt(count.textContent) - 1;
+}//otherwise
+const countElem=document.getElementById("count")
+cosnt incremetnBtn = document.getElementById("+inc")
+function changeNumber(num)
+{
+  count.textContent=parseInt(count.textContent) + num 
+}
+incrementBtn.addEventListener("click",()=>changeNumber(1));
+</script>
+event //helps in getting information about the element  
+event . target . textContent + = "Some stuff"
+
+SOME OF THE EVENTS INCLUDE                            'click',()=>{}  'input',()=>{}
+
+QTRIP                        DYNAMIC 
+function filterByCategory(list, category){
+  //implement
+  return res=list.filter((ele)=>{ category.includes(ele.category)});
+}
+async function fetchCitites(){
+  cosnt response=await fetch(config.backendEndpoint + ` /cities');
+  return response.json();
+}
+function addCityToDOM(id , city , description , image){
+const dataEleme=document.getElementById('data');
+dataElem.innerHTML += ` 
+<div class="col-6 col-lg-3 mb-4">
+<a href="pages/adventures/?city=${id}" id="${id}">
+            <div class="tile>
+                <div class="tile-text text-center">
+                      <h5>${ciy}</h5>
+                      <p>${description}</p>
+                </div>
+                <img class="img-responsive" src="${image}" /></div>
+      </a>
+  </div>    
+`
+}
+making api calls with JS 
+https://levelup.gitconnected.com/all-possible-ways-of-making-an-api-call-in-plain-javascript-c0dee3c11b8b
+                                                                                          DOUBTS
+
+
+How to bring new line in the DOM string while appending multiple lines of text via the .append() or .appendChild() 
+ 
+records[id][prop] = records[id][prop] || []; // this is called shortcircuit evaluation, see below for explanation
+    records[id][prop].push(value);
+  .map(val => val.replace(val.charAt(0), val.charAt(0).toUpperCase()))
+async 
+alert 
+Boolean(expression)
+replaceAll() 
+forEach() 
+timeout() 
+callback 
+reduce() 
+map() 
+const ratings = watchList.map(item => ({
+  title: item["Title"],
+  rating: item["imdbRating"]
+}));
+const students=[
+  {name : "something" , roll : 1}
+  {name : "somethin" , roll : 3}
+  {name : "somethig" , roll : 2}
+]
+const name=students.map(e=>e.roll)
+The map() method creates a new array populated with the results of calling a provided function on every element in the calling array. requires return if it has => {}
+otherwise => () wouldn't require any return statement 
+
+filter calls a function on each element of an array and returns a new array containing only the elements for which that function returns true so does filter 
+const filt=students.filter(e=>
+ele.name.toLowerCase === 1 || ele.name.toLowerCase == 2))
+const filteredList = watchList.filter(ele=>{
+  return parseFloat(ele.imdbRating)>=8.0;
+}).map(ele=>{
+  return {
+    title:ele["Title"],
+    rating:ele["imdbRating"]
+  }
+})
+Declarative approach 
+ return arr.map(function(grp)
+  {
+    return grp.reduce(function(current,previous){
+      return current>previous? current : previous ;
+    });
+  });
+}
+
+Function. bind ()
+arr.split()
+const roll=students.reduce((accumulator,curr)=> accumulator+curr.roll , 0));
+const output=input.flat().reduce((accu,curr)=>{
+  if(accu[curr]) accu[curr]++;//For counting occurrence
+  else 
+    accu[curr]=1;
+  return acc;
+},{}) 
+Function. apply () 
+arguments () only in traditional functions not =>
+
+11th March 2023 Chuye Banao Said He , here he comes , 6:55 pm with timer on for an hour since I have a class @8:30 and haven't done the home assignment but I almost forgot that i hadn't attended th class day before yesterday 
+Revisited(Only Desi) above on 25th October 2025 20:18 Azaan nahi ayaa said she kyunki Mere Tekken 7 khelete time Zaraa ki Dadi ghur aa guyeen jin sey meine jhooth bola ki mei pudh ruha hoon. Aaj Zaraa bahut zyada ro ruhi thi dopeher mein toh Mummy ko Dadi ne bataya ki ussey bahana chahiye hota h roney ka. Aaj Saturday h aur mujhey kisi bhi haalut mei Front end interview questions poorey kurney h ye waaley  https://www.youtube.com/watch?v=0pcldyuZKco
+WELL THE THING IS U NEED TO LEARN(!UNDERSTAND) these things by heart in KIND OF a co-related manner with INTERVIEW PERSPECTIVE 
+
+FROM HERE JS INTV  QUESTIONS:
+types in JS  : primitive(.'.immutable) and non-primitive(.'. mutable)
+7 primitive types in JS : 
+  ⭐ string 
+         sequence of characters enclosed by pair of BACKTICKS, DOUBLE quotes, SINGLE, quotes 
+  ⭐ boolean: which can be gained from type-casting-Boolean()||!!) 
+    is a logical type having either of these two values which is true or false 
+  ⭐ number
+     o int(+ve Inifinity n -ve Inifinity)
+     o float pointing number 
+     o NaN
+  ⭐bigint 
+  ⭐undefined ▶️ go for null vs undefined vs null 
+  ⭐null 
+  ⭐symbol 
+    Represents an immutable UNIQUE value in JS
+      const sym1 = new Symbol("id"); 
+      const sym2 = new Symbol("id"); 
+      console.log(sym1 === sym2); ▶️                                                                                                                                                               false, since they are distinct even though they possess the same value 
+var vs let vs const 
+  var and let are re-assignable while const isn't(default) 
+  let and const have blocked scope unlike var which is global but has function scope 
+ SINCE when declared within a func ends up being local since it takes the scope of the surrounding loop or ()'s body
+  const arrays can't be pushed once initalized 
+
+JS is a statically/dynamically & strongly/weakly typed language                                                                                                                           dynamically & weakly typed 
+Modules: 
+While defining the () paramter list and when calling it is called the argument list 
+u can have default values while destructuring a given [] or {} such as const arr = ["Apple","Orange","Grapes"] const [fruit1="new",fruit2,fruit3] = arr; 
+typeof className --> function BUT  console.dir(someF) we can C an obj behaviour PLUS someF.someProp = "Hey" then console.dir(someF has the corresponding attribute with "hey" 
+global , local Or blocked and lexical  
+Which of the following function of String object splits a String object into an array of strings by separating the string into substrings? //slice() , split() replace() search()                                                                                                                                                   split()
+let arr=[1,2,3,4,5];let pop1=arr.pop(3);let shift1=arr.shift(1);let push1=arr.push(shift1);let unshift1=arr.unshift(pop1) console.log(arr);                            [3,3,4,5,1]  [5,2,3,4,1] [4,5,3,1,2] [1,2,3,4,5]                                                                                                     II
+Regarding map and filter Both of these has a return value & both returns an array , Both of these take a ()=>{} as arg , map's returning [].length == original [].length ALWAYS but filter ALWAYS ?? SMALLER WELL U KNOW  
+The linkage of a set of prototype objects is known as          (I)prototype stack (II)prototype(III)prototype class(IV) prototype chain                                                                                                                   prototype chain
+To know about an object, whether the object is a prototype (or a part of a prototype chain) of another object, the user can use   (I)== operator (II) equals() method (III) === operator(IV) isPrototypeOf() method                                                                                                                 isPrototypeOf() method 
+How can we make methods available on all objects?                                                     (I)Object.add(methods) (II)Object.methods(add) (III)Object.add.method(...) IV Object.prototype                                                                                                                                      IV
+Dog(name){this.name=name; this.speak=function(){return "woof"}} dog=new Dog("Figo") Dog.prototype.speak=function(){return "sniff"} console.log(dog.speak())       //(I) woof (II) arf (III) undefined                                                                                           woof 
+Select as many are true 
+let obj={} enter undefined obj.toString(); enter "[object Object]" enter obj.someFunctionName(); enter is not a ()    //below 
+BLOCK : InStrict mode "obj.toString()" will throw an error as the method ins't specified when creating the "obj" object 
+BLOCK II : "obj" gets access 2 the "toString' method due to prototypal inheritance 
+Block III : When a method call is made on an object "obj" , the end of it's protype chain is checked first to see if the method is defined 
+Block IV : When a method call is made on an object "obj" , only if the method doesn't exist in the object are its prototypes checked 
+                                                                                                                                                                                                                                                                                                                                                                                                                                II & IV
+
+Object.freeze(user)
+IIFE & HOF
+  Immediately Invoked Function Expression is always Global , even if it is called within an obj's nested function
+
+  THERE ARE VALUABLE ES6 ALTERNATIVES Below  
+  // Old way with IIFE
+var utils = (function() {
+  function privateHelper() { /* ... */ }
+  return {
+    publicMethod: function() { /* ... */ }
+  };
+})();
+
+// Modern way - ES6 modules
+// utils.js
+function privateHelper() { /* ... */ }
+export function publicMethod() { /* ... */ }
+
+// Or with block scope
+{
+  const privateHelper = () => { /* ... */ };
+  window.publicMethod = () => { 
+    privateHelper();
+    // ... 
+  };
+}
+((fn,val)=>{return fn(val);})(console.log,5)// IIF || HOF ? or both ?? U HAVE MORE QUESTIONS IN CNOTES
+closure vs hoisting (accessing vars before declaring them)
+  why wouldn't JS throw error for accessing those variables &() which are defined in the next line itself like console.log(a,b()) \n let a = 4 ;\n func b(){return "Hey"} ??Correct                                   hoisting 
+  Hoising refers to the JS feature of moving the DECLARATIONS of functions & variables to the top of their scope before their execution i.e. 2 say their  
+  A function can be referred to as a closure if it has the access to the contents of its surrounding function even after the outer () is done with its execution
+  closure gives access to external () scope from an inner function 
+  function createCounter(){
+    let count = 0 ; 
+    return function(){
+      count +=1; // or count++;
+      return count;
+    }
+  }
+  Over here as many times we would call the createCounter() it would create a separate closure so separate count 
+  Use cases
+  Encapsulation 
+  let balance = 1000; //keeping this as global would cause un-intentional mutations henceforth 
+
+  function createAccount(initialBalance){//FIXME: Notice no type just where TypeScript comes into the picture 
+  let balance = initialBalance;
+  return{
+    deposit : function(amount){
+      balance +=amount;
+      return balance;
+    },
+    withdraw: function(amount){
+      balance -=amount;
+      return 
+    }
+  }
+  }
+defer(the default behaviour html files are read line by line however when defer html parsin happens asynchronously parallely downloads the script but execution of the script happens only after html parsing is finished first ) 
+async                    for async once the downloading is done the script is tag gets executed even if the html parsing hasn't completed ..
+use async instead of defer whreas for analytics vice versa 
+curring 
+eventLoops while synchronous whereas setTimeout is asynchronous
+
+
+          INTERV (JS+ front-end + React) BUT look above as well as Ctrl+f = ?? NEW THEORY BELOW ALSO LOOK 4 TOPICS UP&BELOW AND COMBINE THEM up 2 organize things 
+                                                                              ONCE DONE WITH THIS ATTEMPT LYDIA'S 
+
+Css Box Model 
+Within CSS; every element within on a web page is treated as a rectangular box. The CSS Box Model is a set of rules which determine how to caluclate the
+dimensions of that box and how the parts/sections of the box - content, padding, border and margin - interact with each other.
+Box Model is composed of four layers, radiating from the centre
+1. Content: Innermost part where the actual text, image, media etc appears 
+2. Padding: Surrounding Area of the content which creates the internal space inside of the box (from within since internal below external space)
+3. Border: The line which surrounds the padding area can can b styled, colored, given a thinkness 
+4. Margin: The outermost layer which surrounds the margin and provides an external space outside the box 
+  ex 
+      .my-box {
+        /* Content Dimensions */
+        width: 200px;
+        height: 100px;
+
+        /* Padding */
+        padding: 20px; /* Adds 20px of space inside, on all sides */
+
+        /* Border */
+        border: 5px solid blue; /* Adds a 5px thick blue border on all sides */
+
+        /* Margin */
+        margin: 30px; /* Adds 30px of space outside, on all sides */
+
+        /* Just for better visibility */
+        background-color: lightyellow;
+      }
+How does the browser calculate the total size 
+
+ ⭐ Defualt ▶️ box-sizing: content-box 
+    According to the the traditional box sizing model the height and width we set apply to the content area alone. 
+    total width = width + left & right padding + left & right border + left & right margin
+      Total Width = 200px + 20px + 20px + 5px + 5px + 30px + 30px = 310px
+    total height = height + top & bottom padding + top & bottom border + top & bottom margin
+      Total Height = 100px + 20px + 20px + 5px + 5px + 30px + 30px = 210px                                                                                                                                                        A
+ ⭐ box-sizing: border-box 
+    this is the modern and more preferred box sizing model where the height and width you set include not only the con
+JS INTV Of course there are more somewhere around in this file 
+let i ;for(i=0;i<3;i++){const log = () =>{console.log(i)} setTimeout(og,100);} //123 012 222 333 for loop is synchronous ans is 333
+since i is global 4 the for loop . ' . it will refer 2  
+upon appyling Ojbect.freeze(someObj) then obj.prop1.name="mutated" will manipulate ??
+for moving a box from top-left corner 2 top right corner :                                                      position-absolute ; right not margin-left 
+=== vs ==                                                                                remember objects are ALWAYS passed as reference the prior checks for the data content/value , data type & memory address BUT latter just the value 
+Higher Order Functions 
+  Are those functions which either take another one or more function as a parameter or return a function as it its result OR BOTH.  
+    Before we move to examples of HOF lets go through Fat Arrow functions first 
+    FAT ARROW FUNCTION ~ LAMBDA TODO: is it even called a lambda 
+  Lambda cut the need to have functions in your code . instead one can have the same operation outputs being assigned to a var via () such as 
+  var sum = ( a , b ) => a + b//no return PROVIDED NO {} NO THIS & NO function args obj  
+  because there a single line of code in the body of the arrow function which will be returned immediately post execution
+  .'. no return statement no curly braces 
+  also if there's  a single argument (unlike above arr() which has 2) u can avoid the () otherwise if there are zero parameters then () is required 
+  Array.prototype.reduce() || simply reduce() can be applied on arrays and The reduce method allows for more general forms of array processing, and it's possible to show that both
+  filter and map can be derived as special applications of reduce. The reduce method iterates over each item in an array and returns a single value (i.e. string, number, object, array).
+  This is achieved via a callback function that is called on each iteration.  this callback function takes reduce(accumulator,curr,curr_index) =>  
+  
+  YOU CAN have the default values for the parameters  DEFINED AT THE ARG LIST ITSELF 
+  function sumAll(a = 2 , b = 4 , c){return a+b-c}//we DO declare elements at the () whreas for arrow functions it would look like this 
+  let sumAll=(a=2 , b = 4 , c) =>{return a+b+c}
+  ALSO let variable = x = "Greetings from " + x ; is the same as let variable = (x) => "Greetings from " + x; 
+  const numbers = [1, 2, 3, 4, 5];
+
+// All of these are valid and equivalent:
+const doubled1 = numbers.map(function(num) {
+  return num * 2;
+});
+
+const doubled2 = numbers.map((num) => {
+  return num * 2;
+});
+  FIXME: Note that single parameter callback can avoid parenthesis but would need them when no 
+  paramaters are there or destructuring is happenning
+  // Zero parameters - MUST use parentheses
+  const getRandom = () => Math.random();
+
+  // Multiple parameters - MUST use parentheses
+  const sum = numbers.reduce((total, num) => total + num, 0);
+
+  // Destructuring parameters - MUST use parentheses
+  const users = [{name: 'Alice', age: 25}, {name: 'Bob', age: 30}];
+  const names = users.map(({name}) => name); // ✅
+
+  // Default parameters - MUST use parentheses  
+  const greet = (name = 'Guest') => `Hello, ${name}`;
+  Paradigms included apart from OOPs and functinal ar procedureal . These are nothing but different styles/approaches towards programming for developing problem solutions   
+  FUNCTIONAL PROGRAMMING 
+  is a coding paradigm , a coding style 
+  is the process of software development by utlizing pure functions , avoiding shared state , side-effects or mutations  
+
+  Tends to be more concise , predictable and easy to test unlike an imperative or object oriented code   
+  therefore when console.log() is kept instead of a return statement it isn't a pure function 
+  THEREFORE A PURE FUNCTION ALWAYS RETURNS SOME VALUE however IT SHOULDN'T MUTATE THE PARAMETERS PASSED TO THE FUNCTIONS 
+  let addProp(obj,key,val){
+    return obj["key"]=val; return obj;
+  }//IS AN IMPURE () SINCE IT IS MUTATING THE OBJ 
+  //EVEN IF U COPY IT THIS WA let res = obj and then res["key"]=val; and then return res WILL MUTATE OBJ since objS are passed as reference 
+
+  Pure function - which doesn't mutate the vlaues/parameters and instead keeps the original value of the parameteres preserved and un-altered . It doesn't operate with some global var,obj,etc . 
+  functions are first class objects that is to say u can use them as variables since u can pass () as parameters 
+
+  Impure functions 
+    has side effects since it may modify external state/code, make undesired API calls, etc 
+    or may be depends on some external state/code which can potentially change  
+    returns different outputs for the same input
+
+  Advantages/Dis of above over OOP
+  too many classes to maintain which might 
+  increase the complexity (may be in terms of heirarchy)
+  Decreases the momentum of introducing new features 
+  Messy code with poor documentation 
+  Rigid not flexible 
+  Hard to debug 
+  ClassName.prototype.functionName 
+
+JS Predict the output 
+  function run(){
+    console.log(1);
+    setTimeout(function(){console.log(2)},1000);
+    setTimeout(function(){console.log(3)},0);
+    console.log(4);
+  }
+  run();
+  Output ->                                                                                                                                                                   u were correct with blocking Operations but you thought 3 will be printed before 2 just cause 2 was earlier in the callStack()                                               correct Ans-> (because 2 will have to wait 1 second)1 ⏩ 4 ⏩ 3 ⏩ 2
+
+also strict mode throws errors while attempting to access||assign||manipulate an undeclared var may be () 2 
+Helps to avoid bugs early in our code and adds restrictions to it .
+
+
+function simple(){few = 8;console.log("This prints => ",this, "While this.few prints ", this.few);}const some = {few : 5 ,fn : simple ,fn2 : ()=>{console.log("M inside some.fn2 and this.few prints ",this.few)}}some.fn some.fn2
+Above code will not print 5 since it keeps on referring to the simple fn . ' . one should use arrow functions since they don't possess this binding instead the this' scope is looked for just like some normal variable thereby cutting the need to use .bind() ALSO 
+one can keep another variable like self =  
+call , bind&apply methods apply specific values to this  
+local storage persistent storage access it whenever u want BUT 
+session storage wouldn't be present once the tab is closed  
+coockie (document.cookie) expries when expries is reached 
+coockie sharing same site enabled then data stored within the coockie will be shared across sites for advertisement purpose  
+shallow copy vs deep copy  (i)pass as a reference(ii)rest                                 spread... create a shallow copy of the nested obj properties is done   solution deepObj = JSON.parse(JSON.stringify(parentObj)) OR structureClone
+let o = {x:1,y:{z:[false,null,""]}} let s=JSON.stringify(o) let p=JSON.parse(s)  ; What activity is being performed here  Object Encapsulation Object Encoding Object Abstraction Object Serialization                                                                                                                                              Serialization
+spread : helps in expanding a given expression at places wehre more than just a single argument,element or entity is expected WHILE ensuring that the elements of the expression are added not the entire expression along with the enclosing {} or []   
+use cases :(I) passing elements of an exist [] 2 a new [] (II) creating an arr copy (III)Concatenate arrays 
+(IV) passign an []'s elements to a () BUT care has to be taken that () accepts as many args as ar.length or uses rest THIS MAKES sense 2 since we didn't mention an x[] but just x,y,z in () def  
+If the same three periods are used in a ()'s defintion within the parenthesis it will act as a Rest O instead of the S O . This operator accepts plenty of elements and values supplied by the user in the paramList and condenses them up into an [] 
+keep this in mind that when ur within (...somethingR) u can't use the "use strict" directive since it will throw syntex error affirming illegal use  of strict directive within non-simple parameter list 
+DOM accessed/manipulated via webApis Tree like representation of HTML elements 
+Bubbling : Button onClick has to be implemented with eventListener which should be present at a single place which is the parent at the UI .instead of having plenty of eventListeners(slow)  
+
+FAT let dog={breed : "Great Den" , sound : function sd(){return this.breed } , walks : ()=>{return this.breed}}// dog.sound() fine but dog.walks() undefined 
+
+
+const func=(str)=>{if(str.length>1){return func(str.slice(1))}return str} console.log(func("Hello World")) // Hello World (II)ello World(III)H(IV)d                                                                                                             d   
+const map = ["a","b","c"].map.bind([1,2,3]) ; map((el)=>{console.log(el)});       //(I) 123 (II) abc (III) throws error(IV) Something else                                                                          123
+var a=[1,2,3];var b=[4,5,6]which one is wrong for merging them : A->a.concat(b) (B) [...a,...b](C) a+b                                                                                                                    // C
+which built in method combines 2 strings and returns a new string A append() B concat() C attach() D None                                                                                                           concat is correct   
+for reversing a given string and checking for its eqality                  ---                                                                                str2 == str1.split("").reverse().join()                              
+for fetching the value of an element within a div (with id)                                                                                                                 document.getElementById("data").value 
+data.sort((a,b)=>(b-a)); if data is an array then sort -> I alphabetical O II choronological O III reverse Alpha O IV reverse numerical O                                                                                                                                             IV 
+How does JS store dates in a date object - I no. of ms since 1st Jan 1970 II no. of Days since 1st Jan,1900 III no. of S since Netscape's public stock offering                                                                                I   
+You can refresh the webPage in JS by using I window.reload II window.refresh III location.reload IV page.refresh                                                                                                                          location.reload  
+Which function among the following lets you register a function to be invoked once? I setTimeout() II setTotaltime() III setInterval() IV None                                                                                                setTimeout 
+Which method receives the return value of setInterval() to cancel future invocations? I clearInvocation() II cancelInvocation() III clearInterval() IV None                                                                                                   III 
+return type of getElementsByClassName() is I DOM II Document III Node IV NodeList                                                                                                                                                                               NodeList
+Which event is triggered sooner when the document and its elements are ready to manipulate? I DOMContentLoaded II readystatechange III Both of em IV None                                                                           III 
+NEW What will document.getElementById("t1").childNodes[0] return for this html <div id="t1"><p>A paragraph </p> </div> I A text node II An element node III A comment node IV None                                                                    Text Node 
+<div id="div1">Div 1</div> <div id="div2">Div2</div> insert an element node ele b/t 1st </div> & 2nd <div> such that it is a sibling to both of em : I div1.appendChild(ele) II div2.appendChild(ele) III div2.parentNode.insertBefore(div2,ele) IV div2.parentNode.insertBefore(ele,div2)                                                                                                                                                                              IV  
+remove class nav from <p class="nav">I am Div1 </p> - I p.classList.remove("nav") II p.className="" III Both                                                                                                                                                                                          Both 
+Wha does modifying a DOM ele's innerHTHML help accomplish : I Add child ele&content II Alter text content III Clear Existing Content IV Modify parent element content V Add event listeners                                                                                               first 3 
+What does the window.getComputedStyle() return I A style object with all of the CSS properties affecting the visual display of the DOM element (including those inherited from parent elements) II A properties object with some of the CSS properties affecting the visual display of the DOM element. III An Array of the CSS V properties affecting the visual display of the DOM element based on CSS files. IV A style object with only the CSS properties defined explicitly for the DOM element                                                                                                                                                                                                                  I
+Correct statements related to innerHtml,inner Text & textContent props for an HTML DOM ele : I textContent is also aware of style and will not return the text of hidden elements, whereas innerText will  II The textContent property returns the text with spacing, but without inner element tags. III The innerHTML property returns the text, including all spacing and inner element tags. IV The inner Text property sets or returns the text content of the specified node, and all its descendants.z                                                                                                                           Last 3 
+event.preventDefault() usage : To prevent the setting of default data values in the database. II To prevent the execution of default actions in response to an event trigger. III To enforce the submission of a form. IV To stop execution of all code.                                                                                                                                                    II event trigger 
+What's false ? I async and defer attributes of O script tag execute before the DOMContentLoaded event II defer executes each script sequential III async executes each script when it is ready IV all older browsers supports async attribute                                                                                                                                 IV false 
+event.target refer to inside the event listener ? let svButtons = doc.querrySelectorAll('.save-button'); for(let buttons of svButtons){button.addEventListener('click',function(event){let contentID=event.target.dataset.id'console.log(`Saving ${contentID}`)})} I the handler () II The even listener itself . III The button the user clicked IV undefined                                                                                                                                                        III clicked button 
+What will be printed on clicking button of id ="button1"<title>Document </title> <body> <div id="div1'><div id="div2"> <button id="button1">1</div></div><div id="div3"> <button id="button2">2</div> </div> </div> <script> const div1=docuemnt.querySeletor("#div1"); const div2=document.querySelector("#div2") ; const div3 = docuemtn.querySelector("#div3"); const button1= document.querySelector("#button1");button2=doc.querySeleco("#button2"); div1.addEventListener("click",(e)=>console.log("div1"));div2.addEventListener("click",(e)=>console.log("div2"));div3.addEventListener("click",(e)=>console.log("div3")); button1.addEventListener("click",(e)=>console.log("button1")); button2.addEventListener("click",(e)=>console.log("button2")) </script></body> 
+OPT I button1 II button1 div2 div1 III button1 div2 button 3 div 2 div1 IV button1 div2 div1 body                                                                                                             II
+The localStorage & sessionStorage belongs to I window object II Element object III Hash object IV DOM object                                                                                          I W O 
+What is the main difference beween localStorage and session Storage I LifeTime II Scope III Both IV Key-value storage                                                                                                   Both  
+
+Babel is      I Transpiler II Compilter III Interpreter IV C&T                                                                    IV 
+Arrow function can  be used to create function coponents easily . you rare given this component , but it's not rendering "hellow!" when used. How do you fix the compoentn definition? const Para = ()=>{<p>Hello</p>}
+Check Boxes ahead I Add a render () inside ()=>{} II Change the curly braces to paranethesis III Add a return statement before the p tag IV Srround the p tag in a div                                                    II & III 
+What does ReactDOM.render() method do ? CB ahead I Sends HTML content ot eh browser for it to render II Updates the container node directly on the browser's DOM  III Efficiently updates the brwoser's DOM to make only the requried changes without replacing whole of the container node Always updates whoele of teh container node in teh brwoser's  DOm             _-----> II &III 
+WebPack    CBoxes I  helps U bundle ur resources II Watches for changes and re-runs the tasks III can run a development webServer IV can split the output files into multiple files , to avoid having a huge js file to load in th efirst page hit          ANS all 4 
+Which of the following lifescycle methods does not get triggered on the compopnent's initial render ? I constructor() II componentDidUpdate() III render() IV componentDiddMount()                                                      II 
+select the correcto statement regardint the below component : class Form extnds Component{constructor(){super();this.state={name:'  ',};}  handleNameChange=(event)=>{this.setSTate({name:event.target.value});}render(){return(<div><input type="text"value={this.state.name}onChange={this.handleNameChange}/></div>);}}
+checkboxes ahead I this is a controlled component as React controls the value of the input form element  II the value of the <input> element gets automatically updated when a user types in a character as the <input> element maintains its own state III the value of the <input> element gets updated on re-render cause by the "handleNameChange" function updating the state when a user types in some character IV if the "handleNameChange" functon does'nt make any state update, website users won't be able to see the characters they type in inside the <input> element           I III IV   
+Which lifecycle methods are not triggered if shouldComponentUpdate() returns false .  I componentWillMount(),render(), and componentDidMount() II componentWillReceiveProps() and reder() III render() IV render() and componentDidUpdate()                                                                                                               IV
+Which of the following is the mandatory lifecycle method for all React class components ? I constructor II rendr III componeneDidUpdate() IV super                                                      II  
+What is shallow rendering I Rendering the component without needing to pass any props or setting any state II Rendern just the component and not its children III Rendering the component with a shallow context object IV Renderin the component without enforcing the prop types .                                              II 
+Keys are given to a list of eleements in react . These keys should be I Do not requir to be unique II Unique in the dom III Unique amont the siblings only IV all of the above                                                                                                                                   III
+Will any lifecycle method be triggered if the "props" of a component change ? I Yes but only if props were changed from within the component II No, props cannot be changed III No,only state changes trigger update lifecycle methods IV Yes, both props and state change triggers update lifecycle methods                                                              IV    
+#log > span means I Span element of id , log II First span child of element with id , log III Span elements having a parent element with id , log IV Any span element inside element with id , log 
+div > p    all ps where parent is a div 
+div , p       all divs and p 
+div + p   first p placed immediately after a parent div 
+ul ~ p   selects every p that is preceded by an un-ordered list  
+div p selects all p element inside parent <div>s
+CSS Selector ______ selects all <div> elements and also the element with id="log"  I div #log      II div.#log    III div > #log     IV div,#log                                                      IV 
+Default positioning of elements with CSS :  I Absolute II Fixed III Static IV Relative                                                                                                    III 
+Which atribute is used to specify that the script is to be executed only after the page has finishded HTML parsing(4 ext scipts)   I defer II type III parse IV async                                                     I
+Which of the following statements is false ? I async & defer attributes of script tag execute before the DOMContentLoaded event II defer executes each script sequentially III async executes each script when it is  ready IV all older browsers support async attribute                                                                     IV is false 
+Which of the following are good practises regarding positioning of script tags in your HTML file ? CB ahead I Place all exernal scripts inside the head section II Place scripts which alter the DOM always in the head section III Place scripts which alter the DOM always at the end in the body section IV Place cript taht impacs the render of the page at the end of the body                                            I , III , IV 
+this tag is used to - <meta name="viewport" content="width=device-width"> I Automatically makes a website responsive II set the width of the page 2 follow the screen-width of the device III initialize the viewport of the page as 0px IV Tells the browser to look for media queries in the CSS file                                                           II  
+Which of the following isn't an HTML5 Semantic element ? I header II section III nav IV span                                                                      span 
+How can you open a link in a new tab/browser window ? I <a href="url" new> II <a href="url" target="new"> III <a href="url" targe="_blank">                                                                                         III 
+In HTML , which attribute is used to specify that an input field must be filled out ? required II formvalidate III validate IV placeholder                                                I 
+Which of the following CSS pseudo-selectors can be used make a button appear pressed ?  I :active         II :disabled            III :btn-pressed            IV :hover                                                                                 II disabled 
+How do you display hyperlinks without an underline ?      I a{text-decoration:none;} II a{text-decoration:no-underline;}   III a{decoration:no-underline}     IV a {underline:none;}                                                                II a {text-decoration:none;}
+How do you make each word in a text start with a capital letter ? I you can't do that with CSS. You need JS as well II text-transform:capitalize III text-style : capitalize IV transform:capitalize                                                      II text-transform : capitalize 
+How do u display border like this TB = 10px BB : 5px LB : 20px RB : 1px border-width:10px 20px
+
+5px 1px;
+
+els
+
+border-width:10px 5px20px 1px;
+
+border-width:10px 1px 5px
+
+20px;
+
+border-width:5px 20px
+
+10px 1px;  
+                  10 1 5 20
+Which property defines the direction
+
+Provide your answer.
+
+in which the container wants to stack flex items?
+
+flex-flow
+
+O flex-wrap
+
+O flex-direction
+
+O align-content
+
+                                                  FD 
+In Flexbox, justify-content allows you to do what?
+
+Provide your answer:
+
+define the direction of how elements are positioned along the main axis
+
+define how to position
+
+elements vertically
+
+O
+
+define how elements will
+
+O wrap when the browser width is changed
+
+O
+
+defines how position
+
+elements horizontally
+                                                                      ans -> 1
+Q What do you set the value of "align- items" property of flex container to ensure all of your flex elements are
+of the same height?
+flex-start
+O center
+O stretch
+O baseline
+                                        stretch 
+Which of the following are properties we set on the flex containers?
+
+Provide your answer: CB ahead 
+
+justify-content
+align-items
+o flex-wrap
+align-self
+                                                                          I II III 
+
+Which all of the following can be used for conditional rendering ?
+Loop , Teranry Operator , Switch Case , if-esle                                                                                                                                                       Ternary , Switch case & if-else
+
+Which of the follwing can be used to make HTTP Post calls ? 
+apiPost() , JQuery AJAX , XMLHttpRequest , fetch()                                                                                              JQuery AJAX , XMLHttpRequest and fetch()
+To create a responsive navigation bar
+
+using Bootstrap, which of the following attribute is set to the id of the HTML element whose view is to
+
+be toggled by a toggle button : 
+
+data-toggle
+O data-target
+O data-id
+O for
+  I 
+If you want to have 3 equal columns in Bootstrap, which class would you
+
+use?
+
+Provide your answer:
+
+col-md-3
+
+O col-md-4
+
+O col-md-7
+
+O col-md-12
+II 4 
+setting a grid tier of .col-sm-6 says  I make this div 6 col wide on the sm breakpoint and everthing above II make this div 6 cols wide on teh sm breakpoint and everything below III make this div 6 cols wide on just the sm breakpoint                         I above 
+What do these spacing utility classes do to this headline ? <h1 class="p-0 p-md-4 p-lg-0">Headline</h1> I These classes will cancel each other out II Since p-0 is first it will override all of the otehr classes. So the heading will have 0 padding on all breakpoints . III 0 padding on all screens till md breakpoint , 4 padding value on md breakpoint , then stop the padding from lg devices            ans III lg devices 
+Select the correct statements regarding the below CSS .card{width :100%} @media only screen and (min-device-width:320px)and (max-device-width:480px){.card{width:50%;}}  CB ahead I The card class elementes will have a 50% width by default II The card class elements will have a 100% width by default III The card class elements will shrink to 50% width on devices with screen width between 320-480px                                          II & III 
+What does '3xx' http status code denote ? I Redirection II Server Error III Success IV Informational                                                                  I Redirection 
+Which status code should be returned if the requrested resource isn't found ? I 200 II 301 III 400 IV 404                                                             404 
+What is the HTTP Response header used to specify the type of data returned I Accept II Format III Content-type IV Extension                                         III Content-type 
+Which of the following HTTP methods isn't supposed to be idempotent ? I GET II POST III DELETE                                                        II POST 
+Select the correct statement regarding a PUT request CB ahead - I Used to fetch data from the server IISends data to the server for replacing an existing entity III Sends data to the server to update only certains fields in an existing entity IV Used to delete data from the server                     II replacing the ..... PATCH is for III 
+Which of the following HTTP request methods shouldn't be used to send data to the server ? I GET II POST III PUT IV PATCH                                                                   GET 
+
+U HAVE MORE QUESTIONS IN CNOTES
+                                                                            NUMERICALS 
+function runWhileLoopForNSeconds(n) {
+  var curr = Date.now();
+  while (Date.now() - curr < n * 1000) {}
+}
+
+console.log("A");
+
+setTimeout(() => {
+  console.log("B");
+}, 1000);
+
+runWhileLoopForNSeconds(3);
+console.log("C");
+
+a . A, B , C        b A, C , B              c B, A , C                    d C, A, B                                                                                                                                                                   ans b Prints A waits for 3s , prints C & B 
+
+Split the given array in a group of 'n' items A=[1,2,3,4,4,6,9]  N=[2] Output : [[1,2],[3,4],[4,6],[9]] 
+Write code for this func 
+A=[1,2,3,4,4,6,9]
+N=2 
+output = [[1,2],[3,4],[4,6],[9]]
+
+Write Code for :- 
+multiply(a)(b)(c) ....(n)() should return sum of all the numbers -> a*b*c .... *n until no argument is called 4 ex multiply(1)(2)(3)()=6 //notice empty () meaning no argument was provided indicating the end   
+
+function multiply(n){
+  let sum = 1 ;
+   if(args.length >0){
+    return n*sum;
+    }else{
+      return ;
+    }
+}
+Create a function - f1(min,max) it should return a function - verify (input) 
+verify(input) logs if input < min , [min,max] or > max 
+Write Code 2 flatten a nested array in JS [[0,1],[2,3],[4],[5]] should return [0,1,2,3,4,5] 
+[[[[[0]],[1]],[[2],[3]]],[[4],[5]]]] should return [0,1,2,3,4,5]
+Scratch - https://stackoverflow.com/a/27267762 
+Inbuilt methods - https://codeburst.io/how-to-flatten-a-nested-javascript-array-628e01b85512
+
+
+
+JS solution 
+while(A.length>0){resultArr.push(A.splice(0,N))} 
+orfor(i=0;i<A.length;i++) result.push(arr.slice(i,i+`=n))
+for(i=0;i<A.length;i++){
+for(j=0;j<N;j++){
+  newAr[i][j]=A[i][j]
+}
+}
+
+//fixme HTML CSS mcq from here onwards FRONT END mcq from here onwards front end INTV (Not the right place not even in this file but I need to start)
+<!DOCTYPE html> means ? --->                                                            this tells the browser that this is an html 5 file and we are using the html 5 technology 
+const arr = [1,2,3,4,2,3,5,6,7,5];
+//remove duplicates 
+  //return this new array instead because since arrays share contiguous memory addresses .'. we can't alter the og array 
+  // const newArr = [...new Set(arr)];
+//fixme javascript mcq from here onwards javascript thoery from here onwards
+const one = "🐼";
+const obj = {
+  ['one']: "🦁",
+  [one]: "🐵"
+}
+arrays as properties ? In that sense one is different from 'one'
+console.log(obj.one);
+
+Name the === operator in js -->                                                                                                                       Strict Equality Operator(SEO) 
+    coercion vs autoboxing "40" + 50                                                                                                                                                  coercion 
+Debouncing and its implementation in JS 
+  refers to the ability to limit the rate of execution of a given function especially in response to events that fire rapidly & repetedly(user typing character). This ensures that the function 
+  is called only ONCE after a specified period of INACTIVITY.It delays the execution for the defined period of time  
+  debouncing minimize the number of API calls by delaying them 
+  function debounce(func,delay){
+    let timeOutId;
+    return function(...args){
+      const context = this ;
+      clearTimeout(timeoutId);
+      timeout = setTimeout(() => {
+        func.apply(context,args);
+      },delay);
+    };
+  }
+  Throttling   
+    Regulates a function's execution over a defined interval of time. Meaning it would avoid executing it between this interval 
+    and executes at most once per period.  fn() (onClick) but for the successive one it'll require the assigned period of time to complete itself   FACILITATES PERFORMANCE  
+  Deep Copy in JavaScript 
+    json.parse() vs json.parse(json.stringify(parentObj))
+  undefined vs null
+    initialization means assigning a value at declaration time. 
+    assigning a value can be done after decalration
+    undefined means deaclared but not initialized yet
+    null is all one purpose or owing to some logical error. Meaning to say some var did not have a value left un-seen or you want it to not have a value
+    undefined vs null Boolean(both) are falsy values undefined refers to the default value assigned to a var which hasn't been EXPLICITLY assigned some value from the coder or for a ()  which hasn't been    
+                        undefined                                                                           null 
+    intent              absence of a value owing to un-initialization or missing by default                absence of a value owing to ◀️intentional▶️ explicit assignment. HUM CHAHTE H NULL HO
+    assignment          by the js engine                                                                    by the programmer     
+    type                undefined(since it itself is a type)                                                  object(is its runtime type. This is also a historical error)
+    null == undefined is __________ ▶️                                                                   true meaning they are loosely equal since this is loose equality  
+    null === undefined is _________ ▶️                                                                    false meaning they are Strictly un-equal since this is strict equality 
+    null litterally means there's no value whereas undefined could be some 
+  
+ window vs document vs global(this object belongs to Node)
+  Window is the global object of a web browser which represents the browser's tab/window itself. Objs have props here it includes these Web API's 
+    🔅 document 
+    🔅 setTimeout
+    🔅 fetch 
+    🔅 alert
+    🔅 localStorage which is essentially the browser's file storage
+  window.document === document gives true since document itself is a property of the window object
+  alert("Hellow world") is the same as window.alert("Hellow world")  
+ console.log() isn't a part of JS since it is a Web api the way document.write() , the entire DOM is , fetch()  a Web-Api   offerred by the browser
+ document is a property of the window object which helps in accessing and manipulating the dom which itself stands for 
+  🎙️ DOCUMENT OBJECT MODEL. It itself is the HTML loaded in the browser   
+  🎙️ document isn't accessible outside the browser therefore we cannot use it in 
+  TODO: 
+    document can't be accessed outside the browser 
+    console vs document even needed ? 
+
+ global/globalThis. The way window is the GO of browsers, in the server-side the global/globalThis is the GObj of NodeJs(not in browsers)
+ console.log(globalThis === global) ▶️ true
+ For NodeJS it is global but for Standard(best practise) we have globalThis since globalThis works in both environments' runtime(V8 n Node) .'. is the modern approach
+ default value for this is the window obj(4 browsers) whereas global obj(4NodeJS)for browsers ALSO while considering () within an obj CREATED AS FAT(ctrlf) ARROW() binds the this keyword with the enclosing object  
+Call() apply() and bind() - yd deep seek Front-End INTV
+  They help in defining and sometimes even manipulating the context for the this keyword.
+  They are used when we want to control what the this keyword trying is referring to 
+  FIXME: goofedUp how should the syntex look like ⏩                                                                                                                                                     you thought it will be funcName().call() which is certainly wrong is you are calling it as it is then what's the need of call() ?? Correct -->                                                    funcName.call()
+  call() : 
+    calls a function(implicitly) with a given value for this and KNOWN arguments(ONLY) provided individually
+    We would use it when we know what all args are required to be passed additionally
+    function.call(thisArg,arg1,arg2, ...)
+    getName.call(Person)
+    Can serve as apply() too when used with spread operator as explained in the apply() method
+  apply():
+    Shall be used when we are not sure about the number of arguments the func 2 b called takes and .'. we can pass as 
+    many as we want in an array 
+    calls the function implicitly 
+    const person{
+      fullName: function(city,country){
+        return this.firstName + " " + this.lastName + " has stayed in " + city + " city belongging to " + country;
+      }
+    }
+    const person1{
+      firstName: "John",
+      lastName: "Doe"
+    }
+    const cityCountry = ['New York','USA']
+    person.fullName.apply(person1,cityCountry);
+    In practice, modern JavaScript often replaces apply() with the spread operator ... that unpacks arrays into argument lists with call(), making the distinction less critical:
+    funcName.call(thisArg,...argsArray)
+
+  bind():  
+    Creates and returns a new func which is permanently bounded a the user-defined object provded serving as the context 
+    for this keyword. We can also pass arguments other than this obj to this bind() function which serve as the perset leading arguemtns 
+    for the new function.Any further argument provided gets appended
+    wouldn't call the function immediately. Meaning we need to be explicit about it
+    When we call this returned function it would in turn call the 
+    function getName(city){
+      console.log(this.fname + " " + this.lname + " lives in this " + city  + " city ");
+    }
+    const Person = {
+      fname: "John",
+      lname: "Doe"
+    }
+
+    const returnedBindFunc = getName.bind(Person,'Puney');
+    returnedBindFunc();
+    TODO:
+    Map reduce filter lexical 
+    IIFE needs practise considering  
+
+    closure
+    inline-size: in css 
+    strong vs b html tags 
+    function borrowing in context to call, apply and bind 
+    gemini event bubbling(event, search params right above) n capturing
+    yd deep seek call(), bind() and apply()
+
+FRONT END EXERCISES 
+How to make a UI responsive ?
+Use percentages for defining the dimensions of the elements otherwise view units or view port liek vh vw 
+Responsive UI vs Adaptive UI?  
+adaptive ui has specific dimensions for each screen (It includes using media queries I guess)size unlike responsive UI 
+flex box grids
+Some Challenging Project you worked on or what challenges you came across 
+🌟 METHOD 
+S Situation
+T task 
+A action 
+R result 
+How would you optimize your web requests 
+  o reducing http requests 
+  o optimizing file sizes 
+  o google page speed to have insights to boost site efficiency 
+How do you handle cross browser capability issues 
+  css techniques , js solutions and debugging 
+                                                                REACT 
+
+jsx app.jsx vs app.js for components 
+  App.jsx explains that this file contains javscript xml while App.js can be anything since the name doesn't imply it explicitly henceforth App.jsx is preferred  
+  jsx vs html 
+    className ~ class
+    onClick ~ onclick 
+    necessary self closing tags ~ not necessary
+    js expression within {}  ~ not needed 
+  xml is used a representation of data and storage
+Bable its purpose, defintion, jsx xml html 
+  Transpliation refers to source to source compilation (often offers compatiblity)which is what bable does.
+  JSX ▶️ Babel AST ▶️ React.createElement() calls ▶️ Virtual DOM Objects(Plain JS) ---(Reconciliation: comparison with previous virtual dom)---> Actual DOM Updates 
+  Since JSX-> JavaScript XML is an extension of js the way TypeScript is a type safe extension of js HENCEFORTH 
+  It typically means converting non-standard js to standard js  
+  This js transpiler transforms next-generation js ES6 features old generations js ES5 which is understandable to all browsers.   
+  Read below for understanding virtual dom 
+    Step 1->App.jsx contents 
+      export default function Welcome(){
+        return(
+          <div className="cssClass">
+          <h1>Hello World🖐️ </h1>
+          <button onClick={()=>
+            console.log("You clicked a button 🟥")
+          }>Click Me</button>
+          </div>
+        )
+      }
+    Step 2->Babel transpilation ▶️ Babel 
+      1. parses this jsx into AST(Abstract Syntex Tree)- A a structural representation of our Code which captures our code's 
+        syntactic structure of our code in a heirarchical tree-like manner such that each node of this tree represents a specific section of the code such as 
+        an expression, statement, declaration, etc.
+      2. Transforms this AST by converting it into React.createElement() and no control is given to call this createElement method YET. 
+          This transformation wouldn't call this method ; it is just generating the browser compatible old js code which can be executed by a js engine alone
+          when that happens the containing createElement() is called.    
+          After transpilation your react components return vitual dom trees via plenty of React.createElement() calls 
+          On State/prop changes, new virtual dom trees are created 
+          These new dom trees are compared with the previous dom tree via react's diffing algorithem called reconciliation
+          Reconcilation not only helps in identifying what exactly changed b/t these trees  
+          but also in determining the most efficient way to apply those minimal changes needed to update the actual dom
+          FIXME: Note that reconciliation is different from rendering and latter is not performed by the reconciler 
+          React library RENDERS only the necesarry updates for the performance.  
+    calling React.createElement() 
+      function Welcome(){
+        return React.createElement(
+          'div',
+          {className:'cssClass'},
+          React.createElement('h1',null,'Hello World'),
+          React.createElement(
+            'button',
+            {onClick = () =>
+              console.log("You clicked a button 🟥")
+            },
+            'Click Me')
+        );
+      }
+   Step 3->Browser execution
+    The react library converts these React.createElement() into virtual dom objects and these virtual objects are 
+    effeciantly renderred as actual html elements on the browser as by react itself
+1. Components 
+  React applications are built from components which are re-usable self-contained units of UI and logic. These are the building blocks of a react application. 
+  Functional components : 
+  Are nothing but those js functions which return a jsx. They're the modern standard and can use React hooks too. 
+  Ex- 
+    function Welcome({name}){
+      return <h1> Hey There, {name} !</h1>;
+    }
+ Class Components: 
+  Are those classes which extend React.Component and use lifecycle methods. Old but still valid. 
+    class Welcome extends React.Component{
+      render(){
+        return <h1> Hello, {this.props.name}</h1> ;
+      }
+    }
+
+Virtual DOM - React's RAM ? 
+  is react's in memory representation of the actual dom. Its a light-weight js object that mirrors the structure of the real dom. 
+  How the Virtual DOM Works Better explained above in the jsx section 
+
+Initial Render: React creates a Virtual DOM representation when a component first renders
+State/Props Change: When state or props update, React re-renders and creates a new Virtual DOM
+Diffing Algorithm: React compares (diffs) the new Virtual DOM with the previous one to identify what changed
+Reconciliation:
+  Reconciliation in React
+  React calculates the minimal set of DOM updates needed
+    changes in state / prop or both
+    diffing 
+    update the dom 
+    commitPhase
+Batch Updates: React updates only the changed parts in the actual DOM, not the entire tree
+
+Why Virtual DOM Matters
+
+Predictability: The rendering process is deterministic and follows clear rules
+Abstraction: Developers don't need to manually manage DOM updates; React handles it automatically
+Performance: Direct DOM manipulation is slow. The Virtual DOM allows React to batch changes and update the real DOM efficiently
+Cross-platform: The Virtual DOM concept enables React Native and other frameworks to target different platforms
+
+Difference between props and state in react 
+  o Prior is immutable where parent alone can change with setState() or dispatchers it while re-rendering while state changes and re-renders ui components 
+  o state changes causes re-renders while even if the parent changes the props it won't cause any re-render of the component
+  o props can be accessed by parent compo's children while state is completely private to the component that encloses it
+
+refs and diffs 
+
+Controlled Components & Un-controlled components in ReactJs
+  form inputs & other interactive elements can be managed in two main ways: controlled or uncontrolled components. This disction helps in handling user input, validation 
+  & state synchronization. 
+  Aspect,             Controlled Components,      Uncontrolled Components
+  Value Management,React state (via value prop),  DOM (via ref)
+  State Updates,    On every change (onChange),"On demand (e.g., submit)"
+  Example Props,    value={state} + onChange={setState},ref={inputRef}
+  Re-renders,       Frequent (per keystroke),None on input changes
+  Best For,          Interactive UIs, validation, dynamic forms","Simple forms, performance-critical inputs"
+  Testing,            Easy (mock state changes),Harder (mock refs/DOM)
+  Code Complexity,  Higher (state + handlers),Lower (minimal setup)
+  React Philosophy   Everything is state (preferred Let DOM handle it"" (legacy-friendly)"
+  Controlled components tie the user input directly to the react state 
+  we pass the current value to the onChange handler that modifies state giving you full control over the input(e.g. real time validation, formatting or conditional rendering)
+   function ControlledInput() {
+    const [value,setValue] = useState('');
+    const handleChange= (event) => {
+      setValue(event.target.value);
+    }
+
+    return (
+      <input type="text" onChange={handleChange} placeHolder="Type something .." />
+    )
+   }
+   Since input reflects state, typing anything causes re-renders
+  Uncontrolled components lets the DOM handle the value internally(as seen in traditional html forms) avoiding the need for react to track it. 
+  We access this input value via refs close to vanilla html behavior;React accesses it only when needed(e.g., on submit)
+   Refs in React 
+    function UnControlledInput(){
+      const inputRef = useRef(null);
+      const handleSubmit = () => {
+        alert(inputRef.current.value)//This shall access value on submit alone 
+      }
+      return (
+        <div>
+          <input type="text" 
+            ref={inputRef} //DOM shall manage the input value  
+            placeHolder="Type Something" />
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
+      );
+    }
+
+Concurrent Rendering in React yd chatgpt 
+  (post v18 things got asynchronous)refers to the ability to perpare multiple versions of the UI at the same time, WITHOUT BLOCKING THE MAIN THREAD 
+  ensuring app's responsivness EVEN DURING HEAVY UPDATES
+  older react's(< React v18) rendering was synchronous i.e. to say once react started rendering it couldn't stop/halt mid-way until its finished. In worse cases 
+  this lead to dropping of frames or UI freezes when the component tree was large. 
+  BUT with concurrent rendering react can: 
+    o pause rendering when something urgent happens(user clicking)
+    o abort out-dated renders(user navigating mouse away before rendering finishes)
+    o Resume rendering later, 
+    o prioritize more important updates earlier(like typing vs background data refresh)
+    
+    In essense React >=v18 schedules rendering tasks intelligently, like an OS SCHEDULAR, so ur app feels fast even under load. 
+    Concurrent rendering isn't a standalone feature instead is a set of internal capabilities enabled by - 
+     o react's core engine or the fiber architecture and ⬇️
+     o react 18's concurrent feature   
+
+React LifeCycle Methods career grok 
+  are special functions that provide granular control over desired points within the life cycle of that component
+  React lifeCycle methods
+  componentDidMount                 
+  componentDidUpdate 
+  componentWillUnMount
+  getSnapshotBeforeUPdate getDerivedStateFromProps getDerivedStateFromProps getSnapshotBeforeUpdate
+
+Portals in React 🦸 Litterally teleportation of a paren't child component 
+  Is a feature which allows users to render child components of a parent at a desired node of the dom 
+  existing outside of the parent's heirarchy without breaking the React component structure. As introduced in react 16, 
+  portals provide a decalrative way to teleport jsx components at any part of the page/node of the dom, bypassing the normal   
+React Hooks TODO: pending hooks  
+  useEffect() : Often used with reactLifeCycle methods 
+    asynchronous in nature 
+    lets us synchronize our component with external systems- API calls, timers, event listener or the browser dom , below imp consideration 
+    ONCE REACT IS DONE RENDERING THAT COMPONENT. Its like 
+    Hey React, After you render this component, run this useEffect code for me 
+    Syntex  
+      useEffect(()=>{
+        //set of bussiness logic 
+
+        //Below is a cleanUP function which would execute once the component is unMounted
+        //Prevents memory leaks
+        return ()=> alert('done with rendering now it shall be destroyed') 
+      },[dependencies])
+      1st arg: function which contains the side effect 
+      2nd arg: Optional array of dependencies which would prompt react to re-run the side-effects when these dependencies/state change
+      Which means 
+        [], means no dependencies so the callback within useEffect() will run once 
+        [count], would re-run the callBack when componentDidUpdate
+        no array at all means no state as dependency, would lead to infinite loop since we never tell useEffect when to stop
+      Furthermore its good practise to have a tear down function which would be called when the component after getting renderred has gotten finally destroyed
+      useCase: logging, analytics, data fetching, subscriptions,  
+  useLayoutEffect()    
+    useLayoutEffect is a React hook that runs synchronously immediately after React has performed all DOM mutations BUT BEFORE the browser paints the screen
+    NOTE: Never access window, document, or layout in useLayoutEffect during SSR.
+      Use useEffect or guard with typeof window !== "undefined".
+    This hook will execute the containing callBack of course after the render BUT BEFORE anything was displayed/painted on the screen for the user to see. 
+    import { useEffect, useLayoutEffect, useRef, useState } from "react";
+
+function Box() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
+
+  // Flicker version
+  useEffect(() => {
+    if (ref.current) setHeight(ref.current.offsetHeight);
+  }, []);
+
+  // No flicker
+  useLayoutEffect(() => {
+    if (ref.current) setHeight(ref.current.offsetHeight);
+  }, []);
+
+  return (
+    <div ref={ref} style={{ height: "200px", background: "salmon" }}>
+      Height: {height}px
+    </div>
+  );
+}
+// 1. Default choice
+useEffect(() => { /* safe for async */ }, []);
+
+// 2. Need DOM measurements / no flicker
+useLayoutEffect(() => { /* sync with layout */ }, []);
+
+// 3. SSR-safe layout effect
+const isClient = typeof window !== "undefined";
+useLayoutEffect(() => {
+  if (!isClient) return;
+  // safe DOM reads
+}, []);
+  BECAUSE below 
+    SSR Gotcha (Next.js)
+      // BAD – runs on server → hydration warning
+      useLayoutEffect(() => {
+        console.log(window.innerWidth); // window is undefined on server
+      }, []);
+
+      // GOOD
+      useEffect(() => {
+        console.log(window.innerWidth);
+      }, []);
+    useCase: DOM measurements( like offsetWidth, getBoundingClientRect()), layout fixes, scroll position, animations 
+  effect vs layoutEffect
+                  useEffect                                                 layoutEffect 
+    runs: after paint(browser has painted screen)                          before paint 
+  server-side? : runs on client-side alone                                   client + server - side 
+  impact:MAY cause flickering/layout thrash if we update the dom         sync with layout - no flicker
+  performance:                                                               can block paint->
+  useRef()
+
+    This hook offers a mutable REFernece obj which wouldn't cause a re-render
+    We can use it to grab html elements from the dom and use dom APIs. 
+    Its like programmatically clicking a button
+        export default function grabButton(){
+          const myBtn = useRef(null);
+          const clicked = () => myBtn.current.click();
+          return (
+            <div>
+            <button ref={myBtn} >Red Button </button>
+            </div>
+          );
+        }
+  useMemo() 
+    is a react hook which caches the result of a computation so that it isn't required to be re-calculated on every re-render PROVIDED dependencies won't change 
+    It remembers the output of a () until the involved dependencies change. 
+      const calciCache = useMemo(()=>calciFunc(a,b),[a,b])
+      this means calciFunc would execute only if a,b change and until that happens the last ouput shall remain in the cache for usage
+      better example  
+      export default const calciFunc({number}){
+        const [count,setCount] = useState(0);
+        const total = useMemo(()=>{
+          console.log("Calculating total for ",...number)
+          return numbers.reduce((a,b) => a+b,0);
+        },[numbers])
+        return (
+          <div>
+          <p> Sum of numbers: {total} </p>
+          <button onClick ={()=>setCount(count + 1)}> Sum {count} times</button>
+          </div>
+        )
+      }
+ useCallBack() 
+    it memoises an entire function itself, NOT ITS RESULT.  
+  useTransition() 
+    is a concurrent rendering feature introduced in react 18 to help manage state updates that might cause expensive UI updates ensuring smoot UX
+    Enables to mark certain state updates as transitions  which makes react to treat them as non-urgent, enabling the UI to remian responsive while heavy 
+    computations or renders are processed in the background 
+      o Transitions: 
+          those state updates which are treated as low priority by react 
+      o Concurrent rendering:  ctrl + f same
+      o useTransition() helps you control which updates are treated as transitions and provides a way to track their pending state. 
+  
+Which react hook can be used to grab html elements from the dom ? 
+  Hint: It doesn't cause re-renders 
+    useRef()
+Actions in React(one in redux is described below BUT CAN BE IGNORED) 
+  Those functions which operate with async transitions for handling asynchronous operations, particularly for form submisions and data mutations/manipulations 
+  are referred to as actions in react as introduced in react 19. These actions can be 
+   🎂 both async and sync 
+   🎂 when async they can automatically manage pending states(transitions since these states are low priority)
+   🎂 commonly used with form submisions via the action prop
+    Ex - we have used one as it is while discussing transitions 
+Actions in Redux ecosystem: are older, more established meaning of actions that you might encounter in existing React code bases. 
+ These are plain objects which are the only way to trigger state changes in redux and help in describing what happenned in your application
+
+TODO: Pending HTML CSS Intv 
+  REST APIs should be different from the term APIs owing to some distinction
+  using flexbox over width 
+TODO: Pending JS INTV 
+  Array methods 
+    why should we use indexOf over includes ? Nothinig with the purpose its just that indexOf is faster 
+  Spread vs destructure operator 
+  DOM related  
+  Closures
+  Browser specific API
+  ES6 questions - Object, String, arrow functions, async await, prototypes, apply, call bind 
+  Promises-> How would you make polyfill 
+  Error Handling 
+ TODO: Pending React INTV 
+   Lifecycle methods 
+   Do's and don'ts of react. What should not be done 
+   State vs ref
+   useRef() has generics with example as seen in useLayoutEffect
+   useEffect better definition since it said synchronize our components with external systems. What ?  
+   useDebugValue() with your own custom react hook confidence remaing
+   Memoization 
+   Composition 
+   Context API 
+   How does Debouncing and Throttling help in  SAVE saving the API. Why should we avoid calling the API too much 
+   Redux when should not be used and when should be used 
+TODO: 
+ Context API in ReactJs
+  setState() vs dispatchers. What are dispatchers in react ?
+  career deepseek react n frontend + css interview questions  intv pending
+  React LifeCycle Methods career grok 
+ Features of react 19
+  useTransition action
+  useOptimistic action
+  useActionState action
+  userormStatus action
+  use API
+  prerender API
+  prerenderToNodeStream API
+  Server Action 
+ Improvements in react 19 
+  ref as a prop
+  cleanup function for refs
+  diffs for hydration errors 
+  React querry for caching 
+  Context as a provider 
+  useDeferredValue initial value 
+  support for document metadata
+  support fo sytle sheets
+  support fo async sheets
+  support fo preloading resources
+  better error reporting 
+  support for custom elements   
+ React core engine or react fiber architecture
+ What are higher order components in react? Do we stil use them ?
+ react component composition
+ .env for storing apis serving as the href ? 
+ https://www.youtube.com/watch?v=NkWOzTEEcco
+ Search Engine Optimization
+
+REACT INTV NOTES & GOTCHAS 
+  useMemo() vs useCallBack()
+
+  If after adding a feature you notice that your react appliction has slowed down then how will u diagnose it ?
+    TODO: The section where he talks about a separate video https://www.youtube.com/watch?v=afoK26auCXQ
+    1. Chrome dev tools -> Performance tab 
+    2. React dev tools -> unnecesarry re-renders 
+    3. useMemo/reactMemo and useCallback() 
+    5. Avoid using inline functions/objects and use useMemo or useCallback instead otherwise it causes repeated re-renders
+    4. Virtualization(pagination?) via react window or react virtualized whereby we show only a section of rows in the window n (may be when someone scrolls down) he sees the next 50
+  How would you ensure that after landing on the home page post authentication n auth the user never langs on the login page(provided cookies and session persist) 
+    protected routes 
+    isLoggedIn flag properly configured with the browser router which can be passed down the children 
+    context and redux features can be used too 
+  How do handle API errors gracefully 
+    We should make good use of try catch blocks and present
+    TODO: const [Error,setError] = someHook which needs AI RND   
+    toast messages with proper categorized errors(400,402,403,404,500) user friendly messages to the user NOT DEVELOPER friendly
+    there should be a retry button and error boundaries too WHAT ? 
+  What if a component fetches the same data again n again on api call ? 
+    1. React querry for caching 
+    2. If the data is calculation based then we can make use of useMemo hook   
+    3. Context feature of Redux 
+  How would you optimize the bundle size of your react application ? 
+    This provides smaller memory footprint on production, making it light weight and contributes to UX as a whole 
+      1. Code splitting with react lazy using suspense alongside 
+      2. Tree shaking with vite / webpack-  this removes un-used imports 
+      3. Dynamic imports: we can make a function which shall perform importing at run time with .then feature 
+      4. Assests(img->.png media asstets) should be compressed with some algorithems
+      5. Cache 
+
+  Read the below code 
+  for a setCount() hook 
+  TODO: does setCount(count => count++ ) work fine ? Is count=> count ++ a callback function -->                                                                                                                    no wouldn't since its post increment which means it would return the older value first and later on increment it. Yes its a callback 
+  Read the below code https://www.youtube.com/watch?v=_rG_D49Uwdg
+    function App(){
+      let fruit = "Apple";//goofedUp -->                                                                                    had kept it const instead and later on when I was describing the answer. 18th October 2025 Saturday 21:10 kaheen kaheen toh dhoop h kahin saaye zaraa tum ho mere zaraa paraye hey ya Diwali on Monday and I spilled the diya's oil before starting with front-end. Had to initiate chat with Geek Trust since test operation before submission takes too long not leaving me with any option. Came across yet another scam(allegedly) Yash just abhi bula k guya behen bol di ki mei pudh ruha hoon. Dopeher mei waise bhi khel liya tha photo bhi khichwaai thi Aishni se jismei meine kundhe par Gitisha ko payaa tha aur saamney Somil ko , Aarav ne Kanha ko paya ur wo guya bhi nahi coaching jub bola ussey. Ye ganaa jitna sakaratmak h(Chemistry board next song in the Q)  theek waise jaise bucche sakaratmak h mujhey sadness reasons likhney the UI switch kurney k par lugta h ki Yash ki awaaz sunney k baad exam .  
+      funct handleClick = () =>{
+        fruit = "Banana"
+        console.log(fruit)
+      }
+      return (
+        <div>
+          <h1>{fruit}</h1>
+          <button onClick={handleClick}>Change Fruit</button>
+        </div>
+      )
+    }
+    What change shall the above code cause on clicking the button ? --->                                                                              no change since the button would change indeed change the value of the fruit var(henceforth should be let and not const) as seen in the console but nothing like that on the UI because UI requires rendering and in react re-rendering happens when the state of a component changes
+    <h1 id="counter"> Curr Count : 0</h1> 
+    <button id="incButton">Click me</button>
+    <script> 
+   State are special react variables which causes the re-render of a component and its children wherenver it comes across a change.Similar to variables state 
+   is also a mutable container which stores data but they cause component re-rendering whenever the stored data chagnes
+  While using react hooks(NOT CUSTOM HOOKS) in a component it is advisable to use it where ? ---                                                                              on the top level itself instead of
+  As of 20th October 2025 12:27 🕉️(om read the same) Diwali 🪔(read as diya lamp) Elastic Heart Sia but did listen to the one I already have in  : This is heavenly I sense Positive energy around me. Music has un-imaginable potential which means I should be doing something for this industry. Woke up around around 8:13 - 8:30 am in the morning today owing to the sad dream I had where I was 😢 since I saw a different reality(Helplessly this thought came to me a night before Deepawali. Lord Hanuman in his miniature form had to go though the small crack made by Lord Ram(Diwali) to fetch the ring he had thrown down just cause Kaal couldn't even touch Lord Rama in front of Bajrangbali (i feel like crying already n there goes my right ear bud ) whose name was taken by Dad But Niyati par Niyantran Narayana ka bhi nahi hota vidhi ka vidhaan koi nahi badal sukta Lord Ram ko bhi janaa hi tha isiliye unhoney Bajrang Bali ko angoothi laaney dharti k doosrey koney pataal lok bhej diya taaki wo anant sagar ko laut suktey. Pahuchney k baad Wahan k rajaa ne Pawan Putra ko bataya ki yahan toh laakhon angoothiyan h jinhe laakhon Bhagwan Ram ne feka tha le kur aaney k liye. Waise hi is sapney mei meine bhi wahi dekha ki is baar bhi behen hi thi Papa k saath aur mei nahi tha. Meine behen se poocha toh usney adhaa hi bataya fir bolee aagey mat poochna. Meine hall laut ayaa socha ki jaise behen aur mummy apney apney KAAM mei lugye huye h kaash waise hi Papa bhi hotey fir mei acche se roya. Kal shaam mummy se kaha suni ho guyi mere sur k peeche k.Diwali mei Mummy mere baalon ko chota kurwana chahti theen. Behen bhi excited thi kyunki us din jab ham dono Us salon se wapas lautey the bahut khush the. Usi ka idea tha ki baal katayenge.Mummy ko peeche k baal mudey mudey se lag ruhey the. Meine bola ki mere liye boarding school ka intezaam kur do bus wahan wifi ho mujhey aap key saath nahi rehna. Behen ko bhi bol diya le dekh le bahut khush hoon mei(jaise yash mere self recognition waaley din bahar mila tha udaas nahi hona chahta mei) Behen aa kar khaasney lugi kyunki thuska lagaa tha aur mei gussey ka chehra bana ke uski peetch par maar ruha tha bolee mei tere se kutti hoon. Behen b udhar malaa kyun daal ruhi ho aap kaun sa har saal lagatey ho. Mei toh Lalita ko fikwa dii issey accha rangolli mei use kur lena
+  
+  Read the below code https://www.youtube.com/watch?v=1OvrhvBpD3E&list=PL8p2I9GklV46EkoViwlhihZ7THZ0lZXmQ
+    function 
+
+    Solution: you did not use any condition to determine when should the useEffect or useState hook should be used which caused an endless loop to occur
+     which kept on changing the value of the counter state making the component to re-render repeatedly 
+  Read the below code 
+    function App(){
+      const onClickHandler = async () => {
+        await new Promise(res => setTimeout(res,3000))
+        console.log("execution completed");
+      }
+      return (
+        <div>
+        <p>This should show a loader after clicking the button DISABLING it and on the console should show execution strated and once ended</p>
+        <h1> Use Transition React Hook </h1> 
+        <button onClick={onClickHandler}> Click Me </button>
+        {<img style={{width:"50px"}} src="https://res.cloudinary.com/bytessizedpieces/image/upl}
+        </div>
+      )
+    }                                                                                                                                                               A
+    Solution
+      import {useTransition} from 'react' 
+      function App(){
+        const [isPending,startTransition] = useTransition();//isProcessing would have been better
+        const onClickHandler = () = >{
+          startTransition(async ()=>{
+            await new Promise(res=>setTimeout(res,3000))
+                    console.log("execution completed");
+          })          
+        }
+        return (
+          <div>
+          <p>Some Stuff</p>
+          <button disabled={isPending} onClick={onClickHandler}> Click Me </button>
+          {isPending ? <img style={{width:"50px"}} src="https://res.cloudinary.com/bytessizedpieces/image/upl" />: null}
+          </div>
+        )
+      }
+  Read the below code 
+   function App(){
+    const [users,setUsers] = useState([]);
+    const [user,setUser] = useState('');
+    const handleClick = () =>{
+      setUsers([...users,user])
+    }
+    const totalUsers = users.length;
+    const lastUser = users[users.lenght-1];
+    const totalUnique = [...new Set(users)].length
+    return (
+      <div>
+      <h2>Total Users : {totalUses} </h2>
+      <h2>Last User : {lastUser} </h2>
+      <h2>Unique Users : {totalUnique} </h2>
+      <input type="text" onChange={(event) => setUser(event.target.value)} placeholder="Add new User">
+      <button onClick={handleClick}>Add User</button>
+      {
+        users.map((item,index)=>{
+          <h4 key={index}>{item}</h4>//shows the added users on the screen. 
+        })
+      }
+      </div>
+    )
+   }
+   will the totalUsers, lastUser and totalUnique variables cause change on the UI to observe --->                                                                                                                   Yes they will, even though they are constants.They are derived states of the parent state users and state changes causes component re-renders
+   Derived State in React     
+    is the state that has been computed or derived from other data sources such as
+    ⭐ Props: Values passed from a parent component.
+    ⭐ Existing State: Other state variables within the same component.
+    ⭐ External Data: Data from APIs, context, or other sources.
+      and .'. does not need to be managed
+    as a separate state variable. It represents values which are calculated based on other state or props, often to simplify component logic or avoid redundant 
+    state management. When managed properly it avoids un-necessary re-renders 
+  
+  Read the below code 
+  export default function Parent(){
+    function Child(){
+      return <h1> Child Component </h1>
+    }
+    return (
+      <div>
+      <h1>Parent Component</h1>
+      <Child />
+      </div>
+    )
+  }
+  Is this good approach ?
+    While we can ; we should avoid having a parent component which returns multiple levels of child components directly in its jsx can lead to : 
+      💣 prop drilling occurring due to values being passed down to the child components as props leads to unnecesarry data flow which becomes hard to manage 
+      💣 This pyramid of doom is hard to debug and test 
+      💣 Performance overhead and time consuming owing to the re-rendering of child components beginning from the re-rendering of the child. This degrades UX in large applications
+      💣 Violation of react composition principle makes the child components tightly coupled with the parent making them less or non-usable some times. 
+    Henceforth we should avoid doing so for best practise and keep component trees as MODULAR & FLAT as Possible 
+    encouraging react component composition
+  Read the below code  
+  import {User,Fruit} from {./root}
+  export default function App(){
+    return (
+      <div>
+      <title>App's Ttile</title>
+      <User />
+      <Fruit />
+      </div>
+    )
+  }
+  Will the title show on the browser's tab ? If User's title was user and fruit's was fruit itself then which one will appear on the tab of the page that is 
+  rendering the App component ? 
+  Solution: 
+    Since the fruit component render's the last .'. fruit title shall appear on the tab 
+  What if you want to load classes,ids from two different css files within the same component file? 
+  In angular you can use styleUrls instead of styleUrl within the imported @Component.This takes an array of './styles' .'. serving the purpose
+why do we have keys in Lists                                                                                    react's idea 
+Differences b/t promises & async-await                                                              promises make async - await work asynchronously  
+async function f(){let result="first"; let promise=new Promise((resolve,reject)=>{setTimeout(()=>resolve("done"),1000)})result = await promise ; console.log(result) } f() //(I)first (II)done! (III)JS error (IV)Something else
+function job(state){return new Promise(function (resolve,reject){if(state){resolve("Sucess");}else{reject("error")}})} let promise = job(true) promise.then(function (data){console.log(data); return job(false)}).catch(function (error){console.log(error); return "Error caught";}).then(function(data){console.log(data);return job(true)}).catch(function (error){console.log(error)})))  // (I)error,success Error caught (II) success , error , Error caught (III) success, error , error (IV) error , Error , caught , success                                                              (II)
+function job(){return new Promise(function (resolve,reject){reject();}))} let promise = job() ; promise.then(function(){console.log("Success 1")}then(function(){console.log("Success 2")}.then(function(){console.log("Success 3")}.catch(function(){console.log("Error 1")}.then(function(){console.log("Success 4")})  // Error1 (II) Success 1, Error 1 (III) Success 1, Success 2, Success 3 , Error 1 , Success 4 (IV)Error 1 , Success 4                                                                                                             IV
+
+error Reading in React 4 some 
+
+                                                                            JQUERY
+
+Code present within $(document).ready(function(){});  is executed by the browser the moment the page is loaded , importance ? Absenece of this function will cause running of ur code (NOT inside document.ready(()=>{})) BEFORE even html parsing could occur which can cause bugs??   NOTE keep ; at the end ?? 
+' $ ' is called bling operator which pre-ceeds every jquery code 
+$(document).ready(function(){$("button").addClass("animated bounce")})//Animate.css and bounce 
+$(".className").addClass("animated bounce");//NOTE here us can even place html tag names such as h1 h2 body form nav container etc .
+$("#idName").addClass("animated shake");
+U have a new way of accessing a given element's parent in jquery called the .parent() method 
+$("#target1").parent().css("background-color", "red");//similarly u can access the children  of a given div as well 
+$(".parentName:nth-child(2)").addClass("animated bounce")//selects every second child of the   
+You can also select a specific child element of a given parent by means of its positiion being odd or even however indexing begins from 0 as seen in case of arrays . 
+$(".className:even").addClass("animated shake"); beginning from 0 whereas :odd begins from 1st index
+$("#right-well").children().css("color","orange")
+$("button").removeClass("someClassName");//no dot requried while mentioning the className inside addClass // Duh 
+$("#someId").remove()// will remove the corresponding html element 
+$("button").css("width","35%")//U can also adjust non-css properties of a given element using the prop() 
+$("button").prop("disabled",true); // by default false I guess 
+U can also alter the text(.text()) present b/t start & end tags apart from manipulating the mark up(new tags) itself ! by means of the .html() function by means of which not only add new text BUT 
+also add new tags within other html tags
+to learn the difference between <i> and <em> and their uses.
+Note that while the <i> tag has traditionally been used to emphasize text, it has since been adopted for use as a tag for icons. The <em> tag is now widely accepted as the tag for emphasis. Either will work for this challenge.  
+https://www.freecodecamp.org/news/html-elements-explained-what-are-html-tags/#em-element
+$("h1").html("<em>Now Replaced</em>")
+$("target2").appendTo("#right-well")
+BUT if u would want to just create a clone instead of actually shifting it from some existing div into some other div u can perform FUNCTION CHAINING while using clone() function before appendTo() 
+$("#button3").clone()appendTo("#newId");
+
+
+
+                                              SASS 
+
+The feature that seperates SASS from CSS is that it uses variables . Unlike JS here variable declaration begins with $ 
+$variable-Name : Css property-VAULE  ;// <-- semi-colon 
+then use it instead of property-value after defining the CSS property-name
+Nesting is like the X-Factor of SASS where we wouldn't be required to use , > ~ + or blank spaces for targetting children with the some parent in common , INSTEAD we can use {} braces for enclosing the required children  
+Before - nav{background-color : red;} nav ul{list-style : none;} nav ul li {display:inline-block;}
+After - nav { background-color : red ; ul { list-style : none; li {display:inline-block ;}}}
+Since variables have been discussed time to discuss functions or mixins in SaSS . These functions take variables as parameters but instead of func/ function keyword take @mixin in their declaration 
+In Sass, a mixin is a group of CSS declarations that can be reused throughout the style sheet.
+@mixin a-mixin($rad){border-radius:$rad}
+then .awesomeClass{@include some-name(15px)} // NOTICE that we didn't mention border-radius : @include a-mixin(15px) INSTEAD just called the function straight    
+Newer CSS features take time before they are fully adopted and ready to use in all browsers. As features are added to browsers, CSS rules using them may need vendor prefixes. Consider box-shadow:
+@mixin border-radius($radius){
+    border-radius : $radius;
+    -webkit-border-radius : $radius;
+    -moz-border-radius : $radius;
+    -ms-border-radius : $radius;
+}
+Also u can use if else & else if in Sass 2 however just like Go lang u cannot keep a logic control flow statement in the same line as a " } " ALSO no () are required as seen in Go lang ?? 
+@mixin border-stroke($val){//@ will be seen in case of while import if for(from through(incldues ending ele) & from to(excludes) also the I variable is incldued as #{$i} to make the I var into a string which helps in converting SaSS i variable to CSS string ) else if  
+    @if $val == light{// @for $i from 1 through/to 12 {.col-#{$i}{width: 100%/12 * $i ;}}
+          border : 1px solid black ;///pay attention that their are 12 cols to include  
+    }
+    @else if $val == medium {
+      border : 3px solid black ;
+    }
+    @else if $val == heavy{
+        border : 6px solid black ;
+    }
+    @else { 
+      border : none ; 
+    }
+}
+@for $j from 1 to 6{
+  .text-#{$j}{
+    font-size : 15px * $j;
+  }
+}
+
+Sass also offers @each directive which refers each item of a given list 
+@each $color in red, green , blue {
+  .#{$color}-text {color:$color;}
+}
+whereas for a map where two pointers are required as we want both keys and values at times ; the syntex is slightly diff 
+$colors : (color1 : "red" , color2 : "green" , color3 : "blue");
+@each $key , $value in $colors {
+  .#{$value}-text : {color : $value}
+} 
+$x: 1;
+@while $x < 11 {
+  .text-#{$x} { 
+    font-size: 15px * $x;
+  }
+  $x: $x + 1;
+} 
+Partials in Sass are separate files that hold segments of CSS code. These are imported and used in other Sass files. This is a great way to group similar code into a module to keep it organized.
+
+Names for partials start with the underscore (_) character, which tells Sass it is a small segment of CSS and not to convert it into a CSS file. Also, Sass files end with the .scss file extension. To bring the code in the partial into another Sass file, use the @import directive.
+
+For example, if all your mixins are saved in a partial named "_mixins.scss", and they are needed in the "main.scss" file, this is how to use them in the main file:
+ 
+@import 'mixins'
+@import 'variables' 
+Note that the underscore and file extension are not needed in the import statement - Sass understands it is a partial. Once a partial is imported into a file, all variables, mixins, and other code are available to use.
+Sass has a feature called extend that makes it easy to borrow the CSS rules from one element and build upon them in another.
+.parent{background-color:red;} .child{@extend .parent ; }
+#box {    @include border-stroke(medium);}
+
+As of 2nd November 2025 
+career 
+  deepseek
+   o instacure nextjs assignment
+   (understanding jsx,babel )
+    o How is Throttling different from debouncing ? Are they the same or do they work hand in hand to save APIs ?
+  chatgpt 
+    keptn 🆚 werf 🆚 fluxcd ▶️ 
+  grok
+    react portals
+    (handling null values in js) - coercion(simplilearn js hpur long questions) vs autoboxing
+  claude 
+    .js vs .jsx but has some read worthy stuff 
+    spa but will have to find it
+
+yd 
+  claude
+     group by vs order by 
+     rdbms vs non-rdbms
+     (above both in sql vs no sql)
+     react - reconciliation
+       reconciliation reffs 🆚 diff
+  deepseek 
+   o callback
+   o random tekken 7 stuff
+  grok ai   
+    ACID 
+    sql intv last triggers 
+    react hooks 
+      useDebugValue , useEffect pending defi needs to be searched 
+  deep ai 
+    prisma, NextJS stuff
+  gemini 
+    event capturing vs event bubbling 
+  perplexity - Free now by the way 
+    (DevOps Internship Tasks) 
+    ansible playbook for installing docker
+  chatgpt 
+    o hacktoberfest related beginner friendly 
+
+Practise JS, React 
+  Simplilearn React JS Interview Questions for Freshers: Covers basics like React components, hooks, props, state, and some intermediate concepts.​
+
+InterviewBit: Has a dedicated React interview section with questions for freshers and juniors.​
+
+Dev.to and LinkedIn: Provide curated freshers React and JS interview questions and answers.​
+
+CodeSignal Learn: Practice JavaScript and React coding challenges with a beginner-friendly learning path.​
+
+GreatFrontend.com: Offers curated React interview questions with solutions, suitable for all levels including freshers.​
+
+As of 10th November 2025 Monday 10:59 pm Peaceful mind 
+  Arrow Functions 
+  IIFE
+  Higher Order Functions
+  Throttling n Debouncing 
+  Coercion vs Autoboxing  
+  window vs document vs global(this object belongs to Node)
+  useEffect
+  call, bind, apply 
+
+//fixme NEXTJS from here onwards
+Provides: 
+  o API routes for the backend in the same next application
+  o Server-side rendering which enhances SEO & performance
+  o Built-in file-based routing system
+Doesn't provide: 
+  Data persistence: you would need a database for that
+  User Authentication Storage: db needed for user accounts
+Prsima 
+  serves as the ORM for nextjs 
+Axios 
+  shoots requests for external APIs 
+Bcrypt 
+  Bcryptjs along with jsonwebtoken provides authentication 
+@types/bcryptjs @types/jsonwebtoken provides type definitions
+
+// BAD – runs on server → hydration warning
+useLayoutEffect(() => {
+  console.log(window.innerWidth); // window is undefined on server
+}, []);
+
+// GOOD
+useEffect(() => {
+  console.log(window.innerWidth);
+}, []);
+
+CURALINK PRO 
+  Users: profiles + clinical trials + conditions 
+  Patients: Favorites + experts
+  Researchers: publication + specialities
+TODO:
+  was that file based routing absent in react(component) that its a feature in nextjs
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+THREEJS
+GLSL : similar to c++ is what it would b required if three.js isn't being used. It helps writting 
+import * as THREE from "three" ;
+const.background= new THREE.Color(" ")
+//Create a Triangle shape , draw lines between(x,y)
+cont trian=new THREE.Shape();
+triangle.lineTo(0,10);
+triangle.lineTo(10,-10);
+triangle.lineTo(0,-10);
+const geometry=new THREE.ShapeGeometry(
+
+
+const camera=new THREE.PerspectiveCamera(); //provides a diamgrammtic representation of the output
+camera.position.set(0,0,60);
+camera.lookAt(0,0,0); 
+
+
+const scene=new THREE.Scene();
+scene.background =new THREE.Color("");
+const geometry =newTHREE.BoxGeometry(10,10,10);
+geometry.center();
+const material =new THREE.MeshNormalMaterial({side:THREE
+
+react-three-fiber fancy reconciler props in our state which is .Reach-three-fiber has its own renderor from threejs and with the help of react 
+Poimandres google.
+
+WebGL can't talk with CPU GPU Draw call is a serires of instructions and this is what WebGl uses to reaching out to the user.
+ P T R S Q 
+  T Q P R S(T!S)
+ P%Q=r 
+P/r=q100
+	
+P%R=q															            A
+
+
+                                                                                                                                                                                                                                                         A                                                           
