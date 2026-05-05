@@ -1,3 +1,14 @@
+1st | 2nd April 2026 
+tenants cast complaints, requests and suggestions against their owners, 
+Tenants, owners,  Building < Floor < Flat < Room < Tenant 
+operator in cpp used alongside input stream or cin -> 																					extraction 
+one with cout or << is called -> 																															insertion
+other name for values stored in data members of the object -> 																					state of an object 
+order of arguments considering default values in cpp vs java-> 																			for constructors its always left to right but when it is className(int a=78, int ....,) i.e. providing default values at the param level itself then you should know that the most stable props should be kept earlier while the ones which are been given defaults should be kept at the last or latter potion like this 
+className(int prop1,float prop2, string prop3="Hello world"){}//if prop3 was kept earlier with default value then invalid choice
+Note java doesn't allow such defaults at the constructor level so either go for telescopic constructors or constructor overloading or otherwise 
+provide deafualts at the point of declaring the the corresponding property
+size of object of empty class is always -> 																	can be 1 byte or 8 bytes
 unbounded type inference includes ? with super  
 multiple inheritence removes the ability of ->                                                                                      dynamic binding & polymorphism because we cannot even extend anymore 
 operator precedence in java -                                                                                                                               Parentheses -> postfix(var++/var--) -> Multiplicative(*,/,%) -> Additive(+,-) -> Relational(<,>,<=,>=) -> Equality(==,!=) -> Logical AND -> Logical OR -> Assignment (=,+=,-=, etc)
