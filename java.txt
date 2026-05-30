@@ -1,3 +1,13 @@
+Linux and docker INFO
+mv creates the new directory | renames an existing directory n can also be used for 
+$ means non root user while # means root user
+when we download wsl it brings a Linux kernel along with it but when we go with a docker container having some Linux image then this guest operating system doesn't come with any kernel
+docker rmi 
+the working directory(/app) belongs to the container and not to the local directories that you would need to create one for convenience
+Considering docker arch when we hit a command on the terminal(lets say docker run), we are using the docker cli tool packages that command within an api request and sends it to the docker daemon(dockerd)
+a quick note the detached mode of 
+docker network create my-custom-network 
+docker run -d --network my-custom-network containerB
 1st | 2nd April 2026 
 tenants cast complaints, requests and suggestions against their owners, 
 Tenants, owners,  Building < Floor < Flat < Room < Tenant 
