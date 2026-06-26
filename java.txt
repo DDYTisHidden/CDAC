@@ -1,8 +1,109 @@
 Linux and docker INFO
 mv creates the new directory | renames an existing directory n can also be used for 
+#!/bin/bash here # is called the shabang operator helps in including the interpreter of our choice in our shell file like over here we have used bash instead of shell or any other
+after @ is the host machine name while before it is the user name
+Absolute vs relative path mv cp ->                                                                                                             from the root to desired dirr while relative path is relative to where you are currently at so yes depends on requirement but yes file name is required to be present on the first argument or src
 $ means non root user while # means root user
+we can't use $0 within an expression since it refers to the bash file 
+in order to do sudo you should ensure that the current user is mentioned in the user group of sudoers
+
+TODO: also putting $ for user input vars inside of $() makes no sense but look for true bug behind it
+.'. go with $1/$2 | awk or $(1/2) | bc
+then run file like this ./someDirr or ./some_name.sh arg1 arg2 which isn't clean therefore go with $(1/2)
+TODO: optimized 
+#!/bin/bash
+read -p "Enter first number : " num1 where -p flag means to give prompt to the user
+you can also make it more secure for passwords by utilizing silent prompt mechanism
+read -sp "Enter password" password                                                                                      silent prompt
+TODO: 2 begin with
+#!/bin/bash
+echo "Enter first number :"
+read num1
+echo "Enter second number :"
+read num2
+
+don't use $ inside of $(()) ensure that you use two set of parenthesis at least while using this 
+also conditions are required to be present inside of [] instead of () as scene in the case of c style for loop here in bash which is 
+
+equal                                                                                                                                                           -eq
+not equal                                                                                                                                                           -ne
+less than                                                                                                                                           -lt
+less than equal to                                                                                                                                                                                    -le
+greater than                                                                                                                                                                  -gt
+greater than equal to                                                                                                                         -ge
+Loops
+  1. if
+    if[$someVar -gt $anotherVar]//also works with && and || 
+    then 
+      echo 
+    elif[$someVar -le $anotherVar]
+    then 
+      echo 
+    else 
+      echo
+    fi
+  2. While 
+    read -p "Enter a number" num
+    while[$num -le 7]
+    do 
+      echo "current value $num"
+      num=$((num+1))
+    done
 when we download wsl it brings a Linux kernel along with it but when we go with a docker container having some Linux image then this guest operating system doesn't come with any kernel
+TODO: Git 
+rebase stash
+🐳 Git & Github 
+git fetch just downloads the code from the corresponding branch doesn't merge right away
+.'. the working branch remains unchanged
+but good practice would be to do
+git log origin/main 
+git diff origin/main 
+on the other git pull is dangerous since it straightaway merges code from the branch being pulled into the  
+git pull origin branchName = git fetch origin branchName git merge branchName 
+to create new branch and checkout to it ->                                                                                          git branch brName else git checkout -b brName 
+checking out a branch ->                                                                                    git checkout brName
+FIXME: use case ?? how to create nested branches ->                                                                                                                          git branch -b newBr oldBr(main)
+FIXME: how to create local branch from remote branch as reference ->                                                                          git branch -b brName origin/remoteBr                                                                        
+to delete branch n delete even if it isn't merged properly ->                                                                                       git branch -d brName else git branch -D brName 
+to delete remote branch ->                                                                                                              git push origin --delete brName
+Note that remote n local can have their own branches they may not be knowing 
+when we perform git clone git downloads remote tracking references hit git branch -r output origin/main origin/feature etc 
+these are remote-tracking branches not local branches. 
+FIXME: how would you see all remote and local branches ? ->                                                                 git branch -a
+FIXME: how would you create a branch                                                                                                gir branch brName
+.'. how to upload a local branch to remote ->                                                                                   git checkout localBranchName then git push -u origin brName 
+we can get a cleaner git history from merge using                                                                                                               git rebase
+when we make changes to a file and directly hit git pull then we are presented with the message commit or stash local changes first
+stash hides away the local changes temporarily making the working directory clean to welcome the git pull contents later you can do git stash pop
+FIXME: git stash commands
+git stash 
+git stash list 
+git stash pop 
+git stash apply
+🐋Docker 🐬
+to add current user to corresponding ->                                                                                sudo usermod -aG docker/jenkins currentUser FIXME: Also do sudo newgrp docker/jenkins or you can logout and then log back in(🤠)to refresh the current session so that it doesn't use old group settings
+FIXME: Note for cmds with docker we always right that first followed by cmd ex docker network/volume create netName
 docker rmi 
+we can give tags to images alone and not to containers and when not given docker assumes it to be  this tag goes to DockerHub when we push it 
+when container DOESN'T run in the detached mode then its lifecycle gets hardly coupled with the terminal session
+sudo usermod -aG 
+FROM someImg
+WORKDIR /containerDir
+COPY someFileOrDirr . <- meaning from current directory itself which is what's usually seen
+CMD javac FileName.java
+RUN ["java","FileName"]
+docker run -itd\
+  --name someName \ 
+  --network someNet \ 
+  --v volName:/data \ (TODO: May be single hyphen ?)
+  imageName sleep infinity
+  -itd 
+    i stands for interactive(i.e. stdin open)
+    d stands for detached mode 
+    t means to allocate a pseudo-TTY terminal
+  --v volName:/data attaches the volName to the container on its data directory   
+  last statement since we want the volume to persist even if container has stopped running ? 
+then how do we enter the container ->                                                                                 docker exec -it contName bash|shell
 the working directory(/app) belongs to the container and not to the local directories that you would need to create one for convenience
 Considering docker arch when we hit a command on the terminal(lets say docker run), we are using the docker cli tool packages that command within an api request and sends it to the docker daemon(dockerd)
 a quick note the detached mode of 
@@ -17,17 +118,17 @@ other name for values stored in data members of the object -> 																		
 order of arguments considering default values in cpp vs java-> 																			for constructors its always left to right but when it is className(int a=78, int ....,) i.e. providing default values at the param level itself then you should know that the most stable props should be kept earlier while the ones which are been given defaults should be kept at the last or latter potion like this 
 className(int prop1,float prop2, string prop3="Hello world"){}//if prop3 was kept earlier with default value then invalid choice
 Note java doesn't allow such defaults at the constructor level so either go for telescopic constructors or constructor overloading or otherwise 
-provide deafualts at the point of declaring the the corresponding property
+provide defaults at the point of declaring the the corresponding property
 size of object of empty class is always -> 																	can be 1 byte or 8 bytes
 unbounded type inference includes ? with super  
-multiple inheritence removes the ability of ->                                                                                      dynamic binding & polymorphism because we cannot even extend anymore 
+multiple inheritance removes the ability of ->                                                                                      dynamic binding & polymorphism because we cannot even extend anymore 
 operator precedence in java -                                                                                                                               Parentheses -> postfix(var++/var--) -> Multiplicative(*,/,%) -> Additive(+,-) -> Relational(<,>,<=,>=) -> Equality(==,!=) -> Logical AND -> Logical OR -> Assignment (=,+=,-=, etc)
-correct terminilogy for methods of an interface                                                                 Abstract Method declaration(name+param list+return type because method singature means method name n the parameter list alone 
+correct terminology for methods of an interface                                                                 Abstract Method declaration(name+param list+return type because method singature means method name n the parameter list alone 
 default access specifier of an interface's method signature:                                                         public abstract and if we try to reduce the visiblity from public-> protected or private then throws exception cannot reduce visibility of the inherited method from the interface  
 protected data members ->                                                                                                                                       accessible within class(common in all 3), accessible in un-extended classes as long as in the same package so of course extended classes can access it BUT note that if we are accessing this protected method from within (method) of a child class then it won't be able to access it via instantiatoin of the parent class. You can use super but parentObj = new Parent(); parentObj.protectedMethod() will throw compile time error.Of course for classes which don't even belong to the same package and have not inherited either then you can't access except for public data members. 
-hashCode and equals are required to be overrdden together ->                                                                                                                                            because equals checks hashcode itself for the participating references
+hashCode and equals are required to be overridden together ->                                                                                                                                            because equals checks hashcode itself for the participating references
 //todo what kinds of declared vars or methods can't be used or called inside of a constructor and more types of such questions.
-order of execution of constructors in multi level inheritence is parent->child and in cpp where we destructors 2 the order of exec for ~constructors is reverse child->parent
+order of execution of constructors in multi level inheritance is parent->child and in cpp where we destructors 2 the order of exec for ~constructors is reverse child->parent
 //write to file object by object since previously had data which was not generic 
 so if kept generic then casting will be needed so may be some output statement writing getRole() + employee name + into file 
 Furthermore we would be needing the code for reading from file and integrate that with comprable or comparator accordingly
