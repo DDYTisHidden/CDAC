@@ -1,3 +1,8 @@
+AI: Anti Gravity, Cursor AI, Black Box  
+Stack is slow in performance owing to being synchronized .'. going with Deque might be beneficial in situations when we want to 
+user defined classes for Tree, LinkedList, graph, etc for those companies which don't want to give any predefined classes and not allow to use collectoins framework and want every thing to be efined by the user
+understand which ds can be used in which kind of situation like in the linked list questoin for strictly next greater element we could have used an array the way we did for string.charToArray()
+binary array with max length 
 Linux and docker INFO
 mv creates the new directory | renames an existing directory n can also be used for 
 #!/bin/bash here # is called the shabang operator helps in including the interpreter of our choice in our shell file like over here we have used bash instead of shell or any other
