@@ -1,0 +1,104 @@
+FIXME: Arrays from here onwards
+ .Length is a ____                                                                                                                                                                  property - how many elements in total  
+ .GetLength() is __ specific __ ? ▶️                                                                                                                                                             Array, method has parenthesis since isn't present for Strings and 
+ usage makes sense only in the case of Array's having ->                                                                                                                                     rank > 1 i.e. 2-D arrays and 1's having more dimensions than that because it means to return number of rows/ele of the concerned nested array Ex- arr.GetLength(1) i.e. length of that rank. how many elements along this rank
+ note number of commas is always ____ than the rank ->                                                                                                                                                                      rank - 1 or one less than rank.Ex- [,] means 2-d array,[, ,] means 3-d array. 
+ For ex- int[,] grid = new [3,5,7];TODO: check if keeping 7 apart from 3 n 5 causes bugs since single , is present means 3 rows and 5 cols each  (TODO: Jacked array )
+    Console.WriteLine(grid.Rank) ▶️                                                                                                                          number of dimensions it has which length of array after new 
+    Console.WriteLine(grid.Length); ▶️                                                                                                                                                           total number of elements counted from all rows n cols => 3 x 5 x 7  105(always their product)
+    Console.WriteLine(grid.GetLength(0)); ▶️                                                                                                                         Length of first(or 0th) dimension i.e. number of rows 3
+    Console.WriteLine(grid.GetLength(1)); ▶️                                                                                                                         Length of second(or 1st) dimension i.e. number of columns 5
+    Console.WriteLine(grid.GetLength(2)); ▶️                                                                                                                         Length of third(or 2nd) dimension i.e. 7.'. if it was 3,5,7,8 ◀️ .GetLength(3) 
+ FIXME: Jagged Arrays from here onwards 
+ FIXME: Note that they are single dimensional array. DIFFERENT from multi-dimensional array as created using commas
+    int[][] jagged= new [3][];
+    TODO: over here [][] means ? ▶️                                                                                                                              array of arrays or jagged array yes that is what it means 
+    TODO: example -> 
+        int[][] arr = {
+            new int[]{1,2,4},
+            new int[]{5,6},
+            new int[]{7,8,9,10}//FIXME: Note that modern technique is to do [7,8,9,10] instead
+        };you tend to forget the semi colon; TODO:
+        TODO: Console.WriteLine(arr.Rank)  ->                                                                                                                                               1 because outermost array is essentially a single dimensional array 
+        meaning arr.Length will return ->                                                                                                                                                                               number of nested arrays it has not the number of total elements each nested array and in turn their nested arrays contain
+ version 8.0 onwards we can get last element and elements close to the last position using ->                                                                                                                           ^ operator 
+FIXME: Strings 
+ Immutable sequence of unicode(??) characters 
+ Mutable Strings with String builder 
+
+FIXME: C# theory from here onwards 
+FIXME: Java vs C# 
+ Operator Overloading supported C# but not by java ?  
+ Pointers n pointer arithmetics supported by C# unlike java which supports it partially ? 
+//TODO: _______
+    Java is platform independent but C# is ? .net standard allows building libraries compatible multiple dot net implementation ? 
+    memory management (apart from below garbage collection) heap memory object pool what so ever both in .net and java core
+    Garbage Collection
+    o classes and objects alone then constructors
+    o 8 types of generics in csharp ?   
+//TODO: _______ 
+FIXME: .net framework vs .net 5+ vs .net core 
+    .net core(1.1,): is actually a runtime
+    .net 5+ unified releases: which is .net 5,6,7,8,9,10 are all successors of .net core n .'. all are cross platform too
+        BUT current actively supported LTS version is .NET 8(LTS) n .NET 9/10 go with LTS 8
+ 🍐 . net framework supports windows alone, operates with legacy applications while .net core is cross platform, open source, (predecessor of modern .net) 
+ 🍒 .net 5+ is the current unified platform for modern development 
+ 🍒 .net Standard ▶️ is api specification for building libraries that can work across multiple dot net implementations ? 
+  Feature   .NET Framework   .NET Core       .NET Xamarin
+  Platform     Windows Only   Cross Platform    Mobile Platform
+  Open Source       No            Yes                   Yes
+  Performance     Moderate       High                     High
+  Deployment   System-wide     Self-contained         Mobile Apps
+  Cloud Support Limited Excellent Limited
+  Used For Desktop/Web Cloud/Web/API Android/iOS
+  DI Support Limited Built in
+  Micro Services Limited Built in 
+
+//FIXME delegates from here onwards
+//bug object oriented 
+ a delegate is a type safe object oriented(function pointer)  which encapsulates(bundles) 
+  public delegate int MathOperation(int x, int y);
+  class Calculator{
+    public static int Add(int a,int b) => a+b;
+    public static int Multiply(int a, int b) => a*b;
+  }
+  MathOperation obj = Calculator.Add;
+
+                            Delegate                                                    Event
+What it is      A type (reference type wrapping method references)                  A member built on a delegate, with restricted access
+Multicast                   Yes                                                             Yes (inherits from underlying delegate)
+Invocation from outside Allowed                                                           Not allowed (+=/-= only)
+declaring class
+Typical use              Callbacks, LINQ, functional patterns                       Notifications, pub-sub, UI/domain events
+Analogy                     The "wire" that carries a signal                                        A regulated switchboard using that wire, exposed safely to the outside
+//fixme events from here onwards 
+ An event is a member (not a type) built on top of a delegate that provides a controlled, publish-subscribe mechanism. 
+ It restricts how the underlying delegate can be used from outside the declaring class: external code can only += (subscribe) or -= (unsubscribe), but cannot directly invoke the delegate or overwrite its invocation list (=), and cannot see/clear other subscribers' handlers.
+ Essentially: an event is a delegate with access-restricted invocation, following the observer/publish-subscribe design pattern.
+    class Publisher
+    {
+        // Declares an event based on a delegate type
+        public event EventHandler<string> OnMessage;
+
+        public void RaiseMessage(string msg)
+        {
+            // Only the declaring class can invoke it
+            OnMessage?.Invoke(this, msg);
+        }
+    }
+
+    class Subscriber
+    {
+        public void Handle(object sender, string msg) =>
+            Console.WriteLine($"Received: {msg}");
+    }
+
+    var pub = new Publisher();
+    var sub = new Subscriber();
+
+    pub.OnMessage += sub.Handle;  // ✅ subscribing is allowed
+    // pub.OnMessage(pub, "hi"); // ❌ compile error — can't invoke from outside
+    // pub.OnMessage = null;     // ❌ compile error — can't overwrite from outside
+
+    pub.RaiseMessage("Hello!");   // triggers all subscribers
+
