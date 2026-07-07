@@ -1,0 +1,406 @@
+____NUMERICAL_____
+P1: BT = 2
+P2: BT = 4
+P3: BT = 6
+Using FCFS, find average waiting time.
+Remember P1 will not wait 4 anyone but rest all will be waiting; adding its burst time to the waiting time 
+Total waiting time = 0(P1) + (0+2)(P2) + (0+2+4)(P3) = 0 + 2 + 6= 8
+Avg waiting time(AVT) = T.W.T/Num processes ▶️ 8/3 = 20 s
+FIXME: If Shortest Job First then sort first n do the same as above
+turn around time(TAT) = Completion time - Arrival time(AT) 
+Waiting time =  TAT - Burst Time(BT) 
+For ex -> 
+    AT = 0
+    Burst = 5
+    Completion = 12
+    Find Waiting Time ?   
+        Ans - >           Completion time - arrival time - burst time              WT = 12 - 0 - 5 = 7 10s
+i.e.
+A system has 10 frames.
+Each process needs 4 frames to run efficiently.
+How many processes can run without thrashing?
+        ->      We can't cross 10 frames and each process requires 4 frames 
+        .'. Without thrashing we can have 10/4 = 2 we can't take remainder process count will always be whole number
+formula similar to For n processes each needing max k instances: Minimum resources to guarantee no deadlock   n*(k-1) + 1
+Producer Consumer and semaphore problems 
+This producer-consumer problem requires how many semaphores ->                                                                                      3(mutex,empty,full)
+if buffer full then which process blocks ->                                                                                                             Producer process blocks when full buffer
+TODO: See if its even needed Blocking condition questions  
+DeadLock & starvation related questions 
+For deadlock which condition isn't necessary                                                                                        starvation
+
+_______________________MCQs
+Os is : computer activity Supervisor. system software,system service provider, resource manager, resource(TODO: Memory?) allocator
+FIXME:    even itself is the first programme that starts when a computer boots(BIOS not OS) it is also called collection of programmes that manages hardware resources and
+    the interface b/t the
+    hardware n user
+    software n user
+    software and the hardware.
+    serves as the system service provider for the application programmes.
+    Features/ Responsibilities
+        make the computer convenient to use by executing user programmes n
+        serving as the intermediary and efficiently interacting the hardware
+        o handles power failure 
+        o resource allocation
+        o connection failure in the network
+        o maintaining recycle bin
+        o transfer files
+        o opens a programme
+FIXME: First process launched by the linux kernel is ->                                                                                                                                                                                         init process
+FIXME: Which desktop environment is not used in any linux distribution ->                                                                                                                                   Choose option other than - kde, gnome, unity cause these are supported
+What is not a feature supported by OS ?                                                                                                                                         compiling the programme
+Os can be referred to as a layer of ->                                                                                                                                                                  software, even if processes is mentioned go for this one
+Os controls ? ->                                                                                                                                   CentralProcessingUnit i.e device.'. I/O devices, memory
+supervisor of computer activity ->                                                                                                                                                      OS
+which programme runs after booting the computer and loading the GUI?                                                                                                                        authentication or login programme when the 👁️ icon pops right below the 📷
+FIXME: Program(from programme .exe file)                                                 🆚                         Process(triggered by an action composed of child processes)
+set of instructions for serving the bussiness objective                            running instance of a programme
+Static n Passive entity (code on disk)                                                   Dynamic n Active entity (code in execution)
+One program file                                                                   Can have multiple processes
+Example: chrome.exe file                                                           Example: 5 Chrome windows running = 5 processes
+considering the scheduling algorithem Shortest Job First; is it Preemptive in nature ?
+here The hardware mechanism to notify the CPU is when a peripheral device needs immediate attention from the operating system, it generates ->                                                                                                       Interrupt
+FIXME: When a process issues an I/O request it goes to which Q ->                                                                                                                   waiting | I/O | device queue
+HERE Signal sent by OS to I/O devices ->                                                                                                                                                             Command
+first programme which runs when a computer system boots ->                                                                                                                                          OS
+Preemptive Scheduling - running process CAN get interrupted by a time slice expiration(CPU allocated for limited time n can be re-claimed mid execution) or higher priority process
+    has higher overhead owing to frequent context switches
+    higher risk of starvation
+    Ex- Priority Scheduling
+non-preemptive Scheduling -  running process can't be interrupted; runs until completion or voluntary release
+     low overhead owing to low context switches
+     low risk of starvation but can cause convoy effect
+     FCFS(~ preemptive round robin), Non preemptive priority, SJF(~ preemptive SRTF)
+     LJF(~Longest Remaining Time first)
+Example Kind of process which doesn't share data or affect the execution of any other process ->                                                                            Independent process
+Example Kind of process increases scheduling complexity owing to DATA ShARING and can affect or be affected by other processes executing in the system?                                                           cooperative process(web-server)
+    non-preemptive cooperative Scheduling: safer for these data sharing cooperative processes and process releases CPU voluntarily which reduces INconsistency in cooperative processes
+    ex - FCFS n non-preemptive Shortest Job First(classic itself SJF preemptive 1 is called SRTF)
+    preemptive scheduling
+        improves responsiveness but risky if shared data exists - Round Robin
+Example  Process which requires an input from the user n .'. ShOULD hAVE LOW RESPONSE TIME                                                                                                                                                           foreground process(Text editor,CLI)
+Example silent process using LOW PRIORITY Queues,often long running,                                  (Printing service,system updates,antivirus scan)                                                                                    background process
+Example of I/O intensive process with low CPU bursts and frequent I/O waits ->                                                                                             I/O bound process(file copy)
+    They are given higher priority because they keep I/O devices busy,  Increases throughput '.' releases CPU early so it gets busy with something else
+    Ex- Priority Scheduling(Shortest Remaining Time First)
+Example CPU intensive process with long CPU bursts, benefits from TIME ShARING scheduling algo and hardly waits for I/O  ->                                                                                                      CPU Bound process(Computations, algo = Round Robin)
+    This process type prevents CPU monopoly n improves responsiveness
+    Ex- preemptive scheduling(Round Robin)
+FCFS : process execute in the order they arrive as seen in a Q which has 
+Shortest Job First
+Round Robin(uses time quantum for fare CPU usage): is the preemptive version of FCFS
+    Small quantum - too many context switches - high overhead 
+    big quantum - less - less 
+Conditions for DeadLock occurrence :Coffman's
+    (if no ME than race condition)mutual exclusion: at least one resource which can't be shared
+    hold n wait: at least one process which once' acquires a resource can't release it
+    Non preemptive: so resources can't be forcibly preempted or taken .'. voluntarily release only 
+    circular wait: cycle of resource dependence
+Solutions of Dead lock
+    Deadlock detection: allows it to occur then detects it
+        diff b/t detection n avoidance
+        Resource allocation Graph
+    Deadlock A(4 algo so available)voidance: Banker's algo ensures resources are allocated only if the system is a safe state. 
+FIXME: conditions for granting a request 
+            Request ≤ Need && Available ✅
+            System remains in safe state ✅
+FIXME: Safe state is ->                                                                                                                 at least one safe sequence
+FIXME: this is false Safe ≠ no deadlock forever & Safe ≠ all resources free         
+        o max[n][m] -> max demand of this resource
+        o available[m] -> free resource 
+        o allocation[n][m] - currently allocated 
+        o need[n][m] = max - allocation -> remaining resources required
+        o safe sequence
+    DeadLock prevention: ensures at least one Coffman condition never holds
+        o since resource r trouble maker -> enforce resource ordering 
+        o remove hold n wait 
+Definition and Characterization: Deadlock is a permanent state where processes are waiting indefinitely for resources held by each other. Know examples (e.g., dining philosophers).
+Necessary Conditions (Coffman's Conditions): All four must hold – Mutual Exclusion (resources can't be shared), Hold and Wait (process holds resources while waiting for others), No Preemption (resources can't be forcibly taken), Circular Wait (cyclic dependency).
+Resource Allocation Graph (RAG): Directed graph with processes (circles), resources (squares), request edges (process to resource), assignment edges (resource to process). Deadlock if cycle exists and no way to reduce (for single-instance resources).
+Deadlock Prevention: Eliminate one condition – e.g., allow sharing (no mutual exclusion), request all resources at start (no hold and wait), allow preemption, or order resources hierarchically (no circular wait).
+Deadlock Avoidance: Runtime check to ensure safe state. Know Banker's Algorithm: Safe state (exists a sequence where all processes can finish), Need Matrix (Max - Allocation), Safety Algorithm (simulate allocation), Resource-Request Algorithm. Practice numericals with small data.
+Deadlock Detection: Periodic check for cycles in RAG or using a variant of Banker's. For multiple instances, use wait-for graph.
+Deadlock Recovery: Once detected, recover via process termination (victim selection: least cost, youngest, etc.), resource preemption (rollback), or ignore (ostrich algorithm).
+Related Concepts: Starvation (indefinite postponement, e.g., due to priority), Livelock (processes change states but no progress), Thrashing (related to paging but sometimes confused).
+Handling in Real OS: Examples like Windows/Linux deadlock detection tools, avoidance in practice (rare due to overhead).
+Practice Tips: Solve 50+ MCQs from GeeksforGeeks, GATE papers (1990-2020), and CDAC-specific samples. Focus on why options are wrong. For numericals, practice 5-10 Banker's problems.
+
+//fixme Memory management mcq from here onwards
+//fixme Memory management theory from here onwards
+Which category of addresses are created by OS ?                                                                                                Logical addresses but commonly referred to as virtual addresses. Because programmes don't know which section of ram will they be getting at the time they run; Os assigns virtual addresses to map them to respective physical addresses 
+Why ->                                                                                                                                          virtual because they are not based out of the RAM. And cpu can't talk to the ram using logical addresses.'. This logical/virtual addr is sent to a hardware unit called Memory Management Unit(MMU) which uses the Reallocation Register(Or Page Tables) to convert em to physical addresses
+Memory management algorithm from here onwards
+    First fir 
+    Best fit 
+    worst fit 
+ctrl+v->Contiguous memory allocation can cause scattered free memory blocks occurring here and there in ram making it difficult to 
+    allow another allocation leading to fragmentation
+    Internal fragmentation:
+        when free, un-used blocks of memory exist within an allocated block
+    External Fragmentation: 
+         
+//TODO: virtual memory different from virtual address ? 
+Process Management - This is consistently the most tested area. Focus on process states and state transitions, CPU scheduling algorithms (especially FCFS, SJF, Round Robin, Priority), process synchronization problems like producer-consumer and readers-writers, and critical section concepts including semaphores and mutex.
+Memory Management - Another frequent topic. Concentrate on paging and page replacement algorithms (FIFO, LRU, Optimal), segmentation basics, virtual memory concepts, and the difference between logical and physical addresses.
+Deadlocks - Appears regularly with questions on the four necessary conditions (mutual exclusion, hold and wait, no preemption, circular wait), deadlock prevention versus avoidance versus detection, and Banker's algorithm for safe state checking.
+Concurrency and Synchronization - Classic problems like dining philosophers and sleeping barber appear often. Understand race conditions, critical sections, and how semaphores/monitors solve synchronization issues.
+    time sharing OS / Multitasking OS allows multiple users or tasks to share the system simultaneously by rapidly switching context between them time slices.
+        reduces CPU idle time n supports multi user env 
+        ex- Linux,Unix,Windows
+    FIXME: Linux uses time sharing algorithm to ->                                                                                                                                                  pair preemptive scheduling between multiple processes
+    real time OS RTOS(! Palm OS): guarantees responses within strict time constraints. Divided into hard real-time( ! delays allowed)n soft real time(minor delays allowed)
+        predictable and deterministic, used in critical applications. Ex- VxWorks,QNX, FreeRTOS
+    batch OS where jobs are grouped into batches n processed sequentially without user interaction suitable for non-interactive, repetitive tasks.
+        suitable for similar jobs but high wait times. Ex- IBM OS/360 
+system calls AND kernel mode vs user mode
+scheduling
+    preemptive 
+    FCFS, SSTF, SCAN, C-SCAN algos n their performance
+File Systems
+    basic file organization, directory structures, and file allocation metods(Contiguous,linked,indexed)
+loading 
+linking 
+compiling or assembling
+
+when 
+DS used by process(Independent unit of execution having their own address n memory space)                                                             PCB Process Control Block or process descriptor maintained by OS.PCB holds aspects of process's execution environment which are 
+    PID, process state,scheduling priority,signal handlers, program counter, CPU registers, Mem mangament info(page tables for virtual memory), open file descriptors
+DS used by thread(smallest unit of a process to which this thread shares the PCB itself) context switching becomes fast
+thread is a light weight process is because                                                                                                                             per thread basis we don't hold different PCB(virtual address space) than the parent process and it uses smaller data structure than process  
+saving the state of the old process and loading the new process is called ->                                                                                                                    context switching
+what is bootstrapping ? ->                                                                                                                                                  Cold booting
+to locate and load kernel from hdd into the main memory is done by ->                                                                                                   BLP -> Bootstrap loader programme
+BUT the programme which loads the kernel from hard disk into the main memory is done by ->                                                              TODO: Ans -> Boot loader. Which should also be BLP so 
+each process in an operating system has its own ->                                                  virtual address space,signal mask, signal handler, alarm() n settimer(), file descriptor table or open file
+a system programmer which combines separately compiled modules of a programme into a form suitable for execution                                                                linking loader
+___ is generally called a translator                                                                                                                                            compiler or assembler
+HERE: an UnInterruptable unit is known as                                                                                                                                     atomic unit
+One programme that runs all the time ->                                                                                                                                         kernel
+FIXME: time taken for the read/write head to move to the correct track on the magnetic disk is called                                                                                      seek time
+among user level thread, kernel level thread and process what can be scheduled by the kernel ->                                                                                                     kernel level thread since user level can't be scheduled by the kernel
+multi-programming systems ->                                                                                                                                            live in PG.'. such systems can execute more jobs simultaneously or in the same time period
+DSM stands for ->                                                                                                                                   distributed shared memory
+IDL->                                                                                                                                                                   interface definition language
+HERE is used in operating systems to separate mechanism from policy ->                                                                                                                               two level implementation
+WRONG ? a detailed flowchart is called ->                                                                                                                                                               Micro
+FIXME:  HERE The code that is used to boot up a computer is stored in                                                                                                                    ROM(non-volatile. It contains the firmware called BIOS which is Ist prgramme which loads when a device boots)
+FIXME: Does what ->                                                                                                             BIOS loads both POST n Bootstrap loader
+FIXME: Boot loader/ Bootstrap loader ->                                                                                                                         small programme stored in Boot Sector(Windows) |MBR(Master Boot Record) Linux
+FIXME: Purpose ->                                                                       locate's OS Kernel, Loads os kernel to ram, transfers control to os
+FIXME: Windows boot loader ->                                                                                                               BOOTMGR, NTLDR
+FIXME: Linux boot loader ->                                                                                                                                                     GRUB, LILO
+HERE which I/O technique is used in real time systems where timing is critical ->                                                                                            Direct Memory Access(DMA)
+Mention an opensource OS ->                                                                                                                                                                     Linux
+A file owned by the operating system                                                                                                                                                                                                            acc 2 the everything is a file concept, a directory is referred to as a file owned by the OS
+HERE In which kind of tech we see making the smaller and smaller things possess the ability to connect and interact                                                      you thought it was micro tech                                                Nano Tech
+TODO: The architecture that uses a tighter coupling b/t the compiler and the processor is                                                                     EPIC
+TODO: Processor having a FIXED length of instructions                                                                                                                 RISC
+A co-processor                                                                                                                                                  look for dumb ones like it is common in modern computers(','1980-1990)Ans-> specialized process that assists the main CPU(e.g. floating-point unit,GPU)
+Mention an os which is NOT a real time OS ->                                                                                                                Palm OS
+which os is used for client-server network ->                                                                                                               Windows 2000
+mention a single-user os                                                                                                                                                                Ms-Dos
+HERE: what type of commands are required to perform various tasks in DOS ? ->                                                                                                                                                     Internal commands
+Primary purpose of a distributed OS ->                                                                                                                      to make multiple independent computers appear as a single system.
+HERE the main function of the command interpreter ->                                                                                     to get n execute the next user-defined command
+HERE: Methods or Algos which increase the performance of the disk storage sub-systems ->                                                                                                          Disk scheduling (FIXME: Algo after that?)
+Define: Scheduling Algorithm in OS                                                                                                                                                   It Determines which process/job in the ready Q gets to access the CPU
+
+Starvation in OS means ->                                                                                                                                                                   situation where low-priority processes stay in the ready queue forever because higher-priority tasks keep arriving n jumping ahead of all of em
+Convoy in OS means ->                                                                                                                           if a CPU bound process with big CPU burst accesses CPU before less CPU intensive processes to wait real long 
+Convoy effect witnessed in ->                                                                                                                               First Come First Serve which is non-preemptive so can't be released off of CPU   
+HERE Which CPU Scheduling algo leads to starvation ->                                                                                       YTIW first job first                                              Priority Scheduling Algos like Shortest Job First
+preemptive priority 
+dead lock - when none of the processes continue executing since they want resources held by other processes n they want the ones held by previous process
+priority scheduling- CPU allocated with the highest priority
+    preemptive + non-preemptive
+    also suffers from starvation 
+First Come First (non-preemptive) 
+Shortest Job First(non-preemptive) job with the shortest burst time get CPU first
+    min average waiting time can cause starvation 
+    Its preemptive version is called SRTF Shortest remaining time first 
+Longest Job Remaining Time First (preemptive version of Longest Job First)
+Burst time - time taken by CPU to execute a process 
+turn around time - overall round about time taken by a process get itself completely executed
+waiting time - total time until which a process had to wait 
+Why ?                                                                                                                                                   Priority Scheduling/shortest job first algo's prefer higher priority processes over lower ones meaning let there be some low-priority processes(software update) in ready queue n then keep sending high priority processes lower 1's keep getting ignored
+Solution ->                                                                                                     Aging which gradually increases the priority of a process the longer it waits in the ready queue, eventually even the least priority or the task waiting the longest shall age into a higher priority that the CPU is forced to process it
+wait(mutex)-> section n puporse                                                                                                                                                                                 seen in entry Section 
+criticial section -> already section purpose
+Critical section ->                                                                                                                                             DOUBTFUL-> ensures safe access to shared data
+signal(mutex)-> Section n purpose                                                                                                                                                       seen in exit Section
+remainder 
+which scheduling type causes Critical section ->                                                                                                                                            preemptive scheduling BUT non-preemptive doesn't solve it
+critical section leads to ->                                                                                                                                dead lock is the consequence of critical section
+For critical section the requirement to prevent                                                                                                                            bounded waiting
+race condition is caused by ->                                                                                                                                                  no mutual exclusion
+inconsistent data is caused by ->                                                                                                                                   preemption
+starvation ->                                                                                                                                                                               poor entry control(also happens in preemption)
+deadlock is caused by(although 4 but here's one of em's in a different way)                                                                                                     incorrect lock ordering(cycle )
+HERE: Which algo gives each process a small unit of CPU time called a 'time Quantum or time slices'?                                                      YTIW something about this algo                                                                its preemptive in nature                                                       Round Robin a preemptive scheduling algo that uses a time quanta to ensure all processes get a FAIR share of CPU consumption. 
+Smallest unit of data in a computer is ->                                                                                                                               Bit
+How many bytes in 4 kb ->                                                                                                                                                               4x1024= 4096
+HERE Which system call creates a new process in UNIX ->                                                                                 yea u know the answer but speak more about it                                                                                                              fork(). It basically creates a duplicate process(along with PCB) AS THE CHILD PROCESS of the parent process which called it
+a parent process calls fork(). If the return value assigned to a variable p is 0, which process is currently executing that specific line of code? Parent Process or Child Process.                                                                                                                                         Actually in the parent process, fork() returns the PID of the child, which is always an integer. The correct answer is the child process since fork() system call returns 0 to the newly created child process to distinguish it from the parent. 
+What is the total number of processes created(including the original parent)  if a program executes the fork() system call 4 times sequentially?                                                                    formula for total processes is 2^n, so 2^4 = 16
+a graphic card has on board memory of 1 mb. What does this card support and what they don't                                             Ans-> go with the one which has the greatest number of colors for display here it was. 800,400 resolution with 16 million colors on a 17 inch monitor
+HERE what requires a device driver ->                                                                                                                            it should be some i/o device but when not mentioned use disk here it was disk 
+High paging activity| high executing activity | extremely long process is called                                                                                                                                                                          thrashing
+FIXME: if degree of multi-programming increases while CPU utilization decreases ->                                                                                                              thrashing
+This page replacement algorithm suffers from Belady's anamoly(as the number of page frames📈 the number of page faults also increase) ->                                                                                            First In First Out page replacement algo
+FIXME: This Memory allocation technique avoids problems of wastage of memory n problems of underestimating the memory size(we gain clarity about existing space at the time of allocation itself REGARDLESS this algo takes care of that )                                                 Dynamic memory allocation
+Size of programme can be obtained from its                                                                                                                              Directory entry,Stack size           Programme controlled dynamic data(PCD)                     
+which circuit is used as a memory device in computer ?                                                                                                                                  memory device are made up of Flip Flop hence known as SRAM. A flip flop is a type of bistable circuit that can be used to store a single bit of data EVEN IF POWER GOES OFF. It has two stable states, which can represent, the binary values of 0 and 1. Flip-flop                                
+//FIXME: swapping is known as                                                                                                        technique for memory management to move parts of the memory contents to a swap space on the disk, in order to free up memory for running other processes or to increase the amount of memory available for a particular process, This technique allows the operating system to manage the memory usage of running processes.
+This occurs when small unused blocks of memory scattered throughout the available memory space, This cna happen when a process is allocated memory and then release that memory or when a process is killed and its memory is not reclaimed.Leading to                                                                                                                          Memory fragmentation.
+And in what kind of memory allocation is the above described problem more prevalent ->                                                                                                          Contiguous memory allocation([]arrays)
+In a memory mapped I/O ->                                                                                                                   a technique for accessing i/o devices which treats them as locations.the CPU writes one data byte to register n stes a bit(to 1) in the control register to show that a byte is available.
+FIXME: User mode(un-provlidged mode) vs Kernel(suprevisor/system/monitor/provilidged) mode 
+FIXME: despite how many users we have mode transitions remain 2
+FIXME: mode bit set to 1 .'. user otherwise kernel mode 
+FIXME: context switch by which mode ->                                                                                                                                                          kernel mode
+FIXME: process control, file management and device management are handled by ->                                                                                                                     system call
+FIXME: call that helps a user to transit to kernel mode ->                                                                                                                  system call also if CPU timer expires than transition to differ mode occurs 
+FIXME: user mode user tries to hit hALT operation ->                                                                                            trap/exception is thrown
+o if crash occurs only that app crashes in user mode whereas in kernel mode the entire system can crash.
+o user mode has restricted access to computer hard n software resources while kernel mode has FULL access
+o restricted access can't execute priveledged CPU instructions while kernel has plenty of privilidges and can do all that  
+//FIXME: Operating system from here onwards features of operating system from here onwards
+Os is : system software, resource manager, resource(TODO: Memory?) allocator
+    the collection of programmes that manages hardware resources and
+    the interface b/t the
+    hardware n user
+    software n user
+    software and the hardware.
+    serves as the system service provider for the application programmes.
+    Features/ Responsibilities
+        make the computer convenient to use by executing user programmes n
+        serving as the intermediary and efficiently interacting the hardware
+        o handles power failure 
+        o resource allocation
+        o connection failure in the network
+        o user interfacing
+        o Resource Management owing to Hardware Abstraction '.' it interacts with the resources(hardware)
+        o Memory management
+        o Process management(Scheduling needs to be learnt)
+        o File Management & I/O management
+        o CPU Scheduling
+        o security
+        o networking
+
+Kernel: a programme which runs all the time
+    is the core functioning body of an OS which is what that performs operations for which an OS is responsible for
+    Windows: Ntoskernel.exe
+    Linux: VmLinux (not sure if there's a z at end)
+
+How to interact with the OS ?
+    Graphic User Interface
+     HERE DAMN dude you randomly guessed it correctly on 31st Dec 2025 @ 15:24 with no 🔌at home, battery 14 and defective battery owing to low temperature @ 3%. You are also solving Time n Work questions quite correctly AS LONG AS YOU ARE READING THEM.AAJ shaam ko shayud kaheen kaheen jayein par agar rukte hain raat ko Dhurandar dekhenge                                                                     Windows explorer
+        GNOME or KDE
+    CUI don't know but it is referred to as Command Line User Interface where we type cmds
+        cmd.exe or command prompt may be powershell too
+        shell or terminal
+Booting: Loading of the operating system involves the following series of steps: 
+    1. BIOS (Basic Input Output System) runs the firmware on the motherboard which goes by the name Alternative Unified Extensible Firmware Interface runs 
+    2. POST (Power On Self Test) : to check if the peripheral devices are operational or not otherwise system won't boot
+    3. Boot Strap Loader : finds where can we find a bootable device - (C drive or sometimes a USB)
+    4. Boot Loader : Enlists all the
+    5. Boot Strap Programme : Since kernel's the core functioning body .'. the Strap programme
+        1. searches the kernel and
+        2. loads it the main memory
+
+//FIXME: Software development from here onwards
+    is a collection of programmes
+    Programme:
+        is a set of instructions for performing a specific task
+        When converted to a binary language the file is referred to as an executable file and
+        in windows -> PEF or -->                                                                                                         Portable n executable file
+        in Linux ->     ELF  or --->                                                                                                        Executable n Linkable File
+        Any executable file has these sections
+            Header
+            BSS
+            Data
+            Ro
+            Code/Text
+            Symbol List
+System is expected to have these three major components :  
+    Processor or CPU
+    Memory 
+    Peripheral or I/O devices
+
+//FIXME: Process from here onwards
+    is a running instance of a programme loaded into the main memory. A programme in execution.
+    Components: Almost the same as constituents of a programme but two more sections stack and heap
+        1. Programme code or the text section representing the executable instructions 
+        2. Process Control Block(PCB) : stays in the main memo as long as the process is running 
+            o Process ID(PID)
+            o Process State(New | Ready | Running | Waiting | Terminated(PCB destroyed))
+                New -> admitted -> ready state 
+//FIXME:    In this state the process is typically waiting for an I/O operation to occur ->                                                                               Blocked State 
+                Ready : 
+                    when I/O or event completion -> waiting state 
+                    schedular dispatches or loads the process to the CPU; then straight to running state 
+                Running state - No Queue because one process can run at a time
+                    programme exit leads to terminated process state 
+                    when interrupted back to ready state 
+                    when I/O or event wait shifts to waiting state 
+//FIXME:    o priority // you forgot following both 
+            o Program counter 
+            o CPU registers 
+            o Memory management information 
+            o I/O status information
+          Queues in Operating System: 
+            Job Queue: processes in their new state are held by the job queue 
+            Waiting Queue: holds the processes in order which are waiting to gain access to the cpu 
+        3. Data Section (Global n static variables)
+        4. Stack: temporary data(func params, return addresses, local vars)
+        5. Heap: Dynamically allocated memory during runtime.
+
+
+
+Memory hierarchy :
+    CPU
+   Register
+     🔽
+    Cache
+        instead of hitting the main memory we(TODO: element name) search the cache first
+            if we find the data we call it a -->                                                                                                                                    hit
+            else we call it a --->                                                                                                                                                                              miss
+     🔽
+    Main  RAM
+   Memory
+     🔽
+   Remote
+   Memory
+
+//FIXME: Shell programming from here onwards 
+//FIXME: shell variables from here onwards 
+    o variables cannot have ->                                                                                                                                                          spaces before n after =
+            for example     
+                in C/C++                    x = 10; 
+                becomes in bash            
+                        command: x
+                        argument1: =
+                        argument2: 10
+                        .'. you get command not found so ensure it is x=10 no spaces
+    o default type of variables ->                                                                                                                                                      string  
+    o how to access ? 
+         1.   x=10
+            echo x
+            echo $x 
+            Answer ->                                                                                                                                                   x then 50 because echo x means literal x and for accessing variable's value we would need variable expansion performed (via DOUBLE QUOTES for string literals) which is "$x"
+     
+         2.   name=CDAC
+            echo "$name"
+            echoe '$name'
+            Answer                                                                                                                                                                          CDAC then \n then $name because expansion needs " " for string literals n that is default over here so ' ' would simply print a string value 
+
+         3.   echo $someVar but was never defined then ->                                                                                                                               no error just an empty blank line  
+
+        4.    a=10
+            b=a
+            echo $b
+            Ans ->                                                                                                                                              a not 10 because doing b=a doesn't copy a's value to b instead it assigns the string value "a" to b 
+            Then solution ->                                                                                                                                                                b=$a
+        
+        5. 
+             
