@@ -46,7 +46,7 @@ FIXME:    even itself is the first programme that starts when a computer boots(B
         o maintaining recycle bin
         o transfer files
         o opens a programme
-FIXME: First process launched by the linux kernel is ->                                                                                                                                                                                         init process
+//FIXME: First process launched by the linux kernel is ->                                                                                                                                                                                         init process
 FIXME: Which desktop environment is not used in any linux distribution ->                                                                                                                                   Choose option other than - kde, gnome, unity cause these are supported
 What is not a feature supported by OS ?                                                                                                                                         compiling the programme
 Os can be referred to as a layer of ->                                                                                                                                                                  software, even if processes is mentioned go for this one
@@ -91,16 +91,7 @@ Shortest Job First
 Round Robin(uses time quantum for fare CPU usage): is the preemptive version of FCFS
     Small quantum - too many context switches - high overhead 
     big quantum - less - less 
-Conditions for DeadLock occurrence :Coffman's
-    (if no ME than race condition)mutual exclusion: at least one resource which can't be shared
-    hold n wait: at least one process which once' acquires a resource can't release it
-    Non preemptive: so resources can't be forcibly preempted or taken .'. voluntarily release only 
-    circular wait: cycle of resource dependence
-Solutions of Dead lock
-    Deadlock detection: allows it to occur then detects it
-        diff b/t detection n avoidance
-        Resource allocation Graph
-    Deadlock A(4 algo so available)voidance: Banker's algo ensures resources are allocated only if the system is a safe state. 
+
 FIXME: conditions for granting a request 
             Request ≤ Need && Available ✅
             System remains in safe state ✅
@@ -210,7 +201,7 @@ Convoy in OS means ->                                                           
 Convoy effect witnessed in ->                                                                                                                               First Come First Serve which is non-preemptive so can't be released off of CPU   
 HERE Which CPU Scheduling algo leads to starvation ->                                                                                       YTIW first job first                                              Priority Scheduling Algos like Shortest Job First
 preemptive priority 
-dead lock - when none of the processes continue executing since they want resources held by other processes n they want the ones held by previous process
+
 priority scheduling- CPU allocated with the highest priority
     preemptive + non-preemptive
     also suffers from starvation 
@@ -371,7 +362,61 @@ Memory hierarchy :
      🔽
    Remote
    Memory
+//FIXME: OS for CCEE from here onwards
+//BUG: Dead lock from here onwards 
+which scheduling type causes Critical section ->                                                                                                                                            preemptive scheduling BUT non-preemptive doesn't solve it
+critical section leads to ->                                                                                                                                dead lock is the consequence of critical section
+dead lock - when none of the processes continue executing since they want resources held by other processes n they want the ones held by previous process
+Conditions for DeadLock occurrence :Coffman's Conditions ONLY when all 4 meet simultaneously
+    ✅(if no ME than race condition)mutual exclusion: at least one resource which can't be shared
+    ✅hold n wait: at least one process which once acquires a resource can't release it
+    ✅No preemption: so CPU can't be released or taken away .'. voluntarily exit/release only 
+    ✅circular wait: cycle of resource dependence
+Solutions of Dead lock
+    Deadlock detection: allows it to occur then detects it
+        diff b/t detection n avoidance
+        Resource allocation Graph
+    Deadlock prevention:(static) : won't allow the dead lock to occur 
+        This method puts strict, structural rules on how processes can request resources before the system even starts running.
+        For example, a rule might state: "A process must request all its resources at once, or it gets nothing" (invalidating the Hold and Wait condition). 
+        The system doesn't dynamically look at current resource availability; it just forces processes to comply with rigid design rules.
+    Deadlock A(4 algo so far available)voidance:(dynamic) Banker's algorithm ensures resources are allocated only if the system is a safe state. 
+                This method does not place structural restrictions on the processes. 
+                Instead, the OS continuously monitors incoming resource requests in real-time. 
+                When a process asks for a resource, the Banker's Algorithm simulates allocating it and checks if the system will remain in a 
+                "Safe State." If granting the request puts the system at risk of a deadlock (an unsafe state), 
+                the OS delays the request—even if the resource is technically free right now.
+    //TODO: How though for interviews ? 
+//FIXME: SDLC from here onwards
+//FIXME: Agile from here onwards 
+ //BUG: note that agile is a theory; a mindset which is implemented by tools like kanban and scrum 
+    //BUG: Disadvantages: 
+        o not suitable for complex dependenices - cross functional inter-dependent teams can suffer from agile since other team might will have to wait until earlier team's task completion  
+        o reduced focus on documentation since priorities is working piece of software which might make things hec tick for new team members
+        o daily standups, sprint planning, backlog grooming and retrospectives take up a signifcant percentage of the working week.  
+    //BUG: Scrum from here onwards: a highly structured framework where work is broken down into fixed-length iterations called sprints(1-4 week long) 
+        relies on distinct roles(product owner, scrum master, developer) & fixed ceremonies (spring planning, daily standup, spring review
+        & retrospectives). goal is to deliver a potentially shippable product increment by the end of each sprint. 
+    //BUG: Srcum-but:                                we do scrum but we don't do daily standups 
+    //BUG: Zombie Scrum                                                                         all scrum workflow properly adopted but failed to deliver a working peice of software
+    (Q.1) During a Sprint, a developer realizes that a technical task is significantly more complex than estimated and cannot be finished. Who has the authority to modify the technical implementation details or task breakdown within the Sprint Backlog?
+    Answer ->                                                                                                                                                   while the product backlog belongs to the product owner, the sprint backlog belongs entirely to the developers. They own technical execution
+    //BUG: Note that in the middle of an on-going sprint if the product owner decides to introduce a new feature than it will be kept in the Product backlog to be considered for the upcoming sprint planning
 
+    //BUG: Kanban from here onwards: 
+        is a flexible visual framework focused on continuous delivery withoug fixed timeboxes. 
+        Relies heavily on visual board to track tasks. Primary rule is to limit work-in-progress(WIP) to prevent bottlenecks
+        , allowing teams to pull new tasks ONLY when capacity becomes available
+    //TODO: terminologies related to kanban: valocity, etc for ccee
+    //BUG: kanban chaos:                                                                                                kanban lacks fixed sprint deadlines, undisciplined teams can let tasks drag on indefinitely violating the agile principle of frequent software delivery
+//BUG: sdlc model where requirements need to specified beforehand or earlier itself before the rest of the development can be processed 
+    //TODO: sdlc model based ccee questions
+//FIXME: Linux cmds from here onwards 
+ What command is used to save the standard output in a file, as well as display 
+it on the terminal? ->                                                                                                                          tee
+Which command is used to change the I/O characteristics of the terminal?                                                                                                                    stty 
+Which Linux command list the content of all sub directory? ->                                                                                                                   ls * /
+command to display the file 'sample.txt' one page at a time ->                                                                                                                          cat sample.txt | more . the pipe operator | takes the standard output and funnels it into the input of the next command i.e. more which is a terminal pager that itercepts that stream and displays it one screenful (page) at a time      
 //FIXME: Shell programming from here onwards 
 //FIXME: shell variables from here onwards 
     o variables cannot have ->                                                                                                                                                          spaces before n after =
@@ -382,12 +427,12 @@ Memory hierarchy :
                         argument1: =
                         argument2: 10
                         .'. you get command not found so ensure it is x=10 no spaces
-    o default type of variables ->                                                                                                                                                      string  
+    o default type of variables ->                                                                                                                                                      string
     o how to access ? 
          1.   x=10
             echo x
             echo $x 
-            Answer ->                                                                                                                                                   x then 50 because echo x means literal x and for accessing variable's value we would need variable expansion performed (via DOUBLE QUOTES for string literals) which is "$x"
+            Answer ->                                                                                                                                                   x then 10 because echo x means literal x and for accessing variable's value we would need variable expansion performed (via DOUBLE QUOTES for string literals i.e. "$x") using $
      
          2.   name=CDAC
             echo "$name"
@@ -404,3 +449,9 @@ Memory hierarchy :
         
         5. 
              
+//FIXME: Java architecture questions from here onwards
+ java runs the program using _____ in _____ file ->                                                                                                                                             its java not javac so it runs the byte code in the .class files 
+
+
+
+
