@@ -16,12 +16,7 @@ For ex ->
     Find Waiting Time ?   
         Ans - >           Completion time - arrival time - burst time              WT = 12 - 0 - 5 = 7 10s
 i.e.
-A system has 10 frames.
-Each process needs 4 frames to run efficiently.
-How many processes can run without thrashing?
-        ->      We can't cross 10 frames and each process requires 4 frames 
-        .'. Without thrashing we can have 10/4 = 2 we can't take remainder process count will always be whole number
-formula similar to For n processes each needing max k instances: Minimum resources to guarantee no deadlock   n*(k-1) + 1
+
 Producer Consumer and semaphore problems 
 This producer-consumer problem requires how many semaphores ->                                                                                      3(mutex,empty,full)
 if buffer full then which process blocks ->                                                                                                             Producer process blocks when full buffer
@@ -83,6 +78,7 @@ Example silent process using LOW PRIORITY Queues,often long running,            
 Example of I/O intensive process with low CPU bursts and frequent I/O waits ->                                                                                             I/O bound process(file copy)
     They are given higher priority because they keep I/O devices busy,  Increases throughput '.' releases CPU early so it gets busy with something else
     Ex- Priority Scheduling(Shortest Remaining Time First)
+
 Example CPU intensive process with long CPU bursts, benefits from TIME ShARING scheduling algo and hardly waits for I/O  ->                                                                                                      CPU Bound process(Computations, algo = Round Robin)
     This process type prevents CPU monopoly n improves responsiveness
     Ex- preemptive scheduling(Round Robin)
@@ -135,9 +131,6 @@ Process Management - This is consistently the most tested area. Focus on process
 Memory Management - Another frequent topic. Concentrate on paging and page replacement algorithms (FIFO, LRU, Optimal), segmentation basics, virtual memory concepts, and the difference between logical and physical addresses.
 Deadlocks - Appears regularly with questions on the four necessary conditions (mutual exclusion, hold and wait, no preemption, circular wait), deadlock prevention versus avoidance versus detection, and Banker's algorithm for safe state checking.
 Concurrency and Synchronization - Classic problems like dining philosophers and sleeping barber appear often. Understand race conditions, critical sections, and how semaphores/monitors solve synchronization issues.
-    time sharing OS / Multitasking OS allows multiple users or tasks to share the system simultaneously by rapidly switching context between them time slices.
-        reduces CPU idle time n supports multi user env 
-        ex- Linux,Unix,Windows
     FIXME: Linux uses time sharing algorithm to ->                                                                                                                                                  pair preemptive scheduling between multiple processes
     real time OS RTOS(! Palm OS): guarantees responses within strict time constraints. Divided into hard real-time( ! delays allowed)n soft real time(minor delays allowed)
         predictable and deterministic, used in critical applications. Ex- VxWorks,QNX, FreeRTOS
@@ -363,6 +356,52 @@ Memory hierarchy :
    Remote
    Memory
 //FIXME: OS for CCEE from here onwards
+//FIXME: Os architecture from here onwards 
+     time sharing OS / Multitasking OS allows multiple users or tasks to share the computing resources simultaneously by rapidly switching context between them time slices.
+        efficient cpu utilization by swithing multiple reduces CPU idle time because supports multi user env 
+
+        ex- Linux,Unix,Windows
+ under what circumstances would a user be better off using a timesharing system rather than a pc or single user workstation ->                                                                                                                                         (not switching jobs because it happens both in modern PCs and time sharing systems) multiprogramming system . because in such time shraing os architecture allows multiple users to share with computer system reources simultaneously 
+        //TODO: 
+            Batch Systems
+            Multiprogramming Systems
+            Timesharing (Multitasking) Systems
+            Distributed Systems
+            Real-Time Systems    
+//FIXME: OS Components from here onwards
+    what must reside in the main memory under all situation in a resident os compter ->                                                                                                 (resident os means os resides in RAM) loader should be present all the time to bring progrqammes from disk into main memo for execution. compiler, assemblers absence won't stop the programme from executing but if there's nothing to load the programme into the main memory then we won't be able to allot CPU to that process via os 
+//    TODO: 
+    The Compilation/Execution Chain: Understanding the distinct roles and sequence of the Preprocessor, Compiler, Assembler, and Linker. Questions often ask about the specific output of each phase (e.g., source code to object code, object code to executable).
+
+    Static vs. Dynamic Linking:
+
+    Static Linking: All library code is combined into the final executable at compile time.
+
+    Dynamic Linking: Libraries are loaded into memory and linked at runtime (important for understanding memory usage and shared libraries).
+
+    Absolute vs. Relocatable Loaders: Understanding how programs are placed in memory—whether they are loaded at a fixed physical address (absolute) or can be placed anywhere in memory based on current availability (relocatable/dynamic loading).
+
+    Memory Management Units (MMU): How the OS and hardware interact to handle address translation, especially relevant when discussing how loaders manage memory mapping for processes.
+
+    Bootstrapping: The process by which the computer initializes itself, starting from the ROM/BIOS loading the initial bootstrap loader into memory to then load the OS kernel.
+//FIXME: Process Management from here onwards 
+ SV IPC stands for ___ and its objects are _____ ->                                                                                                                                             system V inter-process communication, persistent objects 
+//FIXME: Thrashing from here onwards 
+    degree of multiprogramming is too high for the avialable physical memory ram
+    a state which occurs when a computer system's performance collapses because the os gets more busy with swapping pages in n out of memory instead of executing tasks
+ A system has 10 frames.
+    ex - Each process needs 4 frames to run efficiently.
+    How many processes can run without thrashing?
+            ->      We can't cross 10 frames and each process requires 4 frames 
+            .'. Without thrashing we can have 10/4 = 2 we can't take remainder process count will always be whole number
+            or simply 4 + 4 = 8 already that is 2 processes consumed majority of the frames as it is and third will take another 4 and we are left 2 alone so stuck at 2
+    formula similar to For n processes each needing max k instances: Minimum resources to guarantee no deadlock   n*(k-1) + 1
+ Solutions: 
+     increase ram 
+     working set model: or the pages belonging to the working set of the programs are in main memory: 
+        thrashing is defined by a lack of locality where the system is constatnly swapping pages
+     page replacement algorithms- glocal lru vs local replacement(better since it ensures that a process suffering from high page fault rate only replaces its own pages, rather than stealing frames from other processes n spreading the problem) 
+     adjust multiprogramming levels
 //BUG: Dead lock from here onwards 
 which scheduling type causes Critical section ->                                                                                                                                            preemptive scheduling BUT non-preemptive doesn't solve it
 critical section leads to ->                                                                                                                                dead lock is the consequence of critical section
@@ -385,8 +424,39 @@ Solutions of Dead lock
                 Instead, the OS continuously monitors incoming resource requests in real-time. 
                 When a process asks for a resource, the Banker's Algorithm simulates allocating it and checks if the system will remain in a 
                 "Safe State." If granting the request puts the system at risk of a deadlock (an unsafe state), 
-                the OS delays the request—even if the resource is technically free right now.
+                the OS DELAYS the request—even if the resource is technically free right now.
     //TODO: How though for interviews ? 
+//FIXME: Multithreading from here onwards
+    in many to one model, multiple threads are unable to run in parallel in multiprocessor because: ->                                                                                                  M:1 many threads on one kernel thread
+ //TODO: Left portion 
+  Thread Fundamentals:
+
+    Process vs. Thread: Understanding that a process is a heavy-weight unit of execution, while a thread is a light-weight unit.
+
+    Thread Lifecycle: The various states a thread can occupy (e.g., ready, running, blocked).
+
+    Shared vs. Private Resources: What threads share within a process (code, data, heap, files) versus what is unique to each thread (program counter, registers, stack).
+
+    Multithreading Models:
+
+    Many-to-One: Multiple user threads mapped to a single kernel thread.
+
+    One-to-One: Each user thread maps to a separate kernel thread.
+
+    Many-to-Many: Multiplexing many user-level threads to a smaller or equal number of kernel threads.
+
+    Synchronization & Mutual Exclusion (Crucial):
+
+    Critical Section Problem: Ensuring only one thread accesses a shared resource at a time.
+
+    Synchronization Primitives: Deep understanding of Mutex locks, Semaphores (counting vs. binary), and Condition Variables.
+    Race Conditions: Understanding how concurrent access to shared data leads to inconsistencies.
+    Deadlock Management:
+    Coffman Conditions: The four necessary conditions for deadlock: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait.
+    Prevention, Avoidance, and Detection: Knowing the differences between techniques like the Banker's Algorithm (avoidance) and simply detecting cycles in a wait-for graph.
+    Performance & System Design:
+    Concurrency vs. Parallelism: Concurrency is about managing multiple tasks (progress is made on more than one, but not necessarily at the same time), whereas parallelism is the simultaneous execution on multiple cores.
+    Context Switching: Why switching between threads is "cheaper" (faster) than switching between processes.
 //FIXME: SDLC from here onwards
 //FIXME: Agile from here onwards 
  //BUG: note that agile is a theory; a mindset which is implemented by tools like kanban and scrum 
@@ -417,7 +487,7 @@ it on the terminal? ->                                                          
 Which command is used to change the I/O characteristics of the terminal?                                                                                                                    stty 
 Which Linux command list the content of all sub directory? ->                                                                                                                   ls * /
 command to display the file 'sample.txt' one page at a time ->                                                                                                                          cat sample.txt | more . the pipe operator | takes the standard output and funnels it into the input of the next command i.e. more which is a terminal pager that itercepts that stream and displays it one screenful (page) at a time      
-//FIXME: Shell programming from here onwards 
+//FIXME: Shell programming from here onwards bash programming from here onwards bash from here onwards shell from here onwards
 //FIXME: shell variables from here onwards 
     o variables cannot have ->                                                                                                                                                          spaces before n after =
             for example     
@@ -448,7 +518,43 @@ command to display the file 'sample.txt' one page at a time ->                  
             Then solution ->                                                                                                                                                                b=$a
         
         5. 
-             
+  //FIXME: Loops from here onwards 
+    for: iterates over a list of items or a specific range 
+    while: while this condition is true keep executing 
+    until: repeats until this condition becomes true. I.E. until this condition is false keep executing n when it becomes true then loop stops              
+  //TODO: 
+    1. Control Structures (Flow Control)
+    As seen in your question, you need to understand the syntax and logic of loops and conditionals:
+
+    Looping Constructs: Master the differences between for (iterative), while (condition-true), and until (condition-false) loops.
+
+    Conditional Statements: Know how to use if, elif, else, and the case statement for pattern matching.
+
+    2. Variables and Special Parameters
+    Environment vs. Shell Variables: Understanding scope—the difference between variables accessible only to the current shell and those passed to child processes (export).
+
+    Positional Parameters: You must know how to handle command-line arguments using $1, $2, etc., and how to use $# (number of arguments) and $@ (all arguments).
+
+    Exit Status: Understanding $? (the exit status of the last executed command, where 0 usually means success).
+
+    3. Shell Redirection and Pipes
+    Standard Streams: Mastery of stdin (0), stdout (1), and stderr (2).
+
+    Redirection Operators: > (overwrite), >> (append), < (input), and 2> (error redirection).
+
+    Piping (|): How to pass the output of one command as the input to another, which is fundamental to shell power.
+
+    4. Basic Linux Utilities (Tools used in scripts)
+    The exam often asks how these tools behave when integrated into a script:
+
+    Text Processing: grep (searching), sed (stream editing), and awk (pattern scanning and processing).
+
+    File Permissions: Understanding chmod, chown, and how shell scripts check for file attributes (e.g., -f for file exists, -d for directory, -r for readable).
+
+    5. Script Execution and Environment
+    Shebang (#!): Why it is required and what it does (e.g., #!/bin/bash).
+
+    Execution Methods: The difference between running a script as ./script.sh (new process) versus source script.sh or . script.sh (executing in the current shell context).
 //FIXME: Java architecture questions from here onwards
  java runs the program using _____ in _____ file ->                                                                                                                                             its java not javac so it runs the byte code in the .class files 
 
