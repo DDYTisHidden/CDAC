@@ -1,3 +1,11 @@
+Type C had visible modes on the jack but does additional DAC offer better audio quality ? 
+castor pro > zsn pro X
+BUT KZ Beast - audiocular
+(type C comes with 4 settings)KZ Gale > EDX Pro for music but gaming and base EDX pro is better 
+Moondrop CHUU II just controlled base + piuch to carry website headphone zone 
+Crinical Zero 2
+Tangzu Wan'er SG2 clarity W but cable
+Fiio JD10
 ____NUMERICAL_____
 P1: BT = 2
 P2: BT = 4
@@ -117,15 +125,16 @@ Practice Tips: Solve 50+ MCQs from GeeksforGeeks, GATE papers (1990-2020), and C
 Which category of addresses are created by OS ?                                                                                                Logical addresses but commonly referred to as virtual addresses. Because programmes don't know which section of ram will they be getting at the time they run; Os assigns virtual addresses to map them to respective physical addresses 
 Why ->                                                                                                                                          virtual because they are not based out of the RAM. And cpu can't talk to the ram using logical addresses.'. This logical/virtual addr is sent to a hardware unit called Memory Management Unit(MMU) which uses the Reallocation Register(Or Page Tables) to convert em to physical addresses
 Memory management algorithm from here onwards
-    First fir 
-    Best fit 
-    worst fit 
+    Best fit: Searches for the smallest block of memory which is sufficient to accommodate the entire process needing memory allocation
+    First fit: 
+    worst fit : time consuming since first Traverses the entire ram(//TODO: ?)// to look for the largest block of memory and then assings it to the process regardless of the amt ACTUALLY needed by that process
 ctrl+v->Contiguous memory allocation can cause scattered free memory blocks occurring here and there in ram making it difficult to 
     allow another allocation leading to fragmentation
+    It is possible to  has the possibility to cause both internal & external fragmentation
     Internal fragmentation:
         when free, un-used blocks of memory exist within an allocated block
-    External Fragmentation: 
-         
+    External Fragmentation: because fragmentation occurs outside of the scope of allocation whereas in internal the un-used memory block remains assigned to the process which is not even using it 
+         improper memory allocation leads to situation when chunks of blocks exist outside the allocated memory which might together be sufficient to 
 //TODO: virtual memory different from virtual address ? 
 Process Management - This is consistently the most tested area. Focus on process states and state transitions, CPU scheduling algorithms (especially FCFS, SJF, Round Robin, Priority), process synchronization problems like producer-consumer and readers-writers, and critical section concepts including semaphores and mutex.
 Memory Management - Another frequent topic. Concentrate on paging and page replacement algorithms (FIFO, LRU, Optimal), segmentation basics, virtual memory concepts, and the difference between logical and physical addresses.
@@ -228,8 +237,7 @@ a parent process calls fork(). If the return value assigned to a variable p is 0
 What is the total number of processes created(including the original parent)  if a program executes the fork() system call 4 times sequentially?                                                                    formula for total processes is 2^n, so 2^4 = 16
 a graphic card has on board memory of 1 mb. What does this card support and what they don't                                             Ans-> go with the one which has the greatest number of colors for display here it was. 800,400 resolution with 16 million colors on a 17 inch monitor
 HERE what requires a device driver ->                                                                                                                            it should be some i/o device but when not mentioned use disk here it was disk 
-High paging activity| high executing activity | extremely long process is called                                                                                                                                                                          thrashing
-FIXME: if degree of multi-programming increases while CPU utilization decreases ->                                                                                                              thrashing
+
 This page replacement algorithm suffers from Belady's anamoly(as the number of page frames📈 the number of page faults also increase) ->                                                                                            First In First Out page replacement algo
 FIXME: This Memory allocation technique avoids problems of wastage of memory n problems of underestimating the memory size(we gain clarity about existing space at the time of allocation itself REGARDLESS this algo takes care of that )                                                 Dynamic memory allocation
 Size of programme can be obtained from its                                                                                                                              Directory entry,Stack size           Programme controlled dynamic data(PCD)                     
@@ -310,7 +318,35 @@ System is expected to have these three major components :
     Processor or CPU
     Memory 
     Peripheral or I/O devices
-
+//FIXME: SDLC from here onwards 
+ Iterative development: 
+    process of developing the system through repeated cycles or iterations
+    we start with the entire scope while having a rough idea about it to develop a prototype which gets polished in every cycle
+    focus is over refinement and addressing unknowns.  
+    use case- research heavy projects where usrs don't know exactly what they want
+  Incremental development: 
+    breaks the system into functional, independent chunks(called increments). You build one piece fully(ex- login module)
+    then the next(payment gateway) and so on
+    focus is completeness and functional delivery 
+    use case - large systems whre you need to provide some value to the user as early as possible(e-commerce)
+  Modern systems are iterative and incremental both they way RAD is. What's different is its constraints and priorities
+ sdlc model which requires upfront risk analysis ->                                                                                                                                                 sprial 
+ ideology that separates agile from sprial ->                                                                                                                                       agile believes that the team can quickly pivot and adapt to new incoming changes and has this assumption that things can potentially break and we welcome those things with endurance while the sprial model believes that there's huge cost to failing and is specifically designed for high stakes environments 
+ model that doesn't welcome changes and is therefore suitable 4 projects whose requirements are all static n stationary ->                                                                                      waterfall
+ which model ensures high test coverage of each design phase ->                                                                                                                                                     V model 
+ left and right side of V model                                                                                                                                                             verification(L design n plannign) validation(resting n execution) 
+ succesor/extention of which model and its principle behind                                                                                                                                                   waterfall n idea is that every verification/dev stage has a corresponding validating/testing phase attached to it.
+    for example a system design validating stage should also have a system design testing  
+    requirements stage is tested by acceptance testing 
+    system design stage is tested by system testing 
+    Arch design stage is tested by integration testing 
+    module desing is tested by  unit testing 
+ what makes v-model different from agile ->                                                                                                                 once the validating part is over or verfication stage begins the model just doens't allow any new changes and it is also more time consuming than agile
+ //TODO: RAD, iterative n may be water fall 
+ model for a banking software ->                                                                                                                                            V model 
+ startup mvp ->                                                                                                                                                     agile/RAD 
+ high-risk defense software                                                                                                                         spiral 
+ stable payroll system ->                                                                                                                                                       waterfall
 //FIXME: Process from here onwards
     is a running instance of a programme loaded into the main memory. A programme in execution.
     Components: Almost the same as constituents of a programme but two more sections stack and heap
@@ -355,6 +391,7 @@ Memory hierarchy :
      🔽
    Remote
    Memory
+//TODO: white box testing 
 //FIXME: OS for CCEE from here onwards
 //FIXME: Os architecture from here onwards 
      time sharing OS / Multitasking OS allows multiple users or tasks to share the computing resources simultaneously by rapidly switching context between them time slices.
@@ -387,8 +424,8 @@ Memory hierarchy :
 //FIXME: Process Management from here onwards 
  SV IPC stands for ___ and its objects are _____ ->                                                                                                                                             system V inter-process communication, persistent objects 
 //FIXME: Thrashing from here onwards 
-    degree of multiprogramming is too high for the avialable physical memory ram
-    a state which occurs when a computer system's performance collapses because the os gets more busy with swapping pages in n out of memory instead of executing tasks
+    degree of multi-programming increases while CPU utilization decreases
+    High paging activity: a state which occurs when a computer system's performance collapses because the os gets more busy with swapping pages in n out of memory instead of executing tasks
  A system has 10 frames.
     ex - Each process needs 4 frames to run efficiently.
     How many processes can run without thrashing?
