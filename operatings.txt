@@ -1,3 +1,11 @@
+Type C had visible modes on the jack but does additional DAC offer better audio quality ? 
+castor pro > zsn pro X
+BUT KZ Beast - audiocular
+(type C comes with 4 settings)KZ Gale > EDX Pro for music but gaming and base EDX pro is better 
+Moondrop CHUU II just controlled base + piuch to carry website headphone zone 
+Crinical Zero 2
+Tangzu Wan'er SG2 clarity W but cable
+Fiio JD10
 ____NUMERICAL_____
 P1: BT = 2
 P2: BT = 4
@@ -16,12 +24,7 @@ For ex ->
     Find Waiting Time ?   
         Ans - >           Completion time - arrival time - burst time              WT = 12 - 0 - 5 = 7 10s
 i.e.
-A system has 10 frames.
-Each process needs 4 frames to run efficiently.
-How many processes can run without thrashing?
-        ->      We can't cross 10 frames and each process requires 4 frames 
-        .'. Without thrashing we can have 10/4 = 2 we can't take remainder process count will always be whole number
-formula similar to For n processes each needing max k instances: Minimum resources to guarantee no deadlock   n*(k-1) + 1
+
 Producer Consumer and semaphore problems 
 This producer-consumer problem requires how many semaphores ->                                                                                      3(mutex,empty,full)
 if buffer full then which process blocks ->                                                                                                             Producer process blocks when full buffer
@@ -46,7 +49,7 @@ FIXME:    even itself is the first programme that starts when a computer boots(B
         o maintaining recycle bin
         o transfer files
         o opens a programme
-FIXME: First process launched by the linux kernel is ->                                                                                                                                                                                         init process
+//FIXME: First process launched by the linux kernel is ->                                                                                                                                                                                         init process
 FIXME: Which desktop environment is not used in any linux distribution ->                                                                                                                                   Choose option other than - kde, gnome, unity cause these are supported
 What is not a feature supported by OS ?                                                                                                                                         compiling the programme
 Os can be referred to as a layer of ->                                                                                                                                                                  software, even if processes is mentioned go for this one
@@ -83,6 +86,7 @@ Example silent process using LOW PRIORITY Queues,often long running,            
 Example of I/O intensive process with low CPU bursts and frequent I/O waits ->                                                                                             I/O bound process(file copy)
     They are given higher priority because they keep I/O devices busy,  Increases throughput '.' releases CPU early so it gets busy with something else
     Ex- Priority Scheduling(Shortest Remaining Time First)
+
 Example CPU intensive process with long CPU bursts, benefits from TIME ShARING scheduling algo and hardly waits for I/O  ->                                                                                                      CPU Bound process(Computations, algo = Round Robin)
     This process type prevents CPU monopoly n improves responsiveness
     Ex- preemptive scheduling(Round Robin)
@@ -91,16 +95,7 @@ Shortest Job First
 Round Robin(uses time quantum for fare CPU usage): is the preemptive version of FCFS
     Small quantum - too many context switches - high overhead 
     big quantum - less - less 
-Conditions for DeadLock occurrence :Coffman's
-    (if no ME than race condition)mutual exclusion: at least one resource which can't be shared
-    hold n wait: at least one process which once' acquires a resource can't release it
-    Non preemptive: so resources can't be forcibly preempted or taken .'. voluntarily release only 
-    circular wait: cycle of resource dependence
-Solutions of Dead lock
-    Deadlock detection: allows it to occur then detects it
-        diff b/t detection n avoidance
-        Resource allocation Graph
-    Deadlock A(4 algo so available)voidance: Banker's algo ensures resources are allocated only if the system is a safe state. 
+
 FIXME: conditions for granting a request 
             Request ≤ Need && Available ✅
             System remains in safe state ✅
@@ -130,23 +125,21 @@ Practice Tips: Solve 50+ MCQs from GeeksforGeeks, GATE papers (1990-2020), and C
 Which category of addresses are created by OS ?                                                                                                Logical addresses but commonly referred to as virtual addresses. Because programmes don't know which section of ram will they be getting at the time they run; Os assigns virtual addresses to map them to respective physical addresses 
 Why ->                                                                                                                                          virtual because they are not based out of the RAM. And cpu can't talk to the ram using logical addresses.'. This logical/virtual addr is sent to a hardware unit called Memory Management Unit(MMU) which uses the Reallocation Register(Or Page Tables) to convert em to physical addresses
 Memory management algorithm from here onwards
-    First fir 
-    Best fit 
-    worst fit 
+    Best fit: Searches for the smallest block of memory which is sufficient to accommodate the entire process needing memory allocation
+    First fit: 
+    worst fit : time consuming since first Traverses the entire ram(//TODO: ?)// to look for the largest block of memory and then assings it to the process regardless of the amt ACTUALLY needed by that process
 ctrl+v->Contiguous memory allocation can cause scattered free memory blocks occurring here and there in ram making it difficult to 
     allow another allocation leading to fragmentation
+    It is possible to  has the possibility to cause both internal & external fragmentation
     Internal fragmentation:
         when free, un-used blocks of memory exist within an allocated block
-    External Fragmentation: 
-         
+    External Fragmentation: because fragmentation occurs outside of the scope of allocation whereas in internal the un-used memory block remains assigned to the process which is not even using it 
+         improper memory allocation leads to situation when chunks of blocks exist outside the allocated memory which might together be sufficient to 
 //TODO: virtual memory different from virtual address ? 
 Process Management - This is consistently the most tested area. Focus on process states and state transitions, CPU scheduling algorithms (especially FCFS, SJF, Round Robin, Priority), process synchronization problems like producer-consumer and readers-writers, and critical section concepts including semaphores and mutex.
 Memory Management - Another frequent topic. Concentrate on paging and page replacement algorithms (FIFO, LRU, Optimal), segmentation basics, virtual memory concepts, and the difference between logical and physical addresses.
 Deadlocks - Appears regularly with questions on the four necessary conditions (mutual exclusion, hold and wait, no preemption, circular wait), deadlock prevention versus avoidance versus detection, and Banker's algorithm for safe state checking.
 Concurrency and Synchronization - Classic problems like dining philosophers and sleeping barber appear often. Understand race conditions, critical sections, and how semaphores/monitors solve synchronization issues.
-    time sharing OS / Multitasking OS allows multiple users or tasks to share the system simultaneously by rapidly switching context between them time slices.
-        reduces CPU idle time n supports multi user env 
-        ex- Linux,Unix,Windows
     FIXME: Linux uses time sharing algorithm to ->                                                                                                                                                  pair preemptive scheduling between multiple processes
     real time OS RTOS(! Palm OS): guarantees responses within strict time constraints. Divided into hard real-time( ! delays allowed)n soft real time(minor delays allowed)
         predictable and deterministic, used in critical applications. Ex- VxWorks,QNX, FreeRTOS
@@ -210,7 +203,7 @@ Convoy in OS means ->                                                           
 Convoy effect witnessed in ->                                                                                                                               First Come First Serve which is non-preemptive so can't be released off of CPU   
 HERE Which CPU Scheduling algo leads to starvation ->                                                                                       YTIW first job first                                              Priority Scheduling Algos like Shortest Job First
 preemptive priority 
-dead lock - when none of the processes continue executing since they want resources held by other processes n they want the ones held by previous process
+
 priority scheduling- CPU allocated with the highest priority
     preemptive + non-preemptive
     also suffers from starvation 
@@ -244,8 +237,7 @@ a parent process calls fork(). If the return value assigned to a variable p is 0
 What is the total number of processes created(including the original parent)  if a program executes the fork() system call 4 times sequentially?                                                                    formula for total processes is 2^n, so 2^4 = 16
 a graphic card has on board memory of 1 mb. What does this card support and what they don't                                             Ans-> go with the one which has the greatest number of colors for display here it was. 800,400 resolution with 16 million colors on a 17 inch monitor
 HERE what requires a device driver ->                                                                                                                            it should be some i/o device but when not mentioned use disk here it was disk 
-High paging activity| high executing activity | extremely long process is called                                                                                                                                                                          thrashing
-FIXME: if degree of multi-programming increases while CPU utilization decreases ->                                                                                                              thrashing
+
 This page replacement algorithm suffers from Belady's anamoly(as the number of page frames📈 the number of page faults also increase) ->                                                                                            First In First Out page replacement algo
 FIXME: This Memory allocation technique avoids problems of wastage of memory n problems of underestimating the memory size(we gain clarity about existing space at the time of allocation itself REGARDLESS this algo takes care of that )                                                 Dynamic memory allocation
 Size of programme can be obtained from its                                                                                                                              Directory entry,Stack size           Programme controlled dynamic data(PCD)                     
@@ -326,7 +318,35 @@ System is expected to have these three major components :
     Processor or CPU
     Memory 
     Peripheral or I/O devices
-
+//FIXME: SDLC from here onwards 
+ Iterative development: 
+    process of developing the system through repeated cycles or iterations
+    we start with the entire scope while having a rough idea about it to develop a prototype which gets polished in every cycle
+    focus is over refinement and addressing unknowns.  
+    use case- research heavy projects where usrs don't know exactly what they want
+  Incremental development: 
+    breaks the system into functional, independent chunks(called increments). You build one piece fully(ex- login module)
+    then the next(payment gateway) and so on
+    focus is completeness and functional delivery 
+    use case - large systems whre you need to provide some value to the user as early as possible(e-commerce)
+  Modern systems are iterative and incremental both they way RAD is. What's different is its constraints and priorities
+ sdlc model which requires upfront risk analysis ->                                                                                                                                                 sprial 
+ ideology that separates agile from sprial ->                                                                                                                                       agile believes that the team can quickly pivot and adapt to new incoming changes and has this assumption that things can potentially break and we welcome those things with endurance while the sprial model believes that there's huge cost to failing and is specifically designed for high stakes environments 
+ model that doesn't welcome changes and is therefore suitable 4 projects whose requirements are all static n stationary ->                                                                                      waterfall
+ which model ensures high test coverage of each design phase ->                                                                                                                                                     V model 
+ left and right side of V model                                                                                                                                                             verification(L design n plannign) validation(resting n execution) 
+ succesor/extention of which model and its principle behind                                                                                                                                                   waterfall n idea is that every verification/dev stage has a corresponding validating/testing phase attached to it.
+    for example a system design validating stage should also have a system design testing  
+    requirements stage is tested by acceptance testing 
+    system design stage is tested by system testing 
+    Arch design stage is tested by integration testing 
+    module desing is tested by  unit testing 
+ what makes v-model different from agile ->                                                                                                                 once the validating part is over or verfication stage begins the model just doens't allow any new changes and it is also more time consuming than agile
+ //TODO: RAD, iterative n may be water fall 
+ model for a banking software ->                                                                                                                                            V model 
+ startup mvp ->                                                                                                                                                     agile/RAD 
+ high-risk defense software                                                                                                                         spiral 
+ stable payroll system ->                                                                                                                                                       waterfall
 //FIXME: Process from here onwards
     is a running instance of a programme loaded into the main memory. A programme in execution.
     Components: Almost the same as constituents of a programme but two more sections stack and heap
@@ -371,8 +391,179 @@ Memory hierarchy :
      🔽
    Remote
    Memory
+//TODO: white box testing 
+//FIXME: OS for CCEE from here onwards
+//FIXME: Os architecture from here onwards 
+     time sharing OS / Multitasking OS allows multiple users or tasks to share the computing resources simultaneously by rapidly switching context between them time slices.
+        efficient cpu utilization by swithing multiple reduces CPU idle time because supports multi user env 
 
-//FIXME: Shell programming from here onwards 
+        ex- Linux,Unix,Windows
+ under what circumstances would a user be better off using a timesharing system rather than a pc or single user workstation ->                                                                                                                                         (not switching jobs because it happens both in modern PCs and time sharing systems) multiprogramming system . because in such time shraing os architecture allows multiple users to share with computer system reources simultaneously 
+        //TODO: 
+            Batch Systems
+            Multiprogramming Systems
+            Timesharing (Multitasking) Systems
+            Distributed Systems
+            Real-Time Systems    
+//FIXME: OS Components from here onwards
+    what must reside in the main memory under all situation in a resident os compter ->                                                                                                 (resident os means os resides in RAM) loader should be present all the time to bring progrqammes from disk into main memo for execution. compiler, assemblers absence won't stop the programme from executing but if there's nothing to load the programme into the main memory then we won't be able to allot CPU to that process via os 
+//    TODO: 
+    The Compilation/Execution Chain: Understanding the distinct roles and sequence of the Preprocessor, Compiler, Assembler, and Linker. Questions often ask about the specific output of each phase (e.g., source code to object code, object code to executable).
+
+    Static vs. Dynamic Linking:
+
+    Static Linking: All library code is combined into the final executable at compile time.
+
+    Dynamic Linking: Libraries are loaded into memory and linked at runtime (important for understanding memory usage and shared libraries).
+
+    Absolute vs. Relocatable Loaders: Understanding how programs are placed in memory—whether they are loaded at a fixed physical address (absolute) or can be placed anywhere in memory based on current availability (relocatable/dynamic loading).
+
+    Memory Management Units (MMU): How the OS and hardware interact to handle address translation, especially relevant when discussing how loaders manage memory mapping for processes.
+
+    Bootstrapping: The process by which the computer initializes itself, starting from the ROM/BIOS loading the initial bootstrap loader into memory to then load the OS kernel.
+//FIXME: Process Management from here onwards 
+ SV IPC stands for ___ and its objects are _____ ->                                                                                                                                             system V inter-process communication, persistent objects 
+//FIXME: Thrashing from here onwards 
+    degree of multi-programming increases while CPU utilization decreases
+    High paging activity: a state which occurs when a computer system's performance collapses because the os gets more busy with swapping pages in n out of memory instead of executing tasks
+ A system has 10 frames.
+    ex - Each process needs 4 frames to run efficiently.
+    How many processes can run without thrashing?
+            ->      We can't cross 10 frames and each process requires 4 frames 
+            .'. Without thrashing we can have 10/4 = 2 we can't take remainder process count will always be whole number
+            or simply 4 + 4 = 8 already that is 2 processes consumed majority of the frames as it is and third will take another 4 and we are left 2 alone so stuck at 2
+    formula similar to For n processes each needing max k instances: Minimum resources to guarantee no deadlock   n*(k-1) + 1
+ Solutions: 
+     increase ram 
+     working set model: or the pages belonging to the working set of the programs are in main memory: 
+        thrashing is defined by a lack of locality where the system is constatnly swapping pages
+     page replacement algorithms- glocal lru vs local replacement(better since it ensures that a process suffering from high page fault rate only replaces its own pages, rather than stealing frames from other processes n spreading the problem) 
+     adjust multiprogramming levels
+//BUG: Dead lock from here onwards 
+which scheduling type causes Critical section ->                                                                                                                                            preemptive scheduling BUT non-preemptive doesn't solve it
+critical section leads to ->                                                                                                                                dead lock is the consequence of critical section
+dead lock - when none of the processes continue executing since they want resources held by other processes n they want the ones held by previous process
+Conditions for DeadLock occurrence :Coffman's Conditions ONLY when all 4 meet simultaneously
+    ✅(if no ME than race condition)mutual exclusion: at least one resource which can't be shared
+    ✅hold n wait: at least one process which once acquires a resource can't release it
+    ✅No preemption: so CPU can't be released or taken away .'. voluntarily exit/release only 
+    ✅circular wait: cycle of resource dependence
+Solutions of Dead lock
+    Deadlock detection: allows it to occur then detects it
+        diff b/t detection n avoidance
+        Resource allocation Graph
+    Deadlock prevention:(static) : won't allow the dead lock to occur 
+        This method puts strict, structural rules on how processes can request resources before the system even starts running.
+        For example, a rule might state: "A process must request all its resources at once, or it gets nothing" (invalidating the Hold and Wait condition). 
+        The system doesn't dynamically look at current resource availability; it just forces processes to comply with rigid design rules.
+    Deadlock A(4 algo so far available)voidance:(dynamic) Banker's algorithm ensures resources are allocated only if the system is a safe state. 
+                This method does not place structural restrictions on the processes. 
+                Instead, the OS continuously monitors incoming resource requests in real-time. 
+                When a process asks for a resource, the Banker's Algorithm simulates allocating it and checks if the system will remain in a 
+                "Safe State." If granting the request puts the system at risk of a deadlock (an unsafe state), 
+                the OS DELAYS the request—even if the resource is technically free right now.
+    //TODO: How though for interviews ? 
+//FIXME: Multithreading from here onwards
+    in many to one model, multiple threads are unable to run in parallel in multiprocessor because: ->                                                                                                  M:1 many threads on one kernel thread
+ //TODO: Left portion 
+  Thread Fundamentals:
+
+    Process vs. Thread: Understanding that a process is a heavy-weight unit of execution, while a thread is a light-weight unit.
+
+    Thread Lifecycle: The various states a thread can occupy (e.g., ready, running, blocked).
+
+    Shared vs. Private Resources: What threads share within a process (code, data, heap, files) versus what is unique to each thread (program counter, registers, stack).
+
+    Multithreading Models:
+
+    Many-to-One: Multiple user threads mapped to a single kernel thread.
+
+    One-to-One: Each user thread maps to a separate kernel thread.
+
+    Many-to-Many: Multiplexing many user-level threads to a smaller or equal number of kernel threads.
+
+    Synchronization & Mutual Exclusion (Crucial):
+
+    Critical Section Problem: Ensuring only one thread accesses a shared resource at a time.
+
+    Synchronization Primitives: Deep understanding of Mutex locks, Semaphores (counting vs. binary), and Condition Variables.
+    Race Conditions: Understanding how concurrent access to shared data leads to inconsistencies.
+    Deadlock Management:
+    Coffman Conditions: The four necessary conditions for deadlock: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait.
+    Prevention, Avoidance, and Detection: Knowing the differences between techniques like the Banker's Algorithm (avoidance) and simply detecting cycles in a wait-for graph.
+    Performance & System Design:
+    Concurrency vs. Parallelism: Concurrency is about managing multiple tasks (progress is made on more than one, but not necessarily at the same time), whereas parallelism is the simultaneous execution on multiple cores.
+    Context Switching: Why switching between threads is "cheaper" (faster) than switching between processes.
+//FIXME: SDLC from here onwards
+//FIXME: Agile from here onwards 
+ //BUG: note that agile is a theory; a mindset which is implemented by tools like kanban and scrum 
+    //BUG: Disadvantages: 
+        o not suitable for complex dependenices - cross functional inter-dependent teams can suffer from agile since other team might will have to wait until earlier team's task completion  
+        o reduced focus on documentation since priorities is working piece of software which might make things hec tick for new team members
+        o daily standups, sprint planning, backlog grooming and retrospectives take up a signifcant percentage of the working week.  
+    //BUG: Scrum from here onwards: a highly structured framework where work is broken down into fixed-length iterations called sprints(1-4 week long) 
+        relies on distinct roles(product owner, scrum master, developer) & fixed ceremonies (spring planning, daily standup, spring review
+        & retrospectives). goal is to deliver a potentially shippable product increment by the end of each sprint. 
+    //BUG: Srcum-but:                                we do scrum but we don't do daily standups 
+    //BUG: Zombie Scrum                                                                         all scrum workflow properly adopted but failed to deliver a working peice of software
+    (Q.1) During a Sprint, a developer realizes that a technical task is significantly more complex than estimated and cannot be finished. Who has the authority to modify the technical implementation details or task breakdown within the Sprint Backlog?
+    Answer ->                                                                                                                                                   while the product backlog belongs to the product owner, the sprint backlog belongs entirely to the developers. They own technical execution
+    //BUG: Note that in the middle of an on-going sprint if the product owner decides to introduce a new feature than it will be kept in the Product backlog to be considered for the upcoming sprint planning
+
+    //BUG: Kanban from here onwards: 
+        is a flexible visual framework focused on continuous delivery withoug fixed timeboxes. 
+        Relies heavily on visual board to track tasks. Primary rule is to limit work-in-progress(WIP) to prevent bottlenecks
+        , allowing teams to pull new tasks ONLY when capacity becomes available
+    //TODO: terminologies related to kanban: valocity, etc for ccee
+    //BUG: kanban chaos:                                                                                                kanban lacks fixed sprint deadlines, undisciplined teams can let tasks drag on indefinitely violating the agile principle of frequent software delivery
+//BUG: sdlc model where requirements need to specified beforehand or earlier itself before the rest of the development can be processed 
+    //TODO: sdlc model based ccee questions
+      //FIXME: Loops from here onwards 
+    for: iterates over a list of items or a specific range 
+    while: while this condition is true keep executing 
+    until: repeats until this condition becomes true. I.E. until this condition is false keep executing n when it becomes true then loop stops              
+  //TODO: 
+    1. Control Structures (Flow Control)
+    As seen in your question, you need to understand the syntax and logic of loops and conditionals:
+
+    Looping Constructs: Master the differences between for (iterative), while (condition-true), and until (condition-false) loops.
+
+    Conditional Statements: Know how to use if, elif, else, and the case statement for pattern matching.
+
+    2. Variables and Special Parameters
+    Environment vs. Shell Variables: Understanding scope—the difference between variables accessible only to the current shell and those passed to child processes (export).
+
+    Positional Parameters: You must know how to handle command-line arguments using $1, $2, etc., and how to use $# (number of arguments) and $@ (all arguments).
+
+    Exit Status: Understanding $? (the exit status of the last executed command, where 0 usually means success).
+
+    3. Shell Redirection and Pipes
+    Standard Streams: Mastery of stdin (0), stdout (1), and stderr (2).
+
+    Redirection Operators: > (overwrite), >> (append), < (input), and 2> (error redirection).
+
+    Piping (|): How to pass the output of one command as the input to another, which is fundamental to shell power.
+
+    4. Basic Linux Utilities (Tools used in scripts)
+    The exam often asks how these tools behave when integrated into a script:
+
+    Text Processing: grep (searching), sed (stream editing), and awk (pattern scanning and processing).
+
+    File Permissions: Understanding chmod, chown, and how shell scripts check for file attributes (e.g., -f for file exists, -d for directory, -r for readable).
+
+    5. Script Execution and Environment
+    Shebang (#!): Why it is required and what it does (e.g., #!/bin/bash).
+
+    Execution Methods: The difference between running a script as ./script.sh (new process) versus source script.sh or . script.sh (executing in the current shell context).
+//FIXME: Java architecture questions from here onwards
+ java runs the program using _____ in _____ file ->                                                                                                                                             its java not javac so it runs the byte code in the .class files 
+//FIXME: Linux cmds from here onwards 
+ What command is used to save the standard output in a file, as well as display 
+it on the terminal? ->                                                                                                                          tee
+Which command is used to change the I/O characteristics of the terminal?                                                                                                                    stty 
+Which Linux command list the content of all sub directory? ->                                                                                                                   ls * /
+command to display the file 'sample.txt' one page at a time ->                                                                                                                          cat sample.txt | more . the pipe operator | takes the standard output and funnels it into the input of the next command i.e. more which is a terminal pager that itercepts that stream and displays it one screenful (page) at a time      
+//FIXME: Shell programming from here onwards bash programming from here onwards bash from here onwards shell from here onwards
 //FIXME: shell variables from here onwards 
     o variables cannot have ->                                                                                                                                                          spaces before n after =
             for example     
@@ -382,12 +573,12 @@ Memory hierarchy :
                         argument1: =
                         argument2: 10
                         .'. you get command not found so ensure it is x=10 no spaces
-    o default type of variables ->                                                                                                                                                      string  
+    o default type of variables ->                                                                                                                                                      string
     o how to access ? 
          1.   x=10
             echo x
             echo $x 
-            Answer ->                                                                                                                                                   x then 50 because echo x means literal x and for accessing variable's value we would need variable expansion performed (via DOUBLE QUOTES for string literals) which is "$x"
+            Answer ->                                                                                                                                                   x then 10 because echo x means literal x and for accessing variable's value we would need variable expansion performed (via DOUBLE QUOTES for string literals i.e. "$x") using $
      
          2.   name=CDAC
             echo "$name"
