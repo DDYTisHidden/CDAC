@@ -139,6 +139,33 @@ React Integration
         TODO: Console.WriteLine(arr.Rank)  ->                                                                                                                                               1 because outermost array is essentially a single dimensional array 
         meaning arr.Length will return ->                                                                                                                                                                               number of nested arrays it has not the number of total elements each nested array and in turn their nested arrays contain
  version 8.0 onwards we can get last element and elements close to the last position using ->                                                                                                                           ^ operator 
+    int[][] jagged = new int[2][];
+    jagged[0] = new int [3];
+    jagged[1] = new int [2];
+
+    // What happens if you try this?
+    int[,] matrix = jagged; 
+    Console.WriteLine(jagged[0].Length == jagged[1].Length);
+    The Trap: Students often treat int[,] and int[][] interchangeably.
+
+    The Reality Check: They are entirely different types in the Type System. The line int[,] matrix = jagged; will cause a compile-time error. Furthermore, attempting to access an uninitialized row in a jagged array (e.g., accessing jagged[1][0] before assigning new int[2]) throws a NullReferenceException, whereas an uninitialized multidimensional array automatically defaults all its elements to 0.
+    3. 
+     Because CCEE tests OOP concepts deeply, they will combine arrays/strings with polymorphism and type safety.
+     Array Covariance (The Run-time Landmine)
+     C# allows array covariance, meaning an array of a reference type can be implicitly cast to an array of its base type. It looks clean, but it breaks type safety at runtime.
+     string[] strArray = new string[5];
+    object[] objArray = strArray; // Compiles perfectly fine due to covariance
+
+    objArray[0] = "Hello"; // Works
+    objArray[1] = 10;      // Compiles, but throws ArrayTypeMismatchException at runtime!
+    The compiler lets it pass because int (10) can be boxed into an object, but the underlying array is strictly a string[], causing a spectacular crash at runtime.
+
+    The System.Array Class Secret
+    Every array you create implicitly inherits from the System.Array abstract class.
+    
+    Arrays implement IEnumerable, ICollection, and IList, but they are fixed-size.
+    
+    If an MCQ asks what happens if you cast an array to an IList and try to call .Add(), the answer is a runtime NotSupportedException.
 //FIXME: Strings from here onwards ? 
  Immutable sequence of unicode(??) characters 
  Mutable Strings with String builder
