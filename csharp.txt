@@ -81,6 +81,27 @@ React Integration
 //TODO: Java vs C#
     Java had something which used to bring frequently accessed object's byte code into memory is that what C#'s JIT do? 
     JVM was platform dependent while the .class file was platform independent is that the same case with IL and CLR in C# ?
+    Java classes were virtual by default but not C# meaning we will have to explictly : virtual(parent) and override(child) to bring about runtime polymorphism
+    C# methods can also have ____ which is not possible in java n is exclusive to C# ->                                                                                                                                 
+    if absent like this 
+       code 
+       then it will utilize compile time type checking which will be the type on left of the refernce(left of new) AND not the type of object on the right of the new keyword
+       n hence the method of the child will be called which is exclusive to the child and not an implementation of the parent class
+    3. 
+        public class Animal{
+            public virtual void Speak(){Console.WriteLine("Animal Speak");}
+        }
+        public class Dog: Animal{
+            public override void Speak(){Console.WriteLine("Dog Barks");}
+        }
+        public class Puppy: Dog{
+            public new void Speak()=>Console.WriteLine("Puppy yawns");
+        }
+        Dog d = new Puppy(); d.Speak();->                                                                                                                                                                                                               
+        Animal a = new Puppy();d.Speak();->                                                                                                                                                                                                                     
+             puppy's method is not implementation of animal's Speak() THE WAY Dog's was (which plugged into the vtable slot started by the Animal's virtual Speak method .'. any binding or func call for Speak90 from Dog object will be served by Dog's implementation)
+             over here we do not plug into the Animal's vtable slot BUT in order to create a method EXACTLY same as the one for whom a slot exists in the vtable we need to give information
+             that existing vtable slot should not be used for the same method being created  
 //TODO: Is that what that works underneath reflection which is used heavily in Spring ecosystem ? Spring boot too ? 
 //FIXME: CLR from here onwards vs CTS from here onwards vs CLS from here onwards 
 //FIXME: .NET provides n one prominent disadvantage ->                                                                                                                                                               both a development and execution environment BUT this environment needs to have windows installed since it isn't cross platform and can develop MS apps alone  
@@ -148,7 +169,9 @@ React Integration
     Console.WriteLine(jagged[0].Length == jagged[1].Length);
     The Trap: Students often treat int[,] and int[][] interchangeably.
 
-    The Reality Check: They are entirely different types in the Type System. The line int[,] matrix = jagged; will cause a compile-time error. Furthermore, attempting to access an uninitialized row in a jagged array (e.g., accessing jagged[1][0] before assigning new int[2]) throws a NullReferenceException, whereas an uninitialized multidimensional array automatically defaults all its elements to 0.
+    The Reality Check: They are entirely different types in the Type System. The line int[,] matrix = jagged; will cause a compile-time error. Furthermore, attempting to access
+    an uninitialized row in a jagged array (e.g., accessing jagged[1][0] before assigning new int[2]) throws a NullReferenceException, whereas an uninitialized
+    multidimensional array automatically defaults all its elements to 0.
     3. 
      Because CCEE tests OOP concepts deeply, they will combine arrays/strings with polymorphism and type safety.
      Array Covariance (The Run-time Landmine)
@@ -180,8 +203,35 @@ React Integration
     Console.WriteLine(object.ReferenceEquals(s1, s3));    //3
     Solution: 
         1 True : == is overloaded in C# n therefore compares the string values. 
-        2 False : since these are two entirely different because s2 was modifed at run time which creates an entirely new string value in the pool(not the original string "he".'. shall be referenced by some new reference different from s1)to hello .'. by passing the intern pool. 
+        2 False : since these are two entirely different because s2 was modifed, it was created using runtime string concatenation .'. CLR creates an entirely new string object on the managed heap
+        for s2, meaning s2 n s1 point to two different mem addresses than s1 value in the pool(not the original string "he".'. shall be referenced by some new reference different from s1)
         3 True: Meanwhile calling string.Intern(s2) explicitly fetches the pooled reference .'. true 
+    2. 
+        using System;
+    class Program
+    {
+        static void ModifyString(string text)
+        {
+            text += " Modified";
+        }
+
+        static void Main()
+        {
+            string message = "Original";
+            ModifyString(message);
+            Console.WriteLine(message);
+        }
+    }
+    Output ->                                                                                                       Original 
+        because we used string meaning the line text += "Modified" transaltes to string.Concat(text, "Modified"); 
+        meaning we are again creating a new string object in the heap n the local variable text points to it
+        The original message variable back in Main still points to the untouched "Original" string object which is a Different
+        entry/record/string object than the one to which text points to.
+//FIXME: For sanity if you still want to change it to "Original Modified" you will have to use the ref keyword which is static void ModifyString(ref string text)
+  3. 
+    string str1 = "A\nB";
+    string str2 = @"A\nB";
+    str1.Length = ___ and str2.Length = ___ ▶️                                                                                                                   3(because the escape sequence character is also counted as a valid character), 4(@ is called the verbatum string literal which turns off the escape sequence character representing new line)                                                                                                                                           
 //FIXME: C# theory from here onwards 
 //FIXME: Java vs C# 
  Operator Overloading supported C# but not by java ?  
@@ -189,6 +239,12 @@ React Integration
 //TODO: _______
     Java is platform independent but C# is ? .net standard allows building libraries compatible multiple dot net implementation ? 
     memory management (apart from below garbage collection) heap memory object pool what so ever both in .net and java core
+    Exception Handling
+    operator overloading
+    Collection other than strings and arrays 
+        hash map was not a direct descendent of Collection ? 
+        Collection legacy vs generic
+    Generics
     Garbage Collection
     o classes and objects alone then constructors
     o object initializers
@@ -611,7 +667,6 @@ D) ModelState.IsValid will automatically become false because unexpected paramet
     These topics cover the majority of collection-related questions typically seen in CCEE-style MS.NET exams, where emphasis is on concepts, comparisons, and small code snippets rather than lengthy implementations. 
 
 //FIXME: OOP from here onwards
-//TODO: Object initializers ? 
 
 Yes. **LINQ is closely related to the collection framework, but it is not itself a collection.**
 
