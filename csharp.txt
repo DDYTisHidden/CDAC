@@ -141,8 +141,20 @@ React Integration
  version 8.0 onwards we can get last element and elements close to the last position using ->                                                                                                                           ^ operator 
 //FIXME: Strings from here onwards ? 
  Immutable sequence of unicode(??) characters 
- Mutable Strings with String builder 
- 
+ Mutable Strings with String builder
+  1.  
+    string s1 = "hello";
+    string s2 = "he";
+    s2 += "llo";
+    string s3 = string.Intern(s2);
+
+    Console.WriteLine(s1 == s2);          //1
+    Console.WriteLine(object.ReferenceEquals(s1, s2)); //2
+    Console.WriteLine(object.ReferenceEquals(s1, s3));    //3
+    Solution: 
+        1 True : == is overloaded in C# n therefore compares the string values. 
+        2 False : since these are two entirely different because s2 was modifed at run time which creates an entirely new string value in the pool(not the original string "he".'. shall be referenced by some new reference different from s1)to hello .'. by passing the intern pool. 
+        3 True: Meanwhile calling string.Intern(s2) explicitly fetches the pooled reference .'. true 
 //FIXME: C# theory from here onwards 
 //FIXME: Java vs C# 
  Operator Overloading supported C# but not by java ?  
@@ -176,7 +188,7 @@ FIXME: .net framework vs .net 5+ vs .net core
  Objects are running instance of a class occupy space  
 //TODO: Types of variables in C#: 
     value type variable 
-    reference type variable 
+    reference type variable(exception: string can behave as value types too in certain situations) 
     other include 
         local vs global
 //TODO:        var, const, readonly, static dynamic 
