@@ -1,3 +1,85 @@
+//FIXME: Index 
+| Priority | Topic                                                                 | Official Syllabus | Notes PDF                   |
+| -------- | --------------------------------------------------------------------- | ----------------- | --------------------------- |
+| ⭐⭐⭐⭐⭐    | CLR, IL, JIT, CTS, CLS, Garbage Collection, Managed vs Unmanaged Code | Session 1–2       | **Need readable PDF pages** |
+| ⭐⭐⭐⭐⭐    | OOP in C#: Classes, Constructors, Properties, Overloading(operator n () both ?), Static     | Session 3–4       | Need readable PDF           |
+| ⭐⭐⭐⭐⭐    | Inheritance, Abstract, Virtual, Override, Sealed, Interface           | Session 4–5       | Need readable PDF           |
+| ⭐⭐⭐⭐⭐    | Delegates, Lambda, Anonymous Methods, Events                          | Session 8–9       | Need readable PDF           |
+| ⭐⭐⭐⭐⭐    | Exception Handling                                                    | Session 9         | Need readable PDF           |
+| ⭐⭐⭐⭐⭐    | LINQ                                                                  | Session 10        | Need readable PDF           |
+| ⭐⭐⭐⭐⭐    | MVC Architecture, Controller, View, Model, Routing                    | Sessions 13–19    | Need readable PDF           |
+| ⭐⭐⭐⭐⭐    | Entity Framework (Code First, Migrations, CRUD)                       | Sessions 13–19    | Need readable PDF           |
+| ⭐⭐⭐⭐⭐    | Web API + HTTP Verbs + CORS                                           | Session 20        | Need readable PDF           |
+
+| Topic                               | Syllabus    |
+| ----------------------------------- | ----------- |
+| Value vs Reference Types            | Session 6   |
+| `ref`, `out`, nullable, `??`, `??=` | Session 6   |
+| Arrays, Indexers, Ranges            | Session 6   |
+| Generics                            | Session 7   |
+| Collections                         | Session 7   |
+| Reflection                          | Session 11  |
+| Threading                           | Session 12  |
+| Tasks, async/await                  | Session 12  |
+
+Operator overloading
+IDisposable
+Tuples
+Extension methods
+Partial classes
+Attributes
+File I/O
+Assemblies
+AppDomain
+Security
+Razor Pages
+Localization
+Deployment
+
+Phase 1
+CLR vs CTS vs CLS
+IL & JIT
+Garbage Collection
+Managed vs Unmanaged Code
+Phase 2
+Classes
+Constructors
+Properties
+Static
+Inheritance
+Interface
+Abstract
+Override / Virtual / Sealed
+Phase 3
+Value vs Reference Types
+ref / out
+Nullable
+Arrays
+Generics
+Collections
+Phase 4
+Delegates
+Events
+Lambdas
+Anonymous methods
+Phase 5
+Exceptions
+LINQ
+Reflection
+Threading
+async/await
+Phase 6
+MVC
+Routing
+Model Binding
+State Management
+ADO.NET
+Entity Framework
+Web API
+CORS
+React Integration
+
+
 FIXME: Arrays from here onwards
  .Length is a ____                                                                                                                                                                  property - how many elements in total  
  .GetLength() is __ specific __ ? ▶️                                                                                                                                                             Array, method has parenthesis since isn't present for Strings and 
@@ -64,12 +146,11 @@ FIXME: .net framework vs .net 5+ vs .net core
         local vs global
 //TODO:        var, const, readonly, static dynamic 
 //FIXME constructors from here onwards 
+//BUG  truth about default constructors(java n C#) ->                                                                                                                                            if overloaded or parameterized constructors are provided by the user than no default constructor will be provided by the language the way it did in their absence. Its programmer's responsibility to write the default constructor 
  how many static constructors can exist in a class in C# and how many parameters can it have                                                                                                                        1 static constructor n similar to default 1 it cannot have parameters 
  How many number of times can a static constructor run                                                                                                          once n that too lazily
      A static constructor is called automatically by the runtime the very first time one of the following occurs:
-    
-    An instance of the class is created (e.g., using new).
-    
+    An instance of the class is created (e.g., using new).    
     Any static member of the class is referenced (e.g., calling a static method or accessing a static field).
 //FIXME delegates theory from here onwards
 //bug object oriented 
@@ -81,7 +162,7 @@ FIXME: .net framework vs .net 5+ vs .net core
     public static int Multiply(int a, int b) => a*b;
   }
   MathOperation obj = Calculator.Add;
-
+//TODO: Action verbs ? default view ? default action result ? 
                             Delegate                                                    Event
 What it is      A type (reference type wrapping method references)                  A member built on a delegate, with restricted access
 Multicast                   Yes                                                             Yes (inherits from underlying delegate)
@@ -96,6 +177,9 @@ types of delegates
     multicast delegates
 Namespace which contains delegates ->                                                                                                                           System
 base class of every delegate ->                                                                                                                                                         System.MulticastDelegate
+ to implement delegates necessary condition is ->                                                                                                                                                class declaration
+ a single delegate can invoke ->                                                                                                                multiple methods so does that mean ->                                                                                                                               delegates can be shared ?
+  1delegates allow methods to be ->                                                                                                                                                 passed as parameters 
 
 //TODO: If variables are of the type ___ and reference then delegates are ? ->                                                                                                                      reference since they hold reference
 Difference b/t Func and Predicate ->                                                                                                                                                                                            Prior can return any type while latter can return bool alone
@@ -535,7 +619,11 @@ Know:
 
 ---
 
-## 4. Inheritance ⭐⭐⭐
+## 4. Inheritance ⭐⭐⭐ : sealed overloading n overriding above
+    Covariant(params n return type both or is it that the way return type didn't play role in overloading no role in overriding either?) 
+    overloading across different classes ?
+    protected members can't be accessed from objs created inside another class 
+    protected members can't be accessed from objs created outside package ? 
 
 Types:
 
@@ -565,50 +653,50 @@ Rules:
 
 * Different parameters
 * Same name
-
+ no effect on return type(//TODO: Why mentioned in spring___.txt)
 ### Run-time
 
 * Method Overriding
 * `virtual`
 * `override`
-* `sealed`
-
+* `sealed override`: always works together with override 
+    prevents inheritance of classes and overriding of methods. For properties we would need readonly
+* readonly: prop or field can be assigned only during declaration or within constructor ThAT'S IT
+* required: Should be initialized during object creation BUT its fine if don't do that within a constructor n we can work with default constructors too
 Very common MCQs.
 
 ---
 
-## 6. Interfaces ⭐⭐⭐
+//FIXME: Inheritance
+* Sealed class ▶️  Prevents ?                                                                                                             inheritance
+* Sealed method ▶️  Prevents ?                                                                                                                                                            overriding
+
+//FIXME: ## 6. Interfaces from here onwards ⭐⭐⭐
 
 Must know:
-
 * Interface declaration
+//TODO: 
+    o correct way to implement a delegate in C#
+    o C# interface can have props the way java 8 had public static final props? 
+    o 
 * Interface implementation
 * Multiple interface implementation
 * Explicit interface implementation
 
-Questions:
-
-* Interface vs Abstract Class
-* Can interfaces have fields?
-* Constructors?
-* Static members?
-
----
-
-## 7. Access Modifiers ⭐⭐⭐
-
-Prepare a comparison table:
-
+Questions: if object created inside another class and tend to access protected,public ? 
+//TODO: first visibility than inheritance related questions 
+* `private(default): from within the class alone
 * `public`
-* `private`
 * `protected`
 * `internal`
 * `protected internal`
 * `private protected`
 
-Expect visibility-based MCQs.
-
----
+* Interface vs Abstract Class
+* Can interfaces have fields?
+* Constructors?
+* Static members?
+interface method calls are ____ at what time _____ on the basis of the ->                                                                                            resolved , runtime, object type 
 
 ## 8. Constructors ⭐⭐⭐
 
@@ -642,17 +730,7 @@ Questions:
 
 ---
 
-## 10. Sealed ⭐⭐
-
-* Sealed class
-* Sealed method
-
-Purpose:
-
-* Prevent inheritance
-* Prevent overriding
-
----
+10 was sealed 
 
 ## 11. Object Class ⭐⭐
 
