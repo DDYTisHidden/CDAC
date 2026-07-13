@@ -87,6 +87,7 @@ React Integration
        code 
        then it will utilize compile time type checking which will be the type on left of the refernce(left of new) AND not the type of object on the right of the new keyword
        n hence the method of the child will be called which is exclusive to the child and not an implementation of the parent class
+//TODO: look at final, static, sealed , virtual ▶️ override keywords CAREFULLY
     3. 
         public class Animal{
             public virtual void Speak(){Console.WriteLine("Animal Speak");}
@@ -102,6 +103,33 @@ React Integration
              puppy's method is not implementation of animal's Speak() THE WAY Dog's was (which plugged into the vtable slot started by the Animal's virtual Speak method .'. any binding or func call for Speak90 from Dog object will be served by Dog's implementation)
              over here we do not plug into the Animal's vtable slot BUT in order to create a method EXACTLY same as the one for whom a slot exists in the vtable we need to give information
              that existing vtable slot should not be used for the same method being created  
+    4. 
+        class Base
+        {
+            public Base() => Show();
+            public virtual void Show() => Console.WriteLine("Base.Show");
+        }
+
+        class Derived : Base
+        {
+            private int x = 10;
+            public Derived() => Console.WriteLine("x = " + x);
+            public override void Show() => Console.WriteLine("Derived.Show, x = " + x);
+        }
+
+        class Program
+        {
+            static void Main()
+            {
+                Derived d = new Derived();
+            }
+        }
+        Ans->                                                                                                                                                           
+            (NOTE that virtual methods (expecting an implementation down in the hierarchy)can be called by constructors and even other methods too )Derived.Show, x = 0 \n x = 10 
+            because Base class constructor will be called first.  
+            BUT Show() is virtual, and the object under construction is already a Derived object in terms of its runtime type (the object's type is fixed at allocation, before any constructor runs) — so virtual dispatch correctly calls Derived.Show(), not Base.Show().
+            But — Derived's field x hasn't been initialized yet at this point, because field initializers (private int x = 10) run as part of the derived constructor, which hasn't started yet. x is still sitting at its default value, 0.
+            So Derived.Show() prints x = 0
 //TODO: Is that what that works underneath reflection which is used heavily in Spring ecosystem ? Spring boot too ? 
 //FIXME: CLR from here onwards vs CTS from here onwards vs CLS from here onwards 
 //FIXME: .NET provides n one prominent disadvantage ->                                                                                                                                                               both a development and execution environment BUT this environment needs to have windows installed since it isn't cross platform and can develop MS apps alone  
@@ -239,8 +267,8 @@ React Integration
 //TODO: _______
     Java is platform independent but C# is ? .net standard allows building libraries compatible multiple dot net implementation ? 
     memory management (apart from below garbage collection) heap memory object pool what so ever both in .net and java core
-    Exception Handling
     operator overloading
+    Handled and unhandled objects
     Collection other than strings and arrays 
         hash map was not a direct descendent of Collection ? 
         Collection legacy vs generic
@@ -249,6 +277,72 @@ React Integration
     o classes and objects alone then constructors
     o object initializers
     o 8 types of generics in csharp ?   
+//FIXME: Exception Handling 
+    No now I would like to switch to exception handling topic. Coming from Java what I know is that a can also exist with finally but without catch. 
+    Furthermore finally block will execute regardless of what happens in the try block except for System.exit() statement and it is the broader 
+    exception class which should be kept down at the lower levels of the catch block. Let me know if this knowledge of mine is correct or not and 
+    if it applies equally to C#. Provide the class hierarchy for exceptions in C# and share questions which provide further knowledge other than what I just shared
+    //BUG: a try block cannot exist without catch and finally we can have try{}finally or catch or both but none of em will throw compile errors
+    //BUG: System.exit() ~ Environment.Exit()
+    C# doesn't have checked exception the way java did which needed to be handled by throws statement present in the method declaration or otherwise we should handle it using try catch
+    class for runtime exception ->                                                                                                                                                      super class for below n this one is System.Exception  Ans->  System.SystemExcetion
+    class for User defined exception ->                                                                                                                                                 System.ApplicationException
+    class Program
+    {
+        static void Main()
+        {
+            int attempt = 3;
+            try
+            {
+                throw new InvalidOperationException("Failure on retry");
+            }
+            catch (InvalidOperationException ex) when (attempt < 3)
+            {
+                Console.WriteLine("Caught with filter: " + ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine("Caught without filter: " + ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Cleanup done");
+            }
+        }
+    }
+    Answer ->                                                                                                                                                                   caught without filter cleanup done because the where clause did not match with attempt's vlaue .'. exception filtering could not be done 
+    class Program
+    {
+        static void Level1()
+        {
+            try
+            {
+                Level2();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        static void Level2()
+        {
+            throw new InvalidOperationException("Something broke in Level2");
+        }
+
+        static void Main()
+        {
+            try
+            {
+                Level1();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace.Contains("Level2"));
+            }
+        }
+    }
+    Ans ->                                                                                                                                                                                                              B false because it was throw ex; not throw; meaning resetting of stack trace occurs by creating a fresh stack trace containing information about the surrounding method(Level 1) alone omitting the details of the stack trace pre-existing containing level 2 losing its origin 
 //TODO: _______ 
 FIXME: .net framework vs .net 5+ vs .net core 
     .net core(1.1,): is actually a runtime
@@ -438,8 +532,10 @@ Option A is highly tempting because people confuse Scoped with Transient. If it 
 Option B is correct because Scoped means one instance per HTTP request lifecycle. Both components are part of the same request execution, so they point to the exact same object in memory.
 
 Option C describes a Singleton (AddSingleton), which is wrong here.
-//TODO: Pending more at career catastrophe gemini 
-
+//TODO: 
+    Pending more at career catastrophe gemini 
+    Pending mvc questions alone not specifically models, controller views etcs
+    Directives 
 //FIXME: Asp.net core mvc model from here onwards mvc models from here onwards 
 When you create a new ASP.NET Core Web API project, you already get:
  o A built-in web server (Kestrel) — equivalent to Spring Boot's embedded Tomcat
@@ -452,6 +548,34 @@ When you create a new ASP.NET Core Web API project, you already get:
     Create a Controller with [ApiController] and route attributes, injecting the DbContext via constructor (DI, just like @Autowired).
     Write action methods for GET/POST/PUT/DELETE — these become your CRUD endpoints.
     Run it, hit it from Postman exactly like you did with Spring Boot.
+//FIXME: Views from here onwards 
+    //TODO: Lifecycle of views 
+    views are .cshtml files written in razor syntax C# embedded in html using @
+    1. Razor view engine- once controller's action method is done executing its ActionResult triggers this view engine
+        to search following directories
+    2. View Discovery/ Search locations(Not necessarry to specifiy path): when controller returns a view without specifying it then mvc(//TODO: which particular component?//) searches in a conventional following folder order
+        1. /Views/{ControllerName}/{ActionName}.cshtml
+        then 2. /Views/Shared/{ActionName}.cshtml
+        Once the view is found its.cshtml file is compiled into a dynamic C# class 
+        which inherits a base view class like RazorPage<TModel>
+    3. Strongly typed Views vs dynamic(ViewBag/ViewData)
+        i.e. @model MyApp.Models.Student
+            <p>@Model.Name</p>
+            vs //when we go with dynamic views system contexts are required to be initialzed 
+            ViewBag.Name="John";//dynamic, no compile-time checking
+            ViewData["Name"]="John";//dictionary-based, needs casting
+            Here ViewData - is a dictionary(ViewBagDictionary), string keys, needs casting on retreival, does not persist across redirects.
+            ViewBag- dynamic wrapper around the same ViewData dictionay. 
+                Shares underlying storage.
+                No casting needed BUT also no compile time type safety
+            TempData- 
+                persists data across one redirect(Uses sesion by default)
+                then it is cleared after being read(unless Keep()/Peek() is used)
+    4. ViewStart.cshtml & Layout.cshtml
+        _ViewStart.cshtml runs before every view in its folder scope and typically sets the shared layout:
+        @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+    5. Partial Views
+        Reusable view fragments rendered via @Html.Partial("_PartialName") or @await Html.PartialAsync(...) — do not trigger the full page lifecycle/layout on their own.
 //BUG: Spring ecosystem vs .NET ecosystem
    Spring Framework (core DI, MVC)                              ASP.NET Core (core DI, MVC)
    Spring Boot (auto-config, starters, embedded server)         Same  ASP.NET Core — it's baked in

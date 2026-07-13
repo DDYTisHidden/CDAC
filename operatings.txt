@@ -1,12 +1,15 @@
 Type C had visible modes on the jack but does additional DAC offer better audio quality ? 
 KZ Duonic > castor pro > zsn pro X
-
+//BUG: red lion vs duonic(better audio separation ali express)
+    red lion's vocal clarity is better so can that achieved via the switches and modes offered by the type c version of duonic 3 ?(is it three though ?)
 BUT KZ Beast - audiocular
 (type C comes with 4 settings)KZ Gale > EDX Pro for music but gaming and base EDX pro is better 
 Moondrop CHUU II just controlled base + piuch to carry website headphone zone 
 Crinical Zero 2
 tangzu wan'er sg2 red lion same as  Tangzu Wan'er SG2 clarity W but cable ?
 Fiio JD10
+That was a wonderful time, and I love my family, but right now I need to study. I will sit and fully think about this memory for 10 minutes right after I finish this chapter." * Why it works: You aren't suppressing the emotion; you are just scheduling it for later.
+Hey, missing you guys! I have a huge exam day after tomorrow, so I'm locking in to study now. Can't wait to call and catch up properly once it's over on [Day of Exam]
 ____NUMERICAL_____
 P1: BT = 2
 P2: BT = 4
@@ -141,7 +144,7 @@ Process Management - This is consistently the most tested area. Focus on process
 Memory Management - Another frequent topic. Concentrate on paging and page replacement algorithms (FIFO, LRU, Optimal), segmentation basics, virtual memory concepts, and the difference between logical and physical addresses.
 Deadlocks - Appears regularly with questions on the four necessary conditions (mutual exclusion, hold and wait, no preemption, circular wait), deadlock prevention versus avoidance versus detection, and Banker's algorithm for safe state checking.
 Concurrency and Synchronization - Classic problems like dining philosophers and sleeping barber appear often. Understand race conditions, critical sections, and how semaphores/monitors solve synchronization issues.
-    FIXME: Linux uses time sharing algorithm to ->                                                                                                                                                  pair preemptive scheduling between multiple processes
+//    FIXME: Linux uses time sharing algorithm to ->                                                                                                                                                  pair preemptive scheduling between multiple processes
     real time OS RTOS(! Palm OS): guarantees responses within strict time constraints. Divided into hard real-time( ! delays allowed)n soft real time(minor delays allowed)
         predictable and deterministic, used in critical applications. Ex- VxWorks,QNX, FreeRTOS
     batch OS where jobs are grouped into batches n processed sequentially without user interaction suitable for non-interactive, repetitive tasks.
@@ -466,7 +469,10 @@ Solutions of Dead lock
     //TODO: How though for interviews ? 
 //FIXME: Multithreading from here onwards
     in many to one model, multiple threads are unable to run in parallel in multiprocessor because: ->                                                                                                  M:1 many threads on one kernel thread
+    semaphore difference from mutex ->                                                                                                                                              mutex can be unlocked only from the thread that placed it while semaphore doesn't have any ownership. Thread A can wait() (P) on it and thread B can signal() (V) on it - this is exactly why semaphores are used for signalling, synchronization between threads (e.g. producer-consumer), while mutexes are strictly for mutual exlcusion by the same thread that acquired that lock
+    counting semaphore ->                                                                                                                                           the count value represents total number of available instances of a resource, but reading this value is not reliable for decision-making due to race conditions between check and use.
  //TODO: Left portion 
+    //TODO: Threading ang testing both with java so java involved in that manner ? 
   Thread Fundamentals:
 
     Process vs. Thread: Understanding that a process is a heavy-weight unit of execution, while a thread is a light-weight unit.
@@ -618,6 +624,18 @@ command to display the file 'sample.txt' one page at a time ->                  
              Scope                                                                                                                                                      whole application for real world use
              Done by                                                                                                                                     end users, clients can also QA engineers on the behalf
              goal                                                                                                                                                                           does it work for actual CUSTOMERS
+//FIXME: Dockerfile from here onwards
+    if we have more than one CMD instructions(//TODO:Directives?) in 1 df ->                                                                                                        dockes doesn't complain it silently picks the latest one or down most CMD statement
+    2. 
+        FROM ubuntu
+        ENTRYPOINT ["echo"]
+        CMD ["hello"]
+      docker run myimage-world 
+      ans->                                                                                                                                                                                                                         world
+    3. 
+        ARG VERSION=1.0
+        FROM ubuntu:${VERSION}
+        RUN echo $VERSION
 //FIXME: Java questions from here onwards
     Which component is responsible for compiling Java source code into bytecode?                                                                                                        JDK 
     purpose of jvm 
