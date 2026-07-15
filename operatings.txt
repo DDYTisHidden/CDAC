@@ -1,4 +1,6 @@
 Type C had visible modes on the jack but does additional DAC offer better audio quality ? 
+//TODO: Additional DAC(regardless of 3.5 mm in both ?)
+//TODO: CCA Phoenix reviews
 KZ Duonic > castor pro > zsn pro X
 //BUG: red lion vs duonic(better audio separation ali express)
     red lion's vocal clarity is better so can that achieved via the switches and modes offered by the type c version of duonic 3 ?(is it three though ?)

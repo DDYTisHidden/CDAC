@@ -21,7 +21,17 @@
 | Reflection                          | Session 11  |
 | Threading                           | Session 12  |
 | Tasks, async/await                  | Session 12  |
-
+//FIXME: Garbage collection form here onwards
+    most objs die young while                                                       Collection Frequency
+    gen0-newly created objs, short lived objects                                       very frequent(.'. can't survive)
+    gen1-gen0 survived objs (acts as a buffer generation b/t 0 n 2)                    less frequent than gen0
+    gen2-long lived objs that survived gen1                                            rare(want them to last + expensive remove)
+//TODO:    LOH - obj which survive gen2 and are so large objs that they are required to be treated differently 
+  obj created placed into gen0 fills up-> gc runs on gen0 only n if objs still remain
+//FIXME: Security from here onwards
+    Common Application Security 
+//TODO: Pending topics
+    generation - garbage collection 
 Operator overloading
 IDisposable
 Tuples
@@ -80,6 +90,8 @@ CORS
 React Integration
 //TODO: Java vs C#
     Java had something which used to bring frequently accessed object's byte code into memory is that what C#'s JIT do? 
+        in java its also called Just In Time compilation brought to you by HotSpot of the jvm
+        C#(IL/CIL) Java(.class) ▶️ 
     JVM was platform dependent while the .class file was platform independent is that the same case with IL and CLR in C# ?
     Java classes were virtual by default but not C# meaning we will have to explictly : virtual(parent) and override(child) to bring about runtime polymorphism
     C# methods can also have ____ which is not possible in java n is exclusive to C# ->                                                                                                                                 
@@ -137,18 +149,34 @@ React Integration
         ex- C#'s int and VB.NET's Integer both map to System.Int32 
     CLS: Common Language specification is a subset of CTS since it establishes the rules for interoperability 
           CLS is what that enables .Net to operate with various other .Net language 
-    CLR : Contains JIT Compiler
+    CLR : 
+        feature of CLR: 
+            Memory Management 
+            enforcing type safety 
+            Exception handling
+        Contains JIT Compiler
         compilation in two stages: 
-            I first during design/build time, code is converted to MSIL. 
-            II JIT compiler inside the CLR compiles the required MSIL blocks into native code on demand(only when a method is called)
+            I first during design/build compilation time, C# src or .cs file is converted/packaged into an  Assembly MSIL. 
+                .exe/.dll(made up of byte code Common Intermediate Language(formerly MSIL)) 
+assemblies->        csc.exe | C# compiler translates C# code to assembly common intermediate langauge(CIL/MicroSoftIL)
+//BUG:Note that byte code is platform portable while machine code is hardware specific
+//BUG: which IN TURN makes this assembly portable
+            II CLR loads this assembly into memory  
+            JIT compiler inside the CLR compiles the required MSIL blocks into native code on demand(only when a method is called)
         is the virtual machine component responsible for managing executing .Net programmes(execution management) 
-        csc.exe | C# compiler translates C# code to common intermediate langauge(CIL/MicroSoftIL)
 //FIXME:        stored in .dll .exe assemblies this file contains: IL Code + Metadata + manifest + resourecs
     metadata about types and members of classes
     manifest is responsible for providing metadata about the assembly, including version, culture, security info n refrences to other assemblies
     ,IL Code(Compiled program logic) and other resources like (Images, strings)
-//FIXME: difference b/t .exe and .dll assemblies is that ->                                                                                                         .exe can run independently while .dll files provide reusable components. 
+//FIXME: Types of JIT 
+    Normal-JIT - compiles entire app before it starts
+    Pre-JIT - (Install time)
+    Econo-JIT - compiles the entire assembly's IL code into native code at load time, ahead of execution
+    Just In Time Interpretation- compiles ()s at the time they are called
+//FIXME: difference b/t .exe and .dll assemblies is that ->                                                                                                         .exe can run independently while .dll files provide reusable components.
+//BUG: Note that both DLL and .exe can ->                                                                                                                                                                       contain IL code . This IL code is bundled together into a package called the DLL 
 //FIXME: Assembly is Assembly in .NET is ->                                                                                                                                                                                 smallest deployable unti in .NET, containing IL code, metadata resources packaged into a.exe or .dll file 
+    //BUG: Major features of Assembly ->                                                                                                                                                                                                                    security, deployment n .'. versioning 
 //FIXME: shared assembly is ->                                                                                                                                  the  type of assembly used by multiple applications n is usually stored in global assembly cache (GAC)
 //FIXME: private assembly is ->                                                                                                                                 stored in the app's local directory itself and hence can be used by that specific app alone
 //FIXME: This code can be viewed by ILDASM(Intermediate Language Disassembler) which is a .NET tool which allows to view IL code
