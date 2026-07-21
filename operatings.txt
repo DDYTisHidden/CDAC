@@ -1,8 +1,73 @@
-Type C had visible modes on the jack but does additional DAC offer better audio quality ? 
-//TODO: Additional DAC(regardless of 3.5 mm in both ?)
-//TODO: CCA Phoenix reviews
-KZ Duonic > castor pro > zsn pro X
-//BUG: red lion vs duonic(better audio separation ali express)
+considering the Concepts of Operating System and software development methodologies module of the CCEE 
+examination which is held by the end of the six month long PGCP-AC course at CDAC I wanted to prepare important subtopics 
+revolving the following parent topics 
+Developing an application in a team
+ Issues developers face when working in a team
+ Introduction to code versioning system
+ History of code versioning system
+ Different tools available for versioning
+ Software development workflow
+ Introduction to git
+ Introduction to git repository and git structure
+ Adding code to git 
+ Creating and merging different git branches
+
+This is an objective examination with four options so ensure that you give the answer to the mcq by the end of the last option D 
+of the question so that I don't need to keep scrolling. Furthermore I want you to give confusing mcq such that each question 
+teaches me a new underlying concept or functioning of the operation or process concerned with the corresponding topic
+while ensuring that the options are also tempting 
+
+B 
+
+C 
+
+A 
+
+5-B
+
+6-b
+
+7-b
+
+8-B
+
+09-B
+
+10-B
+
+11-B
+
+12-B
+
+13-B
+
+14-B
+
+15-B 
+
+16-B 
+
+17-B
+
+18-B
+
+19-b
+
+20-b
+
+21-a
+
+22-d
+
+23-b
+
+24-b
+
+25-B
+
+from now on ensure that you give answer to the mcq by right below the last option D so that I don't need to scroll all the way to the last section of your response 
+
+ //BUG: red lion vs duonic(better audio separation ali express)
     red lion's vocal clarity is better so can that achieved via the switches and modes offered by the type c version of duonic 3 ?(is it three though ?)
 BUT KZ Beast - audiocular
 (type C comes with 4 settings)KZ Gale > EDX Pro for music but gaming and base EDX pro is better 
@@ -133,7 +198,8 @@ Why ->                                                                          
 Memory management algorithm from here onwards
     Best fit: Searches for the smallest block of memory which is sufficient to accommodate the entire process needing memory allocation
     First fit: 
-    worst fit : time consuming since first Traverses the entire ram(//TODO: ?)// to look for the largest block of memory and then assings it to the process regardless of the amt ACTUALLY needed by that process
+    worst fit : time consuming since first Traverses the entire ram(//TODO: ?)// to look for the largest block of memory and then assings 
+//    BUG: (note entire block )it to the process regardless of the amt ACTUALLY needed by that process
 ctrl+v->Contiguous memory allocation can cause scattered free memory blocks occurring here and there in ram making it difficult to 
     allow another allocation leading to fragmentation
     It is possible to  has the possibility to cause both internal & external fragmentation
@@ -175,7 +241,7 @@ a system programmer which combines separately compiled modules of a programme in
 ___ is generally called a translator                                                                                                                                            compiler or assembler
 HERE: an UnInterruptable unit is known as                                                                                                                                     atomic unit
 One programme that runs all the time ->                                                                                                                                         kernel
-FIXME: time taken for the read/write head to move to the correct track on the magnetic disk is called                                                                                      seek time
+//FIXME: time taken for the read/write head to move to the correct track on the magnetic disk is called                                                                                      seek time
 among user level thread, kernel level thread and process what can be scheduled by the kernel ->                                                                                                     kernel level thread since user level can't be scheduled by the kernel
 multi-programming systems ->                                                                                                                                            live in PG.'. such systems can execute more jobs simultaneously or in the same time period
 DSM stands for ->                                                                                                                                   distributed shared memory
@@ -252,13 +318,13 @@ which circuit is used as a memory device in computer ?                          
 This occurs when small unused blocks of memory scattered throughout the available memory space, This cna happen when a process is allocated memory and then release that memory or when a process is killed and its memory is not reclaimed.Leading to                                                                                                                          Memory fragmentation.
 And in what kind of memory allocation is the above described problem more prevalent ->                                                                                                          Contiguous memory allocation([]arrays)
 In a memory mapped I/O ->                                                                                                                   a technique for accessing i/o devices which treats them as locations.the CPU writes one data byte to register n stes a bit(to 1) in the control register to show that a byte is available.
-FIXME: User mode(un-provlidged mode) vs Kernel(suprevisor/system/monitor/provilidged) mode 
-FIXME: despite how many users we have mode transitions remain 2
-FIXME: mode bit set to 1 .'. user otherwise kernel mode 
-FIXME: context switch by which mode ->                                                                                                                                                          kernel mode
-FIXME: process control, file management and device management are handled by ->                                                                                                                     system call
-FIXME: call that helps a user to transit to kernel mode ->                                                                                                                  system call also if CPU timer expires than transition to differ mode occurs 
-FIXME: user mode user tries to hit hALT operation ->                                                                                            trap/exception is thrown
+//FIXME: User mode(un-provlidged mode) vs Kernel(suprevisor/system/monitor/provilidged) mode 
+//FIXME: despite how many users we have mode transitions remain 2
+//FIXME: mode bit set to 1 .'. user otherwise kernel mode 
+//FIXME: context switch by which mode ->                                                                                                                                                          kernel mode
+//FIXME: process control, file management and device management are handled by ->                                                                                                                     system call
+//FIXME: call that helps a user to transit to kernel mode ->                                                                                                                  system call also if CPU timer expires than transition to differ mode occurs 
+//FIXME: user mode user tries to hit hALT operation ->                                                                                            trap/exception is thrown
 o if crash occurs only that app crashes in user mode whereas in kernel mode the entire system can crash.
 o user mode has restricted access to computer hard n software resources while kernel mode has FULL access
 o restricted access can't execute priveledged CPU instructions while kernel has plenty of privilidges and can do all that  
@@ -347,7 +413,7 @@ System is expected to have these three major components :
     system design stage is tested by system testing 
     Arch design stage is tested by integration testing 
     module desing is tested by  unit testing 
- what makes v-model different from agile ->                                                                                                                 once the validating part is over or verfication stage begins the model just doens't allow any new changes and it is also more time consuming than agile
+ what makes v-model different from agile ->                                                                                                                 once the validating part is over or verification stage begins the model just doesn't allow any new changes and it is also more time consuming than agile
  //TODO: RAD, iterative n may be water fall 
  model for a banking software ->                                                                                                                                            V model 
  startup mvp ->                                                                                                                                                     agile/RAD 
@@ -401,8 +467,7 @@ Memory hierarchy :
 //FIXME: OS for CCEE from here onwards
 //FIXME: Os architecture from here onwards 
      time sharing OS / Multitasking OS allows multiple users or tasks to share the computing resources simultaneously by rapidly switching context between them time slices.
-        efficient cpu utilization by swithing multiple reduces CPU idle time because supports multi user env 
-
+        efficient cpu utilization by switching multiple reduces CPU idle time because supports multi user env 
         ex- Linux,Unix,Windows
  under what circumstances would a user be better off using a timesharing system rather than a pc or single user workstation ->                                                                                                                                         (not switching jobs because it happens both in modern PCs and time sharing systems) multiprogramming system . because in such time shraing os architecture allows multiple users to share with computer system reources simultaneously 
         //TODO: 
@@ -430,7 +495,9 @@ Memory hierarchy :
 //FIXME: Process Management from here onwards 
  SV IPC stands for ___ and its objects are _____ ->                                                                                                                                             system V inter-process communication, persistent objects 
 //FIXME: Thrashing from here onwards 
-    degree of multi-programming increases while CPU utilization decreases
+    Long term scheduling- degree of multi-programming increases while CPU utilization decreases
+//TODO:    medium term scheduling- swapping(of processes ? Context switching ?)
+//TODO:    short term scheduling- selects process from ready queue
     High paging activity: a state which occurs when a computer system's performance collapses because the os gets more busy with swapping pages in n out of memory instead of executing tasks
  A system has 10 frames.
     ex - Each process needs 4 frames to run efficiently.

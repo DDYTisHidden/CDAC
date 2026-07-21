@@ -31,6 +31,9 @@
 //FIXME: Security from here onwards
     Common Application Security 
 //TODO: Pending topics
+    .dll contents purpose like version goes into manifest ?
+    closure
+    stacks n queue methods
     generation - garbage collection 
 Operator overloading
 IDisposable
@@ -106,13 +109,21 @@ React Integration
         }
         public class Dog: Animal{
             public override void Speak(){Console.WriteLine("Dog Barks");}
+//BUG: Note that Dg's Speak is implicitly virtual  
         }
         public class Puppy: Dog{
             public new void Speak()=>Console.WriteLine("Puppy yawns");
         }
-        Dog d = new Puppy(); d.Speak();->                                                                                                                                                                                                               
-        Animal a = new Puppy();d.Speak();->                                                                                                                                                                                                                     
-             puppy's method is not implementation of animal's Speak() THE WAY Dog's was (which plugged into the vtable slot started by the Animal's virtual Speak method .'. any binding or func call for Speak90 from Dog object will be served by Dog's implementation)
+        Dog d = new Puppy();
+        d.Speak();   // static type Dog → virtual dispatch → vtable slot → Dog.Speak() → "Dog Barks"        
+        Animal a = new Puppy();
+        a.Speak();   // static type Animal → virtual dispatch → same vtable slot → Dog.Speak() → "Dog Barks"
+//BUG: Note override slots into the same virtual dispatch table entry as the base method it overrides.
+//BUG: new creates a completely separate, non-virtual method that just happens to have the same name/signature. 
+//BUG: It doesn't touch the virtual dispatch chain at all — it only "hides" the base member when accessed through a variable whose static 
+//BUG: type is Puppy (or more derived).
+             puppy's method is not implementation of animal's Speak() THE WAY Dog's was (which plugged into the vtable slot started by the Animal's virtual Speak method 
+             .'. any binding or func call for Speak90 from Dog object will be served by Dog's implementation)
              over here we do not plug into the Animal's vtable slot BUT in order to create a method EXACTLY same as the one for whom a slot exists in the vtable we need to give information
              that existing vtable slot should not be used for the same method being created  
     4. 
@@ -194,27 +205,28 @@ assemblies->        csc.exe | C# compiler translates C# code to assembly common 
     if a C# class contains an unsigned integer which is non-cls compliant then the clr will ->                                                                                              not throw any runtime error because CLS may not be satisfied but the broader CTS is satisfied
 //FIXME: Arrays from here onwards
  .Length is a ____                                                                                                                                                                  property - how many elements in total  
- .GetLength() is __ specific __ ? ▶️                                                                                                                                                             Array, method has parenthesis since isn't present for Strings and 
- usage makes sense only in the case of Array's having ->                                                                                                                                     rank > 1 i.e. 2-D arrays and 1's having more dimensions than that because it means to return number of rows/ele of the concerned nested array Ex- arr.GetLength(1) i.e. length of that rank. how many elements along this rank
- note number of commas is always ____ than the rank ->                                                                                                                                                                      rank - 1 or one less than rank.Ex- [,] means 2-d array,[, ,] means 3-d array. 
+ .GetLength() is __ specific __ ? ▶️                                                                                                                                                             Array, method has parenthesis since isn't present for Strings and
+ usage makes sense only in the case of Array's having ->                                                                                                                                     rank > 1 i.e. 2-D arrays and 1's having more dimensions than that because it means to return 
+                                                                                                                                                                number of rows/ele of the concerned nested array Ex- arr.GetLength(1) i.e. length of that rank. how many elements along this rank
+ note number of commas is always ____ than the rank ->                                                                                                                                                                      rank - 1 or one less than rank.Ex- [,] means 2-d array,[, ,] means 3-d array.
  For ex- int[,] grid = new [3,5,7];//TODO: check if keeping 7 apart from 3 n 5 causes bugs since single , is present means 3 rows and 5 cols each  (TODO: Jacked array )
     Console.WriteLine(grid.Rank) ▶️                                                                                                                          number of dimensions it has which length of array after new 
     Console.WriteLine(grid.Length); ▶️                                                                                                                                                           total number of elements counted from all rows n cols => 3 x 5 x 7  105(always their product)
     Console.WriteLine(grid.GetLength(0)); ▶️                                                                                                                         Length of first(or 0th) dimension i.e. number of rows 3
     Console.WriteLine(grid.GetLength(1)); ▶️                                                                                                                         Length of second(or 1st) dimension i.e. number of columns 5
-    Console.WriteLine(grid.GetLength(2)); ▶️                                                                                                                         Length of third(or 2nd) dimension i.e. 7.'. if it was 3,5,7,8 ◀️ .GetLength(3) 
- FIXME: Jagged Arrays from here onwards 
+    Console.WriteLine(grid.GetLength(2)); ▶️                                                                                                                         Length of third(or 2nd) dimension i.e. 7.'. if it was 3,5,7,8 ◀️ .GetLength(3)
+// FIXME: Jagged Arrays from here onwards 
  FIXME: Note that they are single dimensional array. DIFFERENT from multi-dimensional array as created using commas
     int[][] jagged= new [3][];
-    TODO: over here [][] means ? ▶️                                                                                                                              array of arrays or jagged array yes that is what it means 
-    TODO: example -> 
+//    TODO: over here [][] means ? ▶️                                                                                                                              array of arrays or jagged array yes that is what it means 
+//    TODO: example -> 
         int[][] arr = {
             new int[]{1,2,4},
             new int[]{5,6},
             new int[]{7,8,9,10}//FIXME: Note that modern technique is to do [7,8,9,10] instead
         };you tend to forget the semi colon; TODO:
-        TODO: Console.WriteLine(arr.Rank)  ->                                                                                                                                               1 because outermost array is essentially a single dimensional array 
-        meaning arr.Length will return ->                                                                                                                                                                               number of nested arrays it has not the number of total elements each nested array and in turn their nested arrays contain
+//        TODO: Console.WriteLine(arr.Rank)  ->                                                                                                                                               1 because outermost array is essentially a single dimensional array 
+//BUG:        meaning arr.Length will return ->                                                                                                                                                                               number of nested arrays it has not the number of total elements each nested array and in turn their nested arrays contain
  version 8.0 onwards we can get last element and elements close to the last position using ->                                                                                                                           ^ operator 
     int[][] jagged = new int[2][];
     jagged[0] = new int [3];
@@ -305,15 +317,16 @@ assemblies->        csc.exe | C# compiler translates C# code to assembly common 
     o classes and objects alone then constructors
     o object initializers
     o 8 types of generics in csharp ?   
-//FIXME: Exception Handling 
+//FIXME: Exception Handling from here onwards
     No now I would like to switch to exception handling topic. Coming from Java what I know is that a can also exist with finally but without catch. 
     Furthermore finally block will execute regardless of what happens in the try block except for System.exit() statement and it is the broader 
     exception class which should be kept down at the lower levels of the catch block. Let me know if this knowledge of mine is correct or not and 
     if it applies equally to C#. Provide the class hierarchy for exceptions in C# and share questions which provide further knowledge other than what I just shared
     //BUG: a try block cannot exist without catch and finally we can have try{}finally or catch or both but none of em will throw compile errors
     //BUG: System.exit() ~ Environment.Exit()
-    C# doesn't have checked exception the way java did which needed to be handled by throws statement present in the method declaration or otherwise we should handle it using try catch
-    class for runtime exception ->                                                                                                                                                      super class for below n this one is System.Exception  Ans->  System.SystemExcetion
+    C# doesn't have checked exception the way java did which needed to be handled by throws statement present in the method declaration 
+    or otherwise we should handle it using try catch
+    class for runtime exception ->                                                                                                                                                      super class for below n this one is System.Exception  Ans->  System.SystemException
     class for User defined exception ->                                                                                                                                                 System.ApplicationException
     class Program
     {
@@ -371,6 +384,49 @@ assemblies->        csc.exe | C# compiler translates C# code to assembly common 
         }
     }
     Ans ->                                                                                                                                                                                                              B false because it was throw ex; not throw; meaning resetting of stack trace occurs by creating a fresh stack trace containing information about the surrounding method(Level 1) alone omitting the details of the stack trace pre-existing containing level 2 losing its origin 
+
+try
+{
+    try
+    {
+        throw new InvalidOperationException("Original error");
+    }
+    finally
+    {
+        throw new ArgumentException("Finally error");
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+    int a = int.MaxValue;
+unchecked
+{
+    checked
+    {
+        int b = a + 1;
+        Console.WriteLine(b);
+    }
+}
+
+static int Test()
+{
+    int x = 10;
+    try
+    {
+        return x;
+    }
+    finally
+    {
+        x = 20;
+        Console.WriteLine("Finally executed, x = " + x);
+    }
+}
+
+Console.WriteLine(Test());
+
 //TODO: _______ 
 FIXME: .net framework vs .net 5+ vs .net core 
     .net core(1.1,): is actually a runtime
